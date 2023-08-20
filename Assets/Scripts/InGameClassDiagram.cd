@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TileComponent">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\TileComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileComponentFactory">
+    <Position X="3.25" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\TileComponentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HandTilesArea">
+    <Position X="4.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\HandTilesArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeldTilesArea">
+    <Position X="1.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MeldTilesArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Meld" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerController">
+    <Position X="4.25" Y="12.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerControllerBase">
+    <Position X="4.5" Y="9.5" Width="2.25" />
+    <AssociationLine Name="MeldTilesArea" Type="MeldTilesArea" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="10.594" />
+        <Point X="4.125" Y="10.594" />
+        <Point X="4.125" Y="10.562" />
+        <Point X="2.75" Y="10.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAIAgBAAAAAAABCAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerControllerBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MeldTilesArea" />
+      <Property Name="HandTilesArea" />
+      <Property Name="FlowerTileArea" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AbandonedTilesArea">
+    <Position X="2.25" Y="16.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\AbandonedTilesArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AbandonedTilesAreaController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AbandonedTilesAreaController">
+    <Position X="1.75" Y="18" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\AbandonedTilesAreaController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileComponentPool">
+    <Position X="5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAKAAAAAAgAAAAAAAAAAAAAAAQAABAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\TileComponentPool.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TileComponent" />
+      <Property Name="TileComponentFactory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Meld">
+    <Position X="1.25" Y="7" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Meld.MeldType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Meld.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Meld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CentralAreaController">
+    <Position X="0.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CentralAreaController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlowerTileArea">
+    <Position X="6.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FlowerTileArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManger">
+    <Position X="4.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAAAAAAAAAAIAAAAQAAAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\GameManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft JhengHei UI" Size="9" />
+</ClassDiagram>

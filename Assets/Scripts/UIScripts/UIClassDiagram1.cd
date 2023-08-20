@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HandTilesUI">
+    <Position X="3.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\HandTilesUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InGameUIController">
+    <Position X="3.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQGACCAACQAIAhIAAAAAAAABAAigAAASAUAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\InGameUIController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SettingUIButton" />
+      <Property Name="UICountdownTimer" />
+      <Property Name="HandTilesUIViewer" />
+      <Property Name="WinningSuggestUIViewer" />
+      <Property Name="SocialUIButton" />
+      <Property Name="SupportUIButton" />
+      <Property Name="SettlementScreen" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SettingUIButton">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\SettingUIButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SocialUIButton">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\SocialUIButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SupportUIButton">
+    <Position X="0.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\SupportUIButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UICountdownTimer">
+    <Position X="3.5" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\UICountdownTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinningSuggestUI">
+    <Position X="6.5" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\WinningSuggestUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SettlementScreen" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\SettlementScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ListeningHolesUI">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIScripts\ListeningHolesUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft JhengHei UI" Size="9" />
+</ClassDiagram>

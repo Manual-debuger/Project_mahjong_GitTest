@@ -18,8 +18,8 @@ public class SeaTilesAreaController : TileAreaControllerBase,IPopTileAble
         }
         else
         {
-            Debug.LogError("Error:AbandonedTilesArea.AddTile() tileSuit is not flower");
-            throw new System.Exception("Error:AbandonedTilesArea.AddTile() tileSuit is not flower");            
+            Debug.LogError("Error:SeaTilesAreaController.AddTile() tileSuit Should be a NormalTile");
+            throw new System.Exception("Error:SeaTilesAreaController.AddTile() Should be a NormalTile");            
         }        
     }
     public void PopLastTile()

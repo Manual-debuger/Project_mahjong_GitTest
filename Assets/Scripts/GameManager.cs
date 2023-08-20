@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
             }
+            
         }
         catch (Exception ex)
         {
@@ -159,25 +160,41 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnOpenDoorEvent(object sender, OpenDoorEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnOpenDoorEvent!!!!!!!!!!!!");
-        //_playerControllers[this._playerIndex].SetHandTiles(e.Tiles);
-        _centralAreaController.SetWallCount(e.WallCount ?? -1);
-        for (int i = 0; i < e.Seats.Count; i++)
+        try
         {
-            _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            for (int i = 0; i < e.Seats.Count; i++)
+            {
+                _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+            }
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
+        }
+        catch (Exception)
+        {
+
+            throw;
         }
         //throw new System.NotImplementedException();
     }
 
     private void OnGroundingFlowerEvent(object sender, GroundingFlowerEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnGroundingFlowerEvent!!!!!!!!!!!!");;
-        _centralAreaController.SetWallCount(e.WallCount ?? -1);
-        //_playerControllers[this._playerIndex].SetHandTiles(e.Tiles);
-        for (int i = 0; i < e.Seats.Count; i++)
+        try
         {
-            e.Seats[i].SeaTile.Add(TileSuits.c1);
-            e.Seats[i].SeaTile.Add(TileSuits.c2);
-            _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+            Debug.Log("!!!!!!!!!!!!OnGroundingFlowerEvent!!!!!!!!!!!!"); ;
+            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            for (int i = 0; i < e.Seats.Count; i++)
+            {
+                e.Seats[i].SeaTile.Add(TileSuits.c1);
+                e.Seats[i].SeaTile.Add(TileSuits.c2);
+                _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+            }
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
+        }
+        catch (Exception)
+        {
+
+            throw;
         }
         
         //throw new System.NotImplementedException();
@@ -189,10 +206,10 @@ public class GameManager : MonoBehaviour,IInitiable
 
         string debugMessage = "PlayingDeadline = " + e.PlayingDeadline;
 
-        _centralAreaController.SetWallCount(e.WallCount ?? -1);
-        _playerControllers[this._playerIndex].UpdateHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
         try
         {
+            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
             for (int i=0;i< e.Seats.Count();i++)
             {
                 debugMessage += ", Name: " + e.Seats[i].Nickname;
@@ -226,10 +243,10 @@ public class GameManager : MonoBehaviour,IInitiable
 
         string debugMessage = "PlayingDeadline = " + e.PlayingDeadline;
 
-        _centralAreaController.SetWallCount(e.WallCount ?? -1);
-        _playerControllers[this._playerIndex].UpdateHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
         try
         {
+            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
             for (int i = 0; i < e.Seats.Count(); i++)
             {
                 debugMessage += ", Name: " + e.Seats[i].Nickname + ", Sea Tiles: ";

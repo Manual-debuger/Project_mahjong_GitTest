@@ -11,7 +11,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
     [SerializeField] protected FlowerTileAreaController _flowerTileAreaController;
     [SerializeField] protected MeldsAreaController _meldsAreaController;
     [SerializeField] protected PlayerInfoPlateController _playerInfoPlateController;
-    [SerializeField] protected SeaTilesAreaController _seaTilesAreaController;
+    [SerializeField] protected SeaTilesAreaController _seaTilesAreaController;    
 
 
     public TileSuits[] FlowerTileSuits { get { return _flowerTileAreaController.GetTileSuits(); } }
@@ -24,6 +24,9 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
             _flowerTileAreaController=this.GetComponentInChildren<FlowerTileAreaController>();
         if(_seaTilesAreaController == null) 
             _seaTilesAreaController=this.GetComponentInChildren<SeaTilesAreaController>();
+        if(_meldsAreaController == null)
+            _meldsAreaController=this.GetComponentInChildren<MeldsAreaController>();
+
     }
     // Start is called before the first frame update
     void Start()
@@ -51,11 +54,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
     public virtual void DiscardTile(TileSuits tileSuit) {Debug.LogWarning("Must override this function DiscardTile, Do NOT Use this base function"); }
 
     public virtual void SetSeatInfo(SeatInfo seatInfo)
-    {
-        //Debug.LogWarning(seatInfo.ToString());
-        //List<TileSuits> TestseaTile = new List<TileSuits>();
-        //TestseaTile.Add(TileSuits.c1);
-        //TestseaTile.Add(TileSuits.c2);        
+    {       
         try { _playerInfoPlateController.SetUserName(seatInfo.Nickname); } catch { Debug.LogWarning("SetUserName Wrong"); throw; }
         try { _playerInfoPlateController.SetWindPosision(seatInfo.DoorWind.ToString()); } catch { Debug.LogWarning("SetWindPosision Wrong"); throw; }
         try { _seaTilesAreaController.SetTiles(seatInfo.SeaTile); } catch { Debug.LogWarning("SetSeaTiles Wrong");throw;}

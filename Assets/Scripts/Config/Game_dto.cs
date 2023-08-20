@@ -10,10 +10,10 @@ public class Seat<T>
     public int Gender; //  0 男生 1 女生 
     public string VoiceLanguage; // 0 國語 1 台語
     public int? TileCount; // 玩家手牌數量
-    public string[] Door; // 玩家有碰槓吃等資訊
+    public List<string[]> Door; // 玩家有碰槓吃等資訊
     public string[] Flowers; // 玩家花牌(後端字串格式)
     public string[] Sea; // 玩家海底(後端字串格式)
-    public List<TileSuits> DoorTile; // 玩家花牌(遊戲內的數值格式)
+    public List<List<TileSuits>> DoorTile; // 玩家花牌(遊戲內的數值格式)
     public List<TileSuits> FlowerTile; // 玩家花牌(遊戲內的數值格式)
     public List<TileSuits> SeaTile; // 玩家海底(遊戲內的數值格式)
     public string DoorWind; // 玩家此局風向
@@ -38,7 +38,7 @@ public class SeatInfo : Seat<List<string[]>>
 
 public static class SeatExtensions
 {
-    public static SeatInfo CloneWithTiles(this SeatInfo seat, List<TileSuits> doorList, List<TileSuits> flowerList, List<TileSuits> seaList)
+    public static SeatInfo CloneWithTiles(this SeatInfo seat, List<List<TileSuits>> doorList, List<TileSuits> flowerList, List<TileSuits> seaList)
     {
         return new SeatInfo
         {

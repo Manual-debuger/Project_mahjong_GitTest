@@ -194,17 +194,17 @@ public class GameManager : MonoBehaviour,IInitiable
         {
             for (int i=0;i< e.Seats.Count();i++)
             {
-                debugMessage += ", Name: " + e.Seats[i].Nickname + ", Sea Tiles: ";
-                foreach (var seaTile in e.Seats[i].SeaTile)
-                {
-                    debugMessage += seaTile + ", ";
-                }
+                debugMessage += ", Name: " + e.Seats[i].Nickname;
+
+                debugMessage += "Door Tiles: ";
+                foreach (var DoorTile in e.Seats[i].DoorTile) { debugMessage += DoorTile + ", "; }
+
+                debugMessage += ", Sea Tiles: ";
+                foreach (var seaTile in e.Seats[i].SeaTile) { debugMessage += seaTile + ", "; }
 
                 debugMessage += "Flower Tiles: ";
-                foreach (var FlowerTile in e.Seats[i].FlowerTile)
-                {
-                    debugMessage += FlowerTile + ", ";
-                }
+                foreach (var FlowerTile in e.Seats[i].FlowerTile) { debugMessage += FlowerTile + ", "; }
+
                 _playerControllers[CastAPIIndexToLocalIndex(i)].UpdateSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
             }

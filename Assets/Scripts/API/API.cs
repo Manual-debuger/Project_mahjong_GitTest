@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Newtonsoft.Json;
-using static UnityEditor.Profiling.RawFrameDataView;
 
 public class API : MonoBehaviour
 {
@@ -305,13 +304,13 @@ public class API : MonoBehaviour
 
     public void HandleRandomSeatState(MessageData eventData)
     {
+
         try
         {
-            List<SeatInfo> processedSeats = ProcessAllSeats(eventData.Seats);
+            List<SeatInfo> processedSeats = MapAllSeats(eventData.Seats);
             RandomSeatEventArgs randomSeatEventArgs = new(eventData.Index, processedSeats);
             if (NowState != eventData.State)
             {
-                Debug.Log("HandleRandomSeatState!!!!!!!!!!!!!!");
                 NowState = eventData.State;
                 RandomSeatEvent?.Invoke(this, randomSeatEventArgs);
             }
@@ -344,7 +343,7 @@ public class API : MonoBehaviour
         try 
         { 
             List<TileSuits> tileSuitsList = ReturnTileToIndex(eventData.Tiles);
-            List<SeatInfo> processedSeats = ProcessAllSeats(eventData.Seats);
+            List<SeatInfo> processedSeats = MapAllSeats(eventData.Seats);
 
             OpenDoorEventArgs openDoorEventArgs = new (eventData.WallCount, tileSuitsList, processedSeats);
 
@@ -365,7 +364,7 @@ public class API : MonoBehaviour
         try
         {
             List<TileSuits> tileSuitsList = ReturnTileToIndex(eventData.Tiles);
-            List<SeatInfo> processedSeats = ProcessAllSeats(eventData.Seats);
+            List<SeatInfo> processedSeats = MapAllSeats(eventData.Seats);
 
             GroundingFlowerEventArgs groundingFlowerEventArgs = new (eventData.WallCount, tileSuitsList, processedSeats);
 
@@ -385,7 +384,7 @@ public class API : MonoBehaviour
     {
         try
         {
-            List<SeatInfo> processedSeats = ProcessAllSeats(eventData.Seats);
+            List<SeatInfo> processedSeats = MapAllSeats(eventData.Seats);
             List<TileSuits> tileSuitsList = ReturnTileToIndex(eventData.Tiles);
 
             PlayingEventArgs playingEventArgs = new (eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, processedSeats);
@@ -407,7 +406,7 @@ public class API : MonoBehaviour
     {
         try
         {
-            List<SeatInfo> processedSeats = ProcessAllSeats(eventData.Seats);
+            List<SeatInfo> processedSeats = MapAllSeats(eventData.Seats);
             List<TileSuits> tileSuitsList = ReturnTileToIndex(eventData.Tiles);
 
             WaitingActionEventArgs waitingActionEventArgs = new (eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, eventData.Actions, processedSeats);
@@ -443,7 +442,7 @@ public class API : MonoBehaviour
     
     public void HandleChowAction(MessageData playData)
     {
-        List<List<TileSuits>> optionsTile = ConvertOptionsToTileSuitsList(playData.Options);
+        List<List<TileSuits>> optionsTile = MapStringListsToTileSuitsLists(playData.Options);
 
         ChowActionEventArgs chowActionEventArgs = new (playData.Index, playData.Action, optionsTile);
 
@@ -452,7 +451,7 @@ public class API : MonoBehaviour
     
     public void HandlePongAction(MessageData playData)
     {
-        List<List<TileSuits>> optionsTile = ConvertOptionsToTileSuitsList(playData.Options);
+        List<List<TileSuits>> optionsTile = MapStringListsToTileSuitsLists(playData.Options);
 
         PongActionEventArgs pongActionEventArgs = new (playData.Index, playData.Action, optionsTile);
 
@@ -461,7 +460,7 @@ public class API : MonoBehaviour
     
     public void HandleKongAction(MessageData playData)
     {
-        List<List<TileSuits>> optionsTileSuitsList = ConvertOptionsToTileSuitsList(playData.Options);
+        List<List<TileSuits>> optionsTileSuitsList = MapStringListsToTileSuitsLists(playData.Options);
 
         KongActionEventArgs kongActionEventArgs = new (playData.Index, playData.Action, optionsTileSuitsList);
 
@@ -555,33 +554,37 @@ public class API : MonoBehaviour
         }
     }
 
-    private List<SeatInfo> ProcessAllSeats(IEnumerable<SeatInfo> seats)
+    private List<SeatInfo> MapAllSeats(IEnumerable<SeatInfo> seats)
     {
-        List<SeatInfo> processedSeats = new List<SeatInfo>();
+        List<SeatInfo> processedSeats = new ();
         foreach (SeatInfo seat in seats)
         {
-            SeatInfo processedSeat = ProcessSeat(seat);
+            SeatInfo processedSeat = MapSeat(seat);
             processedSeats.Add(processedSeat);
         }
         return processedSeats;
     }
 
-    private SeatInfo ProcessSeat(SeatInfo seat)
+    private SeatInfo MapSeat(SeatInfo seat)
     {
-        List<TileSuits> doorList = ReturnTileToIndex(seat.Door);
+        List<List<TileSuits>> doorList = MapStringListsToTileSuitsLists(seat.Door);
         List<TileSuits> flowerList = ReturnTileToIndex(seat.Flowers);
         List<TileSuits> seaList = ReturnTileToIndex(seat.Sea);
         return seat.CloneWithTiles(doorList, flowerList, seaList);
     }
 
-    private List<List<TileSuits>> ConvertOptionsToTileSuitsList(List<string[]> options)
+    private List<List<TileSuits>> MapStringListsToTileSuitsLists(List<string[]> options)
     {
-        List<List<TileSuits>> optionsTileSuitsList = new List<List<TileSuits>>();
-        foreach (string[] option in options)
+        //List<List<TileSuits>> Options = options != null ? options.ConvertAll(singleData => ReturnTileToIndex(singleData)) : new List<List<TileSuits>>();
+        List<List<TileSuits>> option = new ();
+        if (options != null)
         {
-            List<TileSuits> tileSuitsList = ReturnTileToIndex(option);
-            optionsTileSuitsList.Add(tileSuitsList);
+            foreach (string[] singleData in options)
+            {
+                List<TileSuits> convertedList = ReturnTileToIndex(singleData);
+                option.Add(convertedList);
+            }
         }
-        return optionsTileSuitsList;
+        return option;
     }
 }

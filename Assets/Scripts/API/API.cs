@@ -17,7 +17,7 @@ public class API : MonoBehaviour
     private CancellationTokenSource cancellationTokenSource;
     private Uri uri;
 
-    private bool isLoggedInAndEnterTable = false; // �Ȧb�즸���U�i�J�C���n�J�B���\�i��ɷ|�Q�]�w
+    private bool isLoggedInAndEnterTable = false; // 僅在初次按下進入遊戲登入且成功進桌時會被設定
 
     private long Time;
     private long? PlayingDeadline;
@@ -568,9 +568,10 @@ public class API : MonoBehaviour
 
     private SeatInfo ProcessSeat(SeatInfo seat)
     {
+        List<TileSuits> doorList = ReturnTileToIndex(seat.Door);
         List<TileSuits> flowerList = ReturnTileToIndex(seat.Flowers);
         List<TileSuits> seaList = ReturnTileToIndex(seat.Sea);
-        return seat.CloneWithTiles(flowerList, seaList);
+        return seat.CloneWithTiles(doorList, flowerList, seaList);
     }
 
     private List<List<TileSuits>> ConvertOptionsToTileSuitsList(List<string[]> options)

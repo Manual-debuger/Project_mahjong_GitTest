@@ -10,8 +10,10 @@ public class Seat<T>
     public int Gender; //  0 男生 1 女生 
     public string VoiceLanguage; // 0 國語 1 台語
     public int? TileCount; // 玩家手牌數量
+    public string[] Door; // 玩家有碰槓吃等資訊
     public string[] Flowers; // 玩家花牌(後端字串格式)
     public string[] Sea; // 玩家海底(後端字串格式)
+    public List<TileSuits> DoorTile; // 玩家花牌(遊戲內的數值格式)
     public List<TileSuits> FlowerTile; // 玩家花牌(遊戲內的數值格式)
     public List<TileSuits> SeaTile; // 玩家海底(遊戲內的數值格式)
     public string DoorWind; // 玩家此局風向
@@ -22,7 +24,6 @@ public class Seat<T>
     public int Index; // 玩家在陣列中的index
     public int? WinCount; // 玩家贏的場次
     public int? LoseCount; // 玩家輸的場次
-    public List<T> Door; // 玩家有碰槓吃等資訊
     
     public bool? Ready; // 是否準備
     public bool? ReadyHand; // 是否聽
@@ -37,7 +38,7 @@ public class SeatInfo : Seat<List<string[]>>
 
 public static class SeatExtensions
 {
-    public static SeatInfo CloneWithTiles(this SeatInfo seat, List<TileSuits> flowerList, List<TileSuits> seaList)
+    public static SeatInfo CloneWithTiles(this SeatInfo seat, List<TileSuits> doorList, List<TileSuits> flowerList, List<TileSuits> seaList)
     {
         return new SeatInfo
         {
@@ -48,6 +49,7 @@ public static class SeatExtensions
             Gender = seat.Gender,
             VoiceLanguage = seat.VoiceLanguage,
             TileCount = seat.TileCount,
+            DoorTile = doorList,
             FlowerTile = flowerList,
             SeaTile = seaList,
             DoorWind = seat.DoorWind,
@@ -56,7 +58,6 @@ public static class SeatExtensions
             Index = seat.Index,
             WinCount = seat.WinCount,
             LoseCount = seat.LoseCount,
-            Door = seat.Door,
             Ready = seat.Ready,
             ReadyHand = seat.ReadyHand,
             Location = seat.Location,

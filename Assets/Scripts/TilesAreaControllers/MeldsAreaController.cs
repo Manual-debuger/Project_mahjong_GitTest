@@ -15,12 +15,19 @@ public class MeldsAreaController : MonoBehaviour,IInitiable
             meld.Init();
         }
     }
-    public void AddMeld(MeldTypes meldTypes,List<TileSuits> tileSuits)
+    public void AddMeld(List<TileSuits> tileSuits)
     {
-        _meldControllers[_meldCount].SetByMeldTypeAndTileSuits(meldTypes, tileSuits);
+        _meldControllers[_meldCount].SetByTileSuitsList(tileSuits);
         _meldCount++;
     }            
-    
+    public void SetDoors(List<List<TileSuits>> doors)
+    {
+        Init();
+        foreach(var door in doors)
+        {
+            AddMeld(door);
+        }
+    }
     void Awake()
     {
         Init();

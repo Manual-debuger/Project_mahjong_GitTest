@@ -44,9 +44,9 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
     {
         _flowerTileAreaController.AddTile(tileSuit);
     }
-    public void AddMeldTile(MeldTypes meldType,List<TileSuits> tileSuitsList)
+    public void AddMeldTile(List<TileSuits> tileSuitsList)
     {
-        _meldsAreaController.AddMeld(meldType,tileSuitsList);
+        _meldsAreaController.AddMeld(tileSuitsList);
     }    
     public virtual void DiscardTile(TileSuits tileSuit) {Debug.LogWarning("Must override this function DiscardTile, Do NOT Use this base function"); }
 
@@ -55,14 +55,12 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
         //Debug.LogWarning(seatInfo.ToString());
         //List<TileSuits> TestseaTile = new List<TileSuits>();
         //TestseaTile.Add(TileSuits.c1);
-        //TestseaTile.Add(TileSuits.c2);
-        
+        //TestseaTile.Add(TileSuits.c2);        
         try { _playerInfoPlateController.SetUserName(seatInfo.Nickname); } catch { Debug.LogWarning("SetUserName Wrong"); throw; }
         try { _playerInfoPlateController.SetWindPosision(seatInfo.DoorWind.ToString()); } catch { Debug.LogWarning("SetWindPosision Wrong"); throw; }
         try { _seaTilesAreaController.SetTiles(seatInfo.SeaTile); } catch { Debug.LogWarning("SetSeaTiles Wrong");throw;}
-        try { _flowerTileAreaController.SetTiles(seatInfo.FlowerTile); } catch { Debug.LogWarning("SetFlowerTiles Wrong");throw; }
-        
-        
+        try { _flowerTileAreaController.SetTiles(seatInfo.FlowerTile); } catch { Debug.LogWarning("SetFlowerTiles Wrong");throw; }     
+        try { _meldsAreaController.SetDoors(seatInfo.DoorTile); } catch { Debug.LogWarning("SetDoors Wrong");throw; }
     }
     public virtual void UpdateSeatInfo(SeatInfo seatInfo)
     {
@@ -70,6 +68,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
         {
             _seaTilesAreaController.SetTiles(seatInfo.SeaTile);
             _flowerTileAreaController.SetTiles(seatInfo.FlowerTile);
+            _meldsAreaController.SetDoors(seatInfo.DoorTile);
         }
         catch (System.Exception)
         {

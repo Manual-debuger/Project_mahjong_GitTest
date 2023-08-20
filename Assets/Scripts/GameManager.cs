@@ -74,9 +74,10 @@ public class GameManager : MonoBehaviour,IInitiable
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)
     {
-        if (seatIndex > 3) {             Debug.LogError("Error:GameManager.CastAPIIndexToLocalIndex() seatIndex>3");
-                   throw new System.Exception("Error:GameManager.CastAPIIndexToLocalIndex() seatIndex>3");
-               }
+        if (seatIndex > 3) {            
+            Debug.LogError("Error:GameManager.CastAPIIndexToLocalIndex() seatIndex>3");
+            throw new System.Exception("Error:GameManager.CastAPIIndexToLocalIndex() seatIndex>3");
+        }
         if ((seatIndex - _playerIndex + 4) % 4>3 || (seatIndex - _playerIndex + 4) % 4 < 0)
             Debug.LogError("Error:GameManager.CastAPIIndexToLocalIndex() result error");
         return (seatIndex - _playerIndex + 4) % 4;
@@ -101,20 +102,20 @@ public class GameManager : MonoBehaviour,IInitiable
     }
     public void OnChowTileEvent(object sender, ChowTileEventArgs e)
     {
-        _playerControllers[e.PlayerIndex].AddMeldTile(MeldTypes.Sequence, e.TileSuitsList);
+        _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
         //throw new System.NotImplementedException();
     }
     public void OnPongTileEvent(object sender, PongTileEventArgs e)
     {
-        _playerControllers[e.PlayerIndex].AddMeldTile(MeldTypes.Triplet, e.TileSuitsList);
+        _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
         //throw new System.NotImplementedException();
     }
     public void OnKongTileEvent(object sender, KongTileEventArgs e)
     {
         if(e.IsConcealedKong)
-            _playerControllers[e.PlayerIndex].AddMeldTile(MeldTypes.ConcealedQuadplet, e.TileSuitsList);
+            _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
         else
-            _playerControllers[e.PlayerIndex].AddMeldTile(MeldTypes.ExposedQuadplet, e.TileSuitsList);
+            _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
         //throw new System.NotImplementedException();
     }
     public void OnWinningSuggestEvent(object sender, WinningSuggestArgs e)

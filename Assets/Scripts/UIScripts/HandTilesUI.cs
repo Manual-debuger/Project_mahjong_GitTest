@@ -43,7 +43,10 @@ public class HandTilesUI : MonoBehaviour
     public void HandTileSet(int index,TileSuits HandTileSuit)
     {
         if (HandTileSuit != TileSuits.NULL)
+        {
+            _TilesComponents[index].Appear();
             _TilesComponents[index].SetTile(_tileMeshs[(int)HandTileSuit]);
+        }
         else
             _TilesComponents[index].Disappear();
     }

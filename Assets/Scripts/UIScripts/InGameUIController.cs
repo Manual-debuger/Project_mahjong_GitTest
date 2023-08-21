@@ -128,6 +128,7 @@ public class InGameUIController : MonoBehaviour
         {
             HandTileSuits[i] = TileSuits.NULL;
         }
+        HandTileUISet();
     }
 
     private void SetMusic(object sender, FloatEventArgs e)

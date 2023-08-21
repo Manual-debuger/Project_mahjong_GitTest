@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using APIDataNamespace;
 
 public class GameManager : MonoBehaviour,IInitiable
 {
@@ -21,7 +22,6 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private AnimController _animController;
     [SerializeField] private AudioController _audioManager;
-    [SerializeField] private API _api;
 
     public void Awake()
     {
@@ -42,19 +42,19 @@ public class GameManager : MonoBehaviour,IInitiable
             _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
             _inGameUIController.LeaveTileBeHoldingEvent += OnLeaveTileBeHoldingEvent;
 
-            _api.RandomSeatEvent += OnRandomSeatEvent;
-            _api.DecideBankerEvent += OnDecideBankerEvent;
-            _api.OpenDoorEvent += OnOpenDoorEvent;
-            _api.GroundingFlowerEvent += OnGroundingFlowerEvent;
-            _api.PlayingEvent += OnPlayingEvent;
-            _api.WaitingActionEvent += OnWaitingActionEvent;
-            _api.PassEvent += OnPassActionEvent;
-            _api.DiscardEvent += OnDiscardActionEvent;
-            _api.ChowEvent += OnChowActionEvent;
-            _api.PongEvent += OnPongActionEvent;
-            _api.KongEvent += OnKongActionEvent;
-            _api.DrawnEvent += OnDrawnActionEvent;
-            _api.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
+            APIData.RandomSeatEvent += OnRandomSeatEvent;
+            APIData.DecideBankerEvent += OnDecideBankerEvent;
+            APIData.OpenDoorEvent += OnOpenDoorEvent;
+            APIData.GroundingFlowerEvent += OnGroundingFlowerEvent;
+            APIData.PlayingEvent += OnPlayingEvent;
+            APIData.WaitingActionEvent += OnWaitingActionEvent;
+            APIData.PassEvent += OnPassActionEvent;
+            APIData.DiscardEvent += OnDiscardActionEvent;
+            APIData.ChowEvent += OnChowActionEvent;
+            APIData.PongEvent += OnPongActionEvent;
+            APIData.KongEvent += OnKongActionEvent;
+            APIData.DrawnEvent += OnDrawnActionEvent;
+            APIData.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
         }
     }
 

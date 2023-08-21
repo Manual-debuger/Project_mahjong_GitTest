@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Newtonsoft.Json;
-using DataTransformNamespace;
+using APIDataNamespace;
 
 public class API : MonoBehaviour
 {
@@ -202,28 +202,28 @@ public class API : MonoBehaviour
                     NowState = eventData.State;
                     break;
                 case "RandomSeat":
-                    HandleRandomSeatState(eventData);
+                    APIData.HandleRandomSeatState(eventData);
                     break;
                 case "DecideBanker":
-                    HandleDecideBankerState(eventData);
+                    APIData.HandleDecideBankerState(eventData);
                     break;
                 case "OpenDoor":
-                    HandleOpenDoorState(eventData);
+                    APIData.HandleOpenDoorState(eventData);
                     break;
                 case "GroundingFlower":
-                    HandleGroundingFlowerState(eventData);
+                    APIData.HandleGroundingFlowerState(eventData);
                     break;
                 case "SortingTiles":
                     //GameClass.instance.HandleSortingTiles(eventData);
                     break;
                 case "Playing":
-                    HandlePlayingState(eventData);
+                    APIData.HandlePlayingState(eventData);
                     break;
                 case "DelayPlaying":
                     //GameClass.instance.HandleDelayPlayingState(eventData);
                     break;
                 case "WaitingAction":
-                    HandleWaitingActionState(eventData);
+                    APIData.HandleWaitingActionState(eventData);
                     break;
                 case "HandEnd":
                     //GameClass.instance.HandleHandEndState(eventData);
@@ -260,31 +260,31 @@ public class API : MonoBehaviour
             switch (playData.Action)
             {
                 case Action.Pass:
-                    HandlePassAction(playData);
+                    APIData.HandlePassAction(playData);
                     break;
                 case Action.Discard:
-                    HandleDiscardAction(playData);
+                    APIData.HandleDiscardAction(playData);
                     break;
                 case Action.Chow:
-                    HandleChowAction(playData);
+                    APIData.HandleChowAction(playData);
                     break;
                 case Action.Pong:
-                    HandlePongAction(playData);
+                    APIData.HandlePongAction(playData);
                     break;
                 case Action.Kong:
                 case Action.AdditionKong:
                 case Action.ConcealedKong:
-                    HandleKongAction(playData);
+                    APIData.HandleKongAction(playData);
                     break;
                 case Action.ReadyHand:
                     break;
                 case Action.Win:
                     break;
                 case Action.Drawn: // Action=9 
-                    HandleDrawnAction(playData);
+                    APIData.HandleDrawnAction(playData);
                     break;
                 case Action.GroundingFlower:
-                    HandleGroundingFlowerAction(playData);
+                    APIData.HandleGroundingFlowerAction(playData);
                     break;
                 case Action.DrawnFromDeadWall:
                     break;
@@ -301,189 +301,6 @@ public class API : MonoBehaviour
     private void HandleTableResult(MessageData data)
     {
         // Implement the logic for handling the table result message
-    }
-
-    public void HandleRandomSeatState(MessageData eventData)
-    {
-        try
-        {
-            List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-            RandomSeatEventArgs randomSeatEventArgs = new(eventData.Index, processedSeats);
-            if (NowState != eventData.State)
-            {
-                NowState = eventData.State;
-                RandomSeatEvent?.Invoke(this, randomSeatEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-
-    public void HandleDecideBankerState(MessageData eventData)
-    {
-        try
-        { 
-            DecideBankerEventArgs decideBankerEventArgs = new (eventData.BankerIndex, eventData.RemainingBankerCount);
-            if (NowState != eventData.State)
-            {
-                NowState = eventData.State;
-                DecideBankerEvent?.Invoke(this, decideBankerEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-
-    public void HandleOpenDoorState(MessageData eventData)
-    {
-        try 
-        { 
-            List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-            List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-
-            OpenDoorEventArgs openDoorEventArgs = new (eventData.WallCount, tileSuitsList, processedSeats);
-
-            if (NowState != eventData.State)
-            {
-                NowState = eventData.State;
-                OpenDoorEvent?.Invoke(this, openDoorEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-    
-    public void HandleGroundingFlowerState(MessageData eventData)
-    {
-        try
-        {
-            List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-            List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-
-            GroundingFlowerEventArgs groundingFlowerEventArgs = new (eventData.WallCount, tileSuitsList, processedSeats);
-
-            if (NowState != eventData.State)
-            {
-                NowState = eventData.State;
-                GroundingFlowerEvent?.Invoke(this, groundingFlowerEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-    
-    public void HandlePlayingState(MessageData eventData)
-    {
-        try
-        {
-            List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-            List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-
-            PlayingEventArgs playingEventArgs = new (eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, processedSeats);
-
-            // Playing State not change until action
-            if(PlayingDeadline != eventData.PlayingDeadline)
-            {
-                PlayingDeadline = eventData.PlayingDeadline;
-                PlayingEvent?.Invoke(this, playingEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-    
-    public void HandleWaitingActionState(MessageData eventData)
-    {
-        try
-        {
-            List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-            List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-
-            WaitingActionEventArgs waitingActionEventArgs = new (eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, eventData.Actions, processedSeats);
-
-            // Playing State not change until action
-            if(PlayingDeadline != eventData.PlayingDeadline)
-            {
-                PlayingDeadline = eventData.PlayingDeadline;
-                WaitingActionEvent?.Invoke(this, waitingActionEventArgs);
-            }
-        }
-        catch(Exception e)
-        {
-            throw;
-        }
-    }
-    
-    public void HandlePassAction(MessageData playData)
-    {
-        PassActionEventArgs passActionEventArgs = new (playData.Index, playData.Action);
-
-        PassEvent?.Invoke(this, passActionEventArgs);
-    }
-    
-    public void HandleDiscardAction(MessageData playData)
-    {
-        List<TileSuits> optionTile = DataTransform.ReturnTileToIndex(playData.Option);
-
-        DiscardActionEventArgs discardActionEventArgs = new (playData.Index, playData.Action, optionTile);
-
-        DiscardEvent?.Invoke(this, discardActionEventArgs);
-    }
-    
-    public void HandleChowAction(MessageData playData)
-    {
-        List<List<TileSuits>> optionsTile = DataTransform.MapStringListsToTileSuitsLists(playData.Options);
-
-        ChowActionEventArgs chowActionEventArgs = new (playData.Index, playData.Action, optionsTile);
-
-        ChowEvent?.Invoke(this, chowActionEventArgs);
-    }
-    
-    public void HandlePongAction(MessageData playData)
-    {
-        List<List<TileSuits>> optionsTile = DataTransform.MapStringListsToTileSuitsLists(playData.Options);
-
-        PongActionEventArgs pongActionEventArgs = new (playData.Index, playData.Action, optionsTile);
-
-        PongEvent?.Invoke(this, pongActionEventArgs);
-    }
-    
-    public void HandleKongAction(MessageData playData)
-    {
-        List<List<TileSuits>> optionsTileSuitsList = DataTransform.MapStringListsToTileSuitsLists(playData.Options);
-
-        KongActionEventArgs kongActionEventArgs = new (playData.Index, playData.Action, optionsTileSuitsList);
-
-        KongEvent?.Invoke(this, kongActionEventArgs);
-    }
-    
-        //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
-    public void HandleDrawnAction(MessageData playData)
-    {
-        //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
-
-        DrawnActionEventArgs drawnActionEventArgs = new (playData.Index, playData.Action, playData.DrawnCount);
-
-        DrawnEvent?.Invoke(this, drawnActionEventArgs);
-    }
-    
-    public void HandleGroundingFlowerAction(MessageData playData)
-    {
-        //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
-
-        GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new (playData.Index, playData.Action, playData.DrawnCount);
-
-        GroundingFlowerActionEvent?.Invoke(this, groundingFlowerActionEventArgs);
     }
 
     // Call this method to send data to the WebSocket server

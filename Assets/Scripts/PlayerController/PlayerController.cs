@@ -40,6 +40,12 @@ public class PlayerController : PlayerControllerBase
         try
         {
             Debug.LogWarning($"PlayerController.SetHandTiles(List<TileSuits> tileSuits, bool IsDrawing ={IsDrawing})");
+            //for (int i = 0; i < tileSuits.Count; i++)
+            //{
+            //    Debug.Log(i + " : " + tileSuits[i]);
+            //}
+
+            Debug.LogWarning($"size ={tileSuits.Count}),IsDrawing ={IsDrawing})");
             _inGameUIController.SetHandTile(tileSuits, IsDrawing);
         }
         catch (System.Exception)

@@ -114,10 +114,18 @@ public class InGameUIController : MonoBehaviour
 
     public void SetHandTile(List<TileSuits> tileSuits, bool IsDrawing)
     {
+        if (tileSuits.Count == 17)
+        {
+            IsDrawing = true;
+        }
         if (IsDrawing)
         {
-            HandTileSuits[17] = tileSuits[tileSuits.Count - 1];
+            HandTileSuits[16] = tileSuits[tileSuits.Count - 1];
             tileSuits.RemoveAt(tileSuits.Count - 1);
+        }
+        else
+        {
+            HandTileSuits[16] = TileSuits.NULL;
         }
 
         for (int i = 0; i < tileSuits.Count; i++)

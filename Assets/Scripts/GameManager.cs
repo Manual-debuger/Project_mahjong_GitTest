@@ -28,34 +28,36 @@ public class GameManager : MonoBehaviour,IInitiable
         if (_instance != null && _instance != this)
             Destroy(this.gameObject);
         else if (_instance == null)
-            _instance = this;
-
-        _playerControllers = new List<PlayerControllerBase>
         {
-            GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
-            GameObject.Find("Player_Tiles W").GetComponent<CompetitorController>(),
-            GameObject.Find("Player_Tiles N").GetComponent<CompetitorController>(),
-            GameObject.Find("Player_Tiles E").GetComponent<CompetitorController>()
-        };
+            _instance = this;
+            _playerControllers = new List<PlayerControllerBase>
+            {
+                GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
+                GameObject.Find("Player_Tiles W").GetComponent<CompetitorController>(),
+                GameObject.Find("Player_Tiles N").GetComponent<CompetitorController>(),
+                GameObject.Find("Player_Tiles E").GetComponent<CompetitorController>()
+            };
 
-        _inGameUIController.DiscardTileEvent += OnDiscardTileEvent;
-        _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
-        _inGameUIController.LeaveTileBeHoldingEvent += OnLeaveTileBeHoldingEvent;
+            _inGameUIController.DiscardTileEvent += OnDiscardTileEvent;
+            _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
+            _inGameUIController.LeaveTileBeHoldingEvent += OnLeaveTileBeHoldingEvent;
 
-        _api.RandomSeatEvent += OnRandomSeatEvent;
-        _api.DecideBankerEvent += OnDecideBankerEvent;
-        _api.OpenDoorEvent += OnOpenDoorEvent;
-        _api.GroundingFlowerEvent += OnGroundingFlowerEvent;
-        _api.PlayingEvent += OnPlayingEvent;
-        _api.WaitingActionEvent += OnWaitingActionEvent;
-        _api.PassEvent += OnPassActionEvent;
-        _api.DiscardEvent += OnDiscardActionEvent;
-        _api.ChowEvent += OnChowActionEvent;
-        _api.PongEvent += OnPongActionEvent;
-        _api.KongEvent += OnKongActionEvent;
-        _api.DrawnEvent += OnDrawnActionEvent;
-        _api.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
+            _api.RandomSeatEvent += OnRandomSeatEvent;
+            _api.DecideBankerEvent += OnDecideBankerEvent;
+            _api.OpenDoorEvent += OnOpenDoorEvent;
+            _api.GroundingFlowerEvent += OnGroundingFlowerEvent;
+            _api.PlayingEvent += OnPlayingEvent;
+            _api.WaitingActionEvent += OnWaitingActionEvent;
+            _api.PassEvent += OnPassActionEvent;
+            _api.DiscardEvent += OnDiscardActionEvent;
+            _api.ChowEvent += OnChowActionEvent;
+            _api.PongEvent += OnPongActionEvent;
+            _api.KongEvent += OnKongActionEvent;
+            _api.DrawnEvent += OnDrawnActionEvent;
+            _api.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
+        }
     }
+
 
   
     public void Init()
@@ -167,7 +169,7 @@ public class GameManager : MonoBehaviour,IInitiable
             {
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
             }
-            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.Tiles.Count==17);
         }
         catch (Exception)
         {

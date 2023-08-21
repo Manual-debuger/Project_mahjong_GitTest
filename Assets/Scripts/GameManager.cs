@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             _centralAreaController.SetWallCount(e.WallCount ?? -1);
-            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
+            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
             for (int i = 0; i < e.Seats.Count(); i++)
             {
                 debugMessage += ", Name: " + e.Seats[i].Nickname + ", Sea Tiles: ";

@@ -24,6 +24,9 @@ namespace APIDataNamespace
         public static event EventHandler<GroundingFlowerEventArgs> GroundingFlowerEvent;
         public static event EventHandler<PlayingEventArgs> PlayingEvent;
         public static event EventHandler<WaitingActionEventArgs> WaitingActionEvent;
+        public static event EventHandler<HandEndEventArgs> HandEndEvent;
+        public static event EventHandler<GameEndEventArgs> GameEndEvent;
+        public static event EventHandler<ClosingEventArgs> ClosingEvent;
 
         public static event EventHandler<PassActionEventArgs> PassEvent;
         public static event EventHandler<DiscardActionEventArgs> DiscardEvent;
@@ -164,6 +167,59 @@ namespace APIDataNamespace
                     PlayingDeadline = eventData.PlayingDeadline;
                     WaitingActionEvent?.Invoke(instance, waitingActionEventArgs);
                 }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        
+        public static void HandleHandEndState(MessageData eventData)
+        {
+            try
+            {
+                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+
+                HandEndEventArgs handEndEventArgs = new(processedSeats);
+
+                // Playing State not change until action
+                if (NowState != eventData.State)
+                {
+                    HandEndEvent?.Invoke(instance, handEndEventArgs);
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        
+        public static void HandleGameEndState(MessageData eventData)
+        {
+            try
+            {
+                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+
+                HandEndEventArgs handEndEventArgs = new(processedSeats);
+
+                HandEndEvent?.Invoke(instance, handEndEventArgs);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        
+        public static void HandleClosingState(MessageData eventData)
+        {
+            try
+            {
+                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+
+                HandEndEventArgs handEndEventArgs = new(processedSeats);
+
+                HandEndEvent?.Invoke(instance, handEndEventArgs);
+                API.Instance.CloseConnection();
             }
             catch (Exception e)
             {

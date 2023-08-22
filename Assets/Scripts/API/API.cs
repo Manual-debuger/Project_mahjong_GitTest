@@ -19,30 +19,10 @@ public class API : MonoBehaviour
 
     private bool isLoggedInAndEnterTable = false; // 僅在初次按下進入遊戲登入且成功進桌時會被設定
 
-    private long Time;
-    private long? PlayingDeadline;
-    private string NowState = "";
-    private string NextState = "";
-
-    public event EventHandler<RandomSeatEventArgs> RandomSeatEvent;
-    public event EventHandler<DecideBankerEventArgs> DecideBankerEvent;
-    public event EventHandler<OpenDoorEventArgs> OpenDoorEvent;
-    public event EventHandler<GroundingFlowerEventArgs> GroundingFlowerEvent;
-    public event EventHandler<PlayingEventArgs> PlayingEvent;
-    public event EventHandler<WaitingActionEventArgs> WaitingActionEvent;
-
-    public event EventHandler<PassActionEventArgs> PassEvent;
-    public event EventHandler<DiscardActionEventArgs> DiscardEvent;
-    public event EventHandler<ChowActionEventArgs> ChowEvent;
-    public event EventHandler<PongActionEventArgs> PongEvent;
-    public event EventHandler<KongActionEventArgs> KongEvent;
-    public event EventHandler<DrawnActionEventArgs> DrawnEvent;
-    public event EventHandler<GroundingFlowerActionEventArgs> GroundingFlowerActionEvent;
-
-
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
         uri = new Uri("ws://localhost:80/api/v1/games/mahjong16");
     }
 
@@ -61,7 +41,7 @@ public class API : MonoBehaviour
             await socket.ConnectAsync(uri, cancellationTokenSource.Token);
             Debug.Log("WebSocket connected.");
             await Login();
-            _ = StartListening();
+            await StartListening();
         }
         catch (Exception ex)
         {
@@ -98,14 +78,14 @@ public class API : MonoBehaviour
         }
         catch (Exception ex)
         {
-            //Debug.LogError($"WebSocket listening error: {ex.Message}");
+            Debug.LogError($"WebSocket listening error: {ex.Message}");
             throw;
         }
     }
 
     public async Task Login(string token = null)
     {
-        var requestData = new LoginObject
+        LoginObject requestData = new LoginObject
         {
             Path = Path.Login,
             Data = new LoginData
@@ -115,21 +95,20 @@ public class API : MonoBehaviour
             }
         };
 
-        string jsonData = JsonUtility.ToJson(requestData);
+        string jsonData = JsonConvert.SerializeObject(requestData);
         Debug.Log("Login request: " + jsonData);
         await SendDataToServer(jsonData);
     }
 
     public async Task TableEnter(object config = null)
     {
-        // Simulate sending data
-        var requestData = new TableEnterObject
+        TableEnterObject requestData = new TableEnterObject
         {
-            Path = "game.table.enter",
+            Path = Path.TableEnter,
             Data = config
         };
 
-        string jsonData = JsonUtility.ToJson(requestData);
+        string jsonData = JsonConvert.SerializeObject(requestData);
         Debug.Log("TableEnter request: " + jsonData);
         await SendDataToServer(jsonData);
     }
@@ -139,35 +118,36 @@ public class API : MonoBehaviour
         // Parse the incoming JSON data into a Unity C# object
         MessageObject message = JsonConvert.DeserializeObject<MessageObject>(data);
 
-        //if (message.Path != Path.TableEvent || (message.Path == Path.TableEvent && message.Data.Index == 0))
-        //{
-        Debug.Log("From Server: " + data);
-        // Switch based on the Path to handle different message types
-        switch (message.Path)
+        if (message?.Data?.Index == 0 || message.Path != Path.TableEvent) // 東風人
         {
-            case Path.Ack:
-                HandleAck();
-                break;
-            case Path.Login:
-                HandleLogin();
-                break;
-            case Path.TableEnter:
-                HandleTableEnter();
-                break;
-            case Path.TableEvent:
-                HandleTableEvent(message.Data);
-                break;
-            case Path.TablePlay:
-                HandleTablePlay(message.Data);
-                break;
-            case Path.TableResult:
-                HandleTableResult(message.Data);
-                break;
-            default:
-                Debug.LogError("Unknown message Path: " + message.Path);
-                break;
+            Debug.Log("From Server: " + data);
+        
+            // Switch based on the Path to handle different message types
+            switch (message.Path)
+            {
+                case Path.Ack:
+                    HandleAck();
+                    break;
+                case Path.Login:
+                    HandleLogin();
+                    break;
+                case Path.TableEnter:
+                    HandleTableEnter();
+                    break;
+                case Path.TableEvent:
+                    HandleTableEvent(message.Data);
+                    break;
+                case Path.TablePlay:
+                    HandleTablePlay(message.Data);
+                    break;
+                case Path.TableResult:
+                    HandleTableResult(message.Data);
+                    break;
+                default:
+                    Debug.LogError("Unknown message Path: " + message.Path);
+                    break;
+            }
         }
-        //}
     }
 
     // Implement individual message handlers for each message type based on the enums in Game.tso.ts
@@ -195,11 +175,11 @@ public class API : MonoBehaviour
         {
             Debug.Log("TableEvent: " + eventData.State);
 
-            Time = eventData.Time;
+            APIData.Time = eventData.Time;
             switch (eventData.State)
             {
                 case "Waiting":
-                    NowState = eventData.State;
+                    APIData.NowState = eventData.State;
                     break;
                 case "RandomSeat":
                     APIData.HandleRandomSeatState(eventData);
@@ -226,13 +206,13 @@ public class API : MonoBehaviour
                     APIData.HandleWaitingActionState(eventData);
                     break;
                 case "HandEnd":
-                    //GameClass.instance.HandleHandEndState(eventData);
+                    APIData.HandleHandEndState(eventData);
                     break;
                 case "GameEnd":
-                    //GameClass.instance.HandleGameEndState(eventData);
+                    APIData.HandleGameEndState(eventData);
                     break;
                 case "Closing":
-                    //GameClass.instance.HandleClosingState(eventData);
+                    APIData.HandleClosingState(eventData);
                     break;
                 default:
                     Debug.LogError("Unknown state: " + eventData.State);
@@ -241,7 +221,7 @@ public class API : MonoBehaviour
 
             // GameClass.instance.UpdateEventTimer(); eventTimer = System.DateTime.Now.Ticks / 10000;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             throw;
         }
@@ -318,18 +298,18 @@ public class API : MonoBehaviour
         await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cancellationTokenSource.Token);
     }
 
-    private async Task CloseConnection()
+    public void CloseConnection()
     {
         if (socket != null && socket.State == WebSocketState.Open)
         {
             cancellationTokenSource.Cancel();
-            await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Connection closed by user", cancellationTokenSource.Token);
+            socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Connection closed by user", cancellationTokenSource.Token);
             Debug.Log("WebSocket connection closed.");
         }
     }
 
     private void OnDestroy()
     {
-        CloseConnection().Wait();
+        CloseConnection();
     }
 }

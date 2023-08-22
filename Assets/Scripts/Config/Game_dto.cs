@@ -249,8 +249,6 @@ public class TableEnterObject
     public object Data;
 }
 
-
-
 [Serializable]
 public class TableEventData
 {
@@ -287,10 +285,17 @@ public class TableEventData
 [System.Serializable]
 public class TablePlayData
 {
-    //public int SelfSeatIndex;
+    public int Index;
     public Action Action;
-    public string[] Option;
+    public string[]? Option;
     public int? DrawnCount;
+}
+
+[System.Serializable]
+public class TablePlayObject
+{
+    public string Path;
+    public TablePlayData Data;
 }
 
 [System.Serializable]

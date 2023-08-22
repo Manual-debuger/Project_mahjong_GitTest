@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour,IInitiable
             APIData.GroundingFlowerEvent += OnGroundingFlowerEvent;
             APIData.PlayingEvent += OnPlayingEvent;
             APIData.WaitingActionEvent += OnWaitingActionEvent;
+            APIData.HandEndEvent += OnHandEndEvent;
+            APIData.GameEndEvent += OnGameEndEvent;
+            APIData.ClosingEvent += OnClosingEvent;
             APIData.PassEvent += OnPassActionEvent;
             APIData.DiscardEvent += OnDiscardActionEvent;
             APIData.ChowEvent += OnChowActionEvent;
@@ -248,7 +251,7 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             _centralAreaController.SetWallCount(e.WallCount ?? -1);
-            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
+            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
             for (int i = 0; i < e.Seats.Count(); i++)
             {
                 debugMessage += ", Name: " + e.Seats[i].Nickname + ", Sea Tiles: ";
@@ -274,6 +277,48 @@ public class GameManager : MonoBehaviour,IInitiable
         }
 
         //throw new System.NotImplementedException();
+    }
+    
+    private void OnHandEndEvent(object sender, HandEndEventArgs e)
+    {
+        try
+        {
+            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!"); ;
+            
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw;
+        }
+    }
+    
+    private void OnGameEndEvent(object sender, HandEndEventArgs e)
+    {
+        try
+        {
+            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!"); ;
+            
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw;
+        }
+    }
+    
+    private void OnClosingEvent(object sender, ClosingEventArgs e)
+    {
+        try
+        {
+            Debug.Log("!!!!!!!!!!!!OnClosingEvent!!!!!!!!!!!!"); ;
+            
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw;
+        }
     }
     
     private void OnPassActionEvent(object sender, PassActionEventArgs e)

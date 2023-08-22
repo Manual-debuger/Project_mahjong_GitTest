@@ -164,6 +164,33 @@ public class WaitingActionEventArgs : EventArgs
         Seats = seats;
     }
 }
+
+public class HandEndEventArgs : EventArgs
+{
+    public List<SeatInfo> Seats;
+    public HandEndEventArgs(List<SeatInfo> seats)
+    {
+        Seats = seats;
+    }
+}
+
+public class GameEndEventArgs : EventArgs
+{
+    public List<SeatInfo> Seats;
+    public GameEndEventArgs(List<SeatInfo> seats)
+    {
+        Seats = seats;
+    }
+}
+
+public class ClosingEventArgs : EventArgs
+{
+    public List<SeatInfo> Seats;
+    public ClosingEventArgs(List<SeatInfo> seats)
+    {
+        Seats = seats;
+    }
+}
 #endregion
 #region Action Event
 public class PassActionEventArgs : EventArgs

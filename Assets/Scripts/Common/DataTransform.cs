@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DataTransformNamespace
 {
     public class DataTransform : MonoBehaviour
     {
-        public static List<TileSuits> ReturnTileToIndex(string[] data)
+        public static List<TileSuits> ReturnTileToIndex(string[] tiles)
         {
-            if (data != null && data.Length > 0)
+            if (tiles != null && tiles.Length > 0)
             {
                 List<TileSuits> tileSuitsList = new List<TileSuits>();
 
-                foreach (string tile in data)
+                foreach (string tile in tiles)
                 {
                     if (tile[0] == '_')
                     {
@@ -43,6 +44,39 @@ namespace DataTransformNamespace
             {
                 return new List<TileSuits>();
             }
+        }
+
+        public static string[]? ReturnIndexToTile(List<TileSuits> tiles)
+        {
+            Dictionary<string, TileSuits> MajongToIndex = new Dictionary<string, TileSuits>();
+            foreach (TileSuits tile in Enum.GetValues(typeof(TileSuits)))
+            {
+                MajongToIndex[Enum.GetName(typeof(TileSuits), tile)] = tile;
+            }
+
+            List<string> indexToMahjong = new List<string>(MajongToIndex.Keys);
+            return tiles != null && tiles.Count > 0 ? tiles.Select(tile => indexToMahjong[(int)tile]).ToArray() : null;
+
+            /*if (tiles == null || tiles.Count == 0)
+            {
+                return null;
+            }
+
+            Dictionary<string, TileSuits> MajongToIndex = new Dictionary<string, TileSuits>();
+            foreach (TileSuits tile in Enum.GetValues(typeof(TileSuits)))
+            {
+                MajongToIndex[Enum.GetName(typeof(TileSuits), tile)] = tile;
+            }
+
+            List<string> indexToMahjong = new List<string>(MajongToIndex.Keys);
+
+            List<string> result = new List<string>();
+            foreach (TileSuits tile in tiles)
+            {
+                result.Add(indexToMahjong[(int)tile]);
+            }
+
+            return result.ToArray();*/
         }
 
         public static List<SeatInfo> MapAllSeats(IEnumerable<SeatInfo> seats)

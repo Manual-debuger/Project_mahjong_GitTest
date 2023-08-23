@@ -97,7 +97,7 @@ public class API : MonoBehaviour
 
         string jsonData = JsonConvert.SerializeObject(requestData);
         Debug.Log("Login request: " + jsonData);
-        await SendDataToServer(jsonData);
+        await SendData(jsonData);
     }
 
     public async Task TableEnter(object config = null)
@@ -110,7 +110,7 @@ public class API : MonoBehaviour
 
         string jsonData = JsonConvert.SerializeObject(requestData);
         Debug.Log("TableEnter request: " + jsonData);
-        await SendDataToServer(jsonData);
+        await SendData(jsonData);
     }
 
     private void HandleMessage(string data)
@@ -284,15 +284,15 @@ public class API : MonoBehaviour
     }
 
     // Call this method to send data to the WebSocket server
-    public async Task SendDataToServer(string data)
+    public async Task SendData(string data)
     {
         if (socket != null && socket.State == WebSocketState.Open)
         {
-            await SendData(data);
+            await SocketSendData(data);
         }
     }
 
-    private async Task SendData(string data)
+    private async Task SocketSendData(string data)
     {
         var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(data));
         await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cancellationTokenSource.Token);

@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Profiling.RawFrameDataView;
 using DataTransformNamespace;
+using Newtonsoft.Json;
 
 
 namespace APIDataNamespace
@@ -287,6 +285,44 @@ namespace APIDataNamespace
             GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, playData.DrawnCount);
 
             GroundingFlowerActionEvent?.Invoke(instance, groundingFlowerActionEventArgs);
+        }
+
+        public async void HandleClickAction(ActionData actionData, int index)
+        {
+            // 可以選擇吃的牌型
+            // Selectable Chow Patterns
+            if (actionData.ID == Action.Chow && actionData.OptionTiles.Count >= 2)
+            {
+                
+            }
+            // 可以選擇槓的牌型
+            // Selectable Kong Patterns
+            else if ((actionData.ID == Action.AdditionKong || actionData.ID == Action.ConcealedKong) && actionData.OptionTiles.Count >= 2)
+            {
+                
+            }
+            else if (actionData.ID == Action.ReadyHand)
+            {
+                // 設定聽牌
+                // Set ReadyHand
+
+            }
+            else
+            {
+                TablePlayObject requestData = new TablePlayObject
+                {
+                    Path = Path.TablePlay,
+                    Data = new TablePlayData
+                    {
+                        Index = index,
+                        Action = actionData.ID,
+                        Option = actionData.OptionTiles != null ? DataTransform.ReturnIndexToTile(actionData.OptionTiles[0]) : null
+                    }
+                };
+                string jsonData = JsonConvert.SerializeObject(requestData);
+                Debug.Log("TablePlay request: " + jsonData);
+                await API.Instance.SendData(jsonData);
+            }
         }
     }
 }

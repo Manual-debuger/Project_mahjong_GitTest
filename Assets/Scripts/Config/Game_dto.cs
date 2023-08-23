@@ -142,6 +142,7 @@ public class ActionData
 {
     public Action ID;
     public List<string[]> Options;
+    public List<List<TileSuits>> OptionTiles;
     public ReadyInfoType ReadyInfo;
 }
 

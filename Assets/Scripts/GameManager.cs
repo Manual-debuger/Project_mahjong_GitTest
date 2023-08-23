@@ -293,11 +293,11 @@ public class GameManager : MonoBehaviour,IInitiable
         }
     }
     
-    private void OnGameEndEvent(object sender, HandEndEventArgs e)
+    private void OnGameEndEvent(object sender, GameEndEventArgs e)
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!"); ;
+            Debug.Log("!!!!!!!!!!!!OnGameEndEvent!!!!!!!!!!!!"); ;
             
         }
         catch (Exception ex)

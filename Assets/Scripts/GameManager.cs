@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour,IInitiable
             _inGameUIController.DiscardTileEvent += OnDiscardTileEvent;
             _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
             _inGameUIController.LeaveTileBeHoldingEvent += OnLeaveTileBeHoldingEvent;
+            //Something=UI需要傳給伺服器的事件 ex.吃碰槓
+            //_inGameUIController.Something+=OnUIActiveActionEvent;
 
             APIData.RandomSeatEvent += OnRandomSeatEvent;
             APIData.DecideBankerEvent += OnDecideBankerEvent;
@@ -127,8 +129,14 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         throw new System.NotImplementedException();
     }
+
+    public void OnUIActiveActionEvent(object sender,ActionData actionData)
+    {        
+        APIData.instance.HandleClickAction(actionData,this._playerIndex);
+        //throw new System.NotImplementedException();
+    }
     #endregion
-    
+
     #region API handle
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {

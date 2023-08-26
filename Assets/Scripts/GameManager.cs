@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!"); ;
+            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
             
         }
         catch (Exception ex)

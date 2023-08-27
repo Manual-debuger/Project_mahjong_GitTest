@@ -150,7 +150,10 @@ public class InGameUIController : MonoBehaviour
         //Debug.Log(e.f);
         SetSoundEvent?.Invoke(this, e);
     }
-
+    public void ActionUISet(ActionData[] actions)
+    {
+        DiscardTileUIViewer.ActionUISet(actions);
+    }
     public SettingUIButton SettingUIButton
     {
         get => default;

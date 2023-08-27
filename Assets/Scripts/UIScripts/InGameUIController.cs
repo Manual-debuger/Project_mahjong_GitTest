@@ -25,16 +25,16 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
 
     private int NumberOfRemainingTiles = 17;
-    public List<TileSuits> HandTileSuits = new() {
-        TileSuits.c8,TileSuits.c8,
-        TileSuits.c1, TileSuits.c1,
-        TileSuits.c7, TileSuits.c7,
-        TileSuits.c4, TileSuits.c4,
-        TileSuits.c2, TileSuits.c2,
-        TileSuits.c3, TileSuits.c3,
-        TileSuits.c6, TileSuits.c6,
-        TileSuits.c5, TileSuits.c5,
-        TileSuits.c1
+    private List<TileSuits> HandTileSuits = new() {
+        TileSuits.NULL,TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL, TileSuits.NULL,
+        TileSuits.NULL
     };
     private void Awake()
     {

@@ -30,8 +30,45 @@ public class ActionUI : MonoBehaviour
         
     }
 
-    public void ActionUISet(ActionData[] actions)
+    public void ActionUISet(ActionData[] _actions)
     {
-        
+        foreach (ActionData action in _actions)
+        {
+            switch (action.ID)
+            {
+                case Action.Pass:
+                    Pass.gameObject.SetActive(true);
+                    break;
+                case Action.Chow:
+                    Chow.gameObject.SetActive(true);
+                    break;
+                case Action.Pong:
+                    Pong.gameObject.SetActive(true);
+                    break;
+                case Action.Kong:
+                case Action.AdditionKong:
+                case Action.ConcealedKong:
+                    Kong.gameObject.SetActive(true);
+                    break;
+                case Action.ReadyHand:
+                    Listen.gameObject.SetActive(true);
+                    break;
+                case Action.Win:
+                case Action.DrawnFromDeadWall:
+                case Action.SelfDrawnWin:
+                    Winning.gameObject.SetActive(true);
+                    break;
+            }
+        }
+    }
+
+    public void ActionUISetOff()
+    {
+        Pass.gameObject.SetActive(false);
+        Chow.gameObject.SetActive(false);
+        Pong.gameObject.SetActive(false);
+        Kong.gameObject.SetActive(false);
+        Listen.gameObject.SetActive(false);
+        Winning.gameObject.SetActive(false);
     }
 }

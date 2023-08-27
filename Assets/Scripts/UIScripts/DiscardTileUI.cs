@@ -5,9 +5,11 @@ using UnityEngine;
 public class DiscardTileUI : MonoBehaviour
 {
     [SerializeField] private ActionUI actionUI;
-    public void ActionUISet(ActionData[] actions)
+    private ActionData[] Actions;
+    public void ActionUISet(ActionData[] _actions)
     {
-        actionUI.ActionUISet(actions);
+        Actions = _actions;
+        actionUI.ActionUISet(_actions);
     }
 }
 

@@ -23,7 +23,7 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<TileSuitEventArgs> LeaveTileBeHoldingEvent;
     public event EventHandler<FloatEventArgs> SetMusicEvent;
     public event EventHandler<FloatEventArgs> SetSoundEvent;
-
+    public event EventHandler<ActionData> UIActiveActionEvent;
     private int NumberOfRemainingTiles = 17;
     private List<TileSuits> HandTileSuits = new() {
         TileSuits.NULL,TileSuits.NULL,
@@ -48,6 +48,7 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.OnPointerUpEvent += LeaveDiscardTileSuggestEvent;
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
+        _discardTileUIViewer.ActionEvent += UIActiveAction;
     }    
     // Start is called before the first frame update
     void Start()
@@ -154,6 +155,12 @@ public class InGameUIController : MonoBehaviour
     {
         DiscardTileUIViewer.ActionUISet(actions);
     }
+
+    private void UIActiveAction(object sender, ActionData e)
+    {
+        UIActiveActionEvent?.Invoke(this, e);
+    }
+
     public SettingUIButton SettingUIButton
     {
         get => default;

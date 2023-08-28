@@ -11,7 +11,7 @@ public class  AssetsPoolController:MonoBehaviour
     }
     [SerializeField] private Material _defaultTileMaterial;
     [SerializeField] private Material _highLightedTileMaterial;
-    
+    [SerializeField] private Dictionary<EffectID, GameObject> _effectsDict;
     public Material DefaultTileMaterial
     {
         get { return _instance._defaultTileMaterial; }
@@ -20,7 +20,10 @@ public class  AssetsPoolController:MonoBehaviour
     {
         get { return _instance._highLightedTileMaterial; }
     }
-
+    public Dictionary<EffectID, GameObject> EffectsDict
+    {
+        get { return _instance._effectsDict; }
+    }
     private static AssetsPoolController _instance;
     public static AssetsPoolController Instance
     {

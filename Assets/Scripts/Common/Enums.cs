@@ -86,3 +86,10 @@ public enum Action
     DrawnFromDeadWall,
     SelfDrawnWin,
 }
+
+public enum EffectID
+{
+    Chow,
+    Pong,
+    Kong
+}

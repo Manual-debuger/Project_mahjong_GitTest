@@ -25,7 +25,7 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
     public event EventHandler<ActionData> UIActiveActionEvent;
     private int NumberOfRemainingTiles = 17;
-    private List<TileSuits> HandTileSuits = new() {
+    public List<TileSuits> HandTileSuits = new() {
         TileSuits.NULL,TileSuits.NULL,
         TileSuits.NULL, TileSuits.NULL,
         TileSuits.NULL, TileSuits.NULL,
@@ -66,6 +66,10 @@ public class InGameUIController : MonoBehaviour
     private void DiscardTile(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("UI");
+        ActionData DiscardTileInfo = new ActionData();
+        DiscardTileInfo.ID = Action.Discard;
+        DiscardTileInfo.OptionTiles = new List<List<TileSuits>>();
+        DiscardTileInfo.OptionTiles.Add(new List<TileSuits> { HandTileSuits[e.TileIndex] });
         TileSuits tile = HandTileSuits[e.TileIndex];
         //HandTileSuits[e.TileIndex] = TileSuits.NULL;
         HandTileSuits[e.TileIndex] = HandTileSuits[16];
@@ -73,7 +77,9 @@ public class InGameUIController : MonoBehaviour
 
         HandTileSort();
         HandTileUISet();
-        DiscardTileEvent?.Invoke(this, new DiscardTileEventArgs(tile, 0));
+        //DiscardTileEvent?.Invoke(this, new DiscardTileEventArgs(tile, 0));
+        UIActiveActionEvent?.Invoke(this, DiscardTileInfo);
+        Debug.Log("test");
     }
     private void OnDiscardTileSuggestEvent(object sender, TileIndexEventArgs e)
     {

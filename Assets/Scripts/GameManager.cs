@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour,IInitiable
             _inGameUIController.DiscardTileEvent += OnDiscardTileEvent;
             _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
             _inGameUIController.LeaveTileBeHoldingEvent += OnLeaveTileBeHoldingEvent;
-            //Something=UI需要傳給伺服器的事件 ex.吃碰槓
-            //_inGameUIController.Something+=OnUIActiveActionEvent;
+            //UIActiveActionEvent=UI需要傳給伺服器的事件 ex.吃碰槓
+            _inGameUIController.UIActiveActionEvent+=OnUIActiveActionEvent;
 
             APIData.RandomSeatEvent += OnRandomSeatEvent;
             APIData.DecideBankerEvent += OnDecideBankerEvent;

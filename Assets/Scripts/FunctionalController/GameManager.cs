@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private CentralAreaController _centralAreaController;
     [SerializeField] private List<PlayerControllerBase> _playerControllers;
     [SerializeField] private InGameUIController _inGameUIController;
-    [SerializeField] private AnimController _animController;
+    [SerializeField] private EffectController _animController;
     [SerializeField] private AudioController _audioManager;
 
     public void Awake()

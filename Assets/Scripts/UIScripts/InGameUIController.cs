@@ -159,7 +159,7 @@ public class InGameUIController : MonoBehaviour
     }
     public void ActionUISet(ActionData[] actions)
     {
-        DiscardTileUIViewer.ActionUISet(actions);
+        DiscardTileUIViewer.ActionUISetOn(actions);
     }
 
     private void UIActiveAction(object sender, ActionData e)

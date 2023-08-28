@@ -9,6 +9,13 @@ public class  AssetsPoolController:MonoBehaviour
     public Mesh[] TileMeshs {
         get { return _instance._tileMeshs; }
     }
+
+    [SerializeField] private Sprite[] _tileSprites;
+    public Sprite[] TileSprites
+    {
+        get { return _instance._tileSprites; }
+    }
+
     [SerializeField] private Material _defaultTileMaterial;
     [SerializeField] private Material _highLightedTileMaterial;
     

@@ -8,7 +8,8 @@ public class DiscardTileUI : MonoBehaviour
     [SerializeField] private ActionUI actionUI;
     private ActionData[] Actions;
     public event EventHandler<ActionData> ActionEvent;
-    public void ActionUISet(ActionData[] _actions)
+    public HandTileUI[] chowoption;
+    public void ActionUISetOn(ActionData[] _actions)
     {
         Actions = _actions;
         actionUI.ActionUISet(_actions);
@@ -34,7 +35,10 @@ public class DiscardTileUI : MonoBehaviour
         {
             if (action.ID == Action.Chow)
             {
-                ActionEvent?.Invoke(this, action);
+                if (action.OptionTiles.Count == 1)
+                    ActionEvent?.Invoke(this, action);
+                else
+                    SetChowOptionOn();
                 break;
             }
         }
@@ -82,6 +86,27 @@ public class DiscardTileUI : MonoBehaviour
                 break;
             }
         }
+    }
+
+
+    public void SetChowOptionOn()
+    {
+        Sprite test = AssetsPoolController.Instance.TileSprites[1];
+    }
+
+    public void SetChowOptionOff()
+    {
+    }
+    public void SetListenOptionOn()
+    {
+    }
+
+    public void SetListenOptionOff()
+    {
+    }
+    public void buttontest()
+    {
+        Debug.Log("test");
     }
 }
 

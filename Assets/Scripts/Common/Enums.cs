@@ -91,5 +91,6 @@ public enum EffectID
 {
     Chow,
     Pong,
-    Kong
+    Kong,
+    None
 }

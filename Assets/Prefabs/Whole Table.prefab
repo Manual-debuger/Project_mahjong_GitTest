@@ -585,6 +585,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afed29031dadc61489a2f18d808a1843, type: 3}
+--- !u!4 &5741816432602334065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7766154295837648552, guid: afed29031dadc61489a2f18d808a1843, type: 3}
+  m_PrefabInstance: {fileID: 2623887402632324569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6088683102147876642 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8076839474240631547, guid: afed29031dadc61489a2f18d808a1843, type: 3}
@@ -669,6 +674,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574fde1e8618e554797cba3802a0e58c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3689559532017674632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2156312954856735088, guid: b0ddd5790c32a0847bf96b91feed0673, type: 3}
+  m_PrefabInstance: {fileID: 3377473141967087864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7556159698180955209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5045138634188797105, guid: b0ddd5790c32a0847bf96b91feed0673, type: 3}
@@ -729,6 +739,22 @@ PrefabInstance:
       propertyPath: _effectTransforms.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1926105108868040936, guid: 0d4c7760b5aca6c42bf497da5632e0a2, type: 3}
+      propertyPath: _effectTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 7707698583465950048}
+    - target: {fileID: 1926105108868040936, guid: 0d4c7760b5aca6c42bf497da5632e0a2, type: 3}
+      propertyPath: _effectTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 3689559532017674632}
+    - target: {fileID: 1926105108868040936, guid: 0d4c7760b5aca6c42bf497da5632e0a2, type: 3}
+      propertyPath: _effectTransforms.Array.data[2]
+      value: 
+      objectReference: {fileID: 5741816432602334065}
+    - target: {fileID: 1926105108868040936, guid: 0d4c7760b5aca6c42bf497da5632e0a2, type: 3}
+      propertyPath: _effectTransforms.Array.data[3]
+      value: 
+      objectReference: {fileID: 7847352347691009375}
     - target: {fileID: 2277154594726030877, guid: 0d4c7760b5aca6c42bf497da5632e0a2, type: 3}
       propertyPath: m_Name
       value: EffectsController
@@ -884,6 +910,11 @@ MonoBehaviour:
 --- !u!4 &7556159697916469808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1148740569674832079, guid: 8fb8c67fca277c14295726b1b8332a7c, type: 3}
+  m_PrefabInstance: {fileID: 7434873713698503423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7707698583465950048 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 998327173895389599, guid: 8fb8c67fca277c14295726b1b8332a7c, type: 3}
   m_PrefabInstance: {fileID: 7434873713698503423}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8145787243801293204
@@ -1126,6 +1157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574fde1e8618e554797cba3802a0e58c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7847352347691009375 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2156312954856735088, guid: b0ddd5790c32a0847bf96b91feed0673, type: 3}
+  m_PrefabInstance: {fileID: 8145787244255134767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8145787244555841875
 PrefabInstance:
   m_ObjectHideFlags: 0

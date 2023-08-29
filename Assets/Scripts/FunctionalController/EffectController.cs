@@ -25,12 +25,25 @@ public class EffectController : Singleton<EffectController>
     
     public void PlayEffect(EffectID effectID,int PlayerIndex)
     {        
-        var effectobject = Instance._effectsdict[EffectID.Chow];
-        var effectTransform= effectobject.GetComponent<Transform>();
-        effectTransform.position = Instance._effectTransforms[PlayerIndex].position;
-        effectobject.SetActive(true);
+        StopAllEffects();
+        if (effectID == EffectID.None)
+            return;
+        try
+        {
+            if (PlayerIndex < 0 || PlayerIndex > 3)
+                throw new System.Exception("PlayerIndex out of range");
+            var effectobject = Instance._effectsdict[effectID];
+            var effectTransform = effectobject.GetComponent<Transform>();
+            effectTransform.position = Instance._effectTransforms[PlayerIndex].position;
+            effectobject.SetActive(true);
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log(e);
+            throw;
+        }                
     }
-    public void StopAllEffects()
+    protected void StopAllEffects()
     {
         foreach (var effect in _effectsdict)
         {

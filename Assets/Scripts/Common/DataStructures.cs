@@ -131,7 +131,7 @@ public class GroundingFlowerEventArgs : EventArgs
 
 public class PlayingEventArgs : EventArgs
 {
-    public int? PlayingIndex;
+    public int? PlayingIndex; 
     public long? PlayingDeadline;
     public int? WallCount;
     public List<TileSuits> Tiles;

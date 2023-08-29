@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &781975320685358260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2156312954856735088}
+  m_Layer: 0
+  m_Name: EffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2156312954856735088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781975320685358260}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 120.83334, y: 0, z: -37.500004}
+  m_LocalScale: {x: 0.83333325, y: 1, z: 0.83333325}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5045138635682672333}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5045138634188797106
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,6 +84,7 @@ MonoBehaviour:
   _flowerTileAreaController: {fileID: 5218835398202408315}
   _meldsAreaController: {fileID: 8879898204979968279}
   _playerInfoPlateController: {fileID: 262278697472133456}
+  _seaTilesAreaController: {fileID: 0}
   _handTilesAreaController: {fileID: 1654579903769630076}
   _drawedTileAreaController: {fileID: 2253166241610846881}
 --- !u!1001 &875145362332278713

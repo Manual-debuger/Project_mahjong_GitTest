@@ -1078,7 +1078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &311555103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6641,8 +6641,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1370546066}
   - component: {fileID: 1370546065}
+  - component: {fileID: 1370546067}
   m_Layer: 0
-  m_Name: API
+  m_Name: LocalAPI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6675,6 +6676,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1370546067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370546064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3520df40c7938c43b8920cb7d117bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1430665300 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8601929213706506637, guid: 59994137a08f94f4db76db713b1d27b4, type: 3}

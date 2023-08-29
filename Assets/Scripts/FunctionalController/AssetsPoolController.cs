@@ -49,10 +49,11 @@ public class  AssetsPoolController:MonoBehaviour
         if(_instance._effectsDict==null)
             _instance._effectsDict = new Dictionary<EffectID, GameObject>
             {
-                { EffectID.Chow,Instantiate(_effectsPrefabs[0]) },
-                { EffectID.Pong,Instantiate(_effectsPrefabs[1]) },
-                { EffectID.Kong, Instantiate(_effectsPrefabs[2]) }
+                { EffectID.Chow,_effectsPrefabs[0] },
+                { EffectID.Pong,_effectsPrefabs[1]},
+                { EffectID.Kong, _effectsPrefabs[2] }
             };
+
             
     }
     void Start()

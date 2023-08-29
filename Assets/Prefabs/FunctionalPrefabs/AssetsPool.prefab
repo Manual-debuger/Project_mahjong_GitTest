@@ -89,3 +89,8 @@ MonoBehaviour:
   - {fileID: 4300260, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
   _defaultTileMaterial: {fileID: 2100000, guid: 44268c0e0ea7ef441a8bea5d89652aa3, type: 2}
   _highLightedTileMaterial: {fileID: 2100000, guid: 1b2b8a16023b90f4599bb2ee991d7511, type: 2}
+  _effectsPrefabs:
+  - {fileID: 7986504087968017091, guid: 2d880e1fdd82121459bbaeff5c35b2d9, type: 3}
+  - {fileID: 1535640691960112, guid: acb3847ebb8952d4d85d4798e16bf36f, type: 3}
+  - {fileID: 1701074268541622, guid: 952598852633cdc4a85f75d1d00bc001, type: 3}
+  _effectTransforms: []

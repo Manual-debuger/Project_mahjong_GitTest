@@ -94,3 +94,14 @@ public enum EffectID
     Kong,
     None
 }
+
+public enum AudioType
+{
+    Chow,
+    Pong,
+    Kong,
+    ReadyHand,
+    Win,
+    SelfWin,
+    GroundingFlower
+}

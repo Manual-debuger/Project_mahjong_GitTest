@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private List<PlayerControllerBase> _playerControllers;
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private EffectController _effectController;
-    [SerializeField] private AudioController _audioManager;
+    [SerializeField] private AudioController _audioController;
 
     public void Awake()
     {
@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour,IInitiable
             _instance = this;
             if(_effectController==null)
                 _effectController = GameObject.Find("EffectController").GetComponent<EffectController>();
+            if(_audioController==null)
+                _audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
             _playerControllers = new List<PlayerControllerBase>
             {
                 GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
@@ -377,7 +379,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         Debug.Log("!!!!!!!!!!!!OnDiscardActionEvent!!!!!!!!!!!!");
         if (e.Options.Count > 1)
-            Debug.LogWarning("Options of DiscardActionEventArgs more than 1");       
+            Debug.LogWarning("Options of DiscardActionEventArgs more than 1");
         //_playerControllers[CastAPIIndexToLocalIndex(e.Index)].DiscardTile(e.Options[0]);
         //throw new System.NotImplementedException();
     }
@@ -387,6 +389,9 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnChowActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Chow, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.Chow);
         //throw new System.NotImplementedException();
     }
     
@@ -395,6 +400,9 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnPongActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Pong, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.Pong);
         //throw new System.NotImplementedException();
     }
     
@@ -403,6 +411,9 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnKongActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Kong, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.Kong);
         //throw new System.NotImplementedException();
     }
     
@@ -415,6 +426,9 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnGroundingFlowerActionEvent(object sender, GroundingFlowerActionEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnGroundingFlowerActionEvent!!!!!!!!!!!!");
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.GroundingFlower);
         //throw new System.NotImplementedException();
     }
     #endregion

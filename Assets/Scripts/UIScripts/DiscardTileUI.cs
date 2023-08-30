@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class DiscardTileUI : MonoBehaviour
 {
     [SerializeField] private ActionUI actionUI;
     private ActionData[] Actions;
     public event EventHandler<ActionData> ActionEvent;
-    public HandTileUI[] chowoption;
+
+    public GameObject[] ChowOption;
+    public HandTileUI[] ChowOptionTiles;
+
+    public GameObject[] ListenOption;
+    public HandTileUI[] ListenOptionTiles;
+    public TMP_Text[] ListenOptionRemain;
+    public TMP_Text[] ListenOptionScore;
     public void ActionUISetOn(ActionData[] _actions)
     {
         Actions = _actions;
@@ -47,7 +56,7 @@ public class DiscardTileUI : MonoBehaviour
     {
         foreach (ActionData action in Actions)
         {
-            if (action.ID==Action.Pong)
+            if (action.ID == Action.Pong)
             {
                 ActionEvent?.Invoke(this, action);
                 break;
@@ -58,7 +67,7 @@ public class DiscardTileUI : MonoBehaviour
     {
         foreach (ActionData action in Actions)
         {
-            if (action.ID == Action.Kong || action.ID == Action.AdditionKong|| action.ID == Action.ConcealedKong)
+            if (action.ID == Action.Kong || action.ID == Action.AdditionKong || action.ID == Action.ConcealedKong)
             {
                 ActionEvent?.Invoke(this, action);
                 break;
@@ -71,7 +80,10 @@ public class DiscardTileUI : MonoBehaviour
         {
             if (action.ID == Action.ReadyHand)
             {
-                ActionEvent?.Invoke(this, action);
+                if (action.OptionTiles.Count == 1)
+                    ActionEvent?.Invoke(this, action);
+                else
+                    SetListenOptionOn();
                 break;
             }
         }
@@ -91,18 +103,61 @@ public class DiscardTileUI : MonoBehaviour
 
     public void SetChowOptionOn()
     {
-        Sprite test = AssetsPoolController.Instance.TileSprites[1];
+        SetListenOptionOff();
+        Sprite[] TileSprites = AssetsPoolController.Instance.TileSprites;
+        foreach (ActionData action in Actions)
+        {
+            if (action.ID == Action.Chow)
+            {
+                for (int i = 0; i < action.OptionTiles.Count; i++)
+                {
+                    ChowOption[i].SetActive(true);
+                    for (int j = 0; j < 3; j++)
+                    {
+                        ChowOptionTiles[3 * i + j].SetTile(TileSprites[(int)action.OptionTiles[i][j]]);
+                    }
+                }
+            }
+        }
     }
 
     public void SetChowOptionOff()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            ChowOption[i].SetActive(false);
+        }
     }
     public void SetListenOptionOn()
     {
+        SetChowOptionOff();
+        Sprite[] TileSprites = AssetsPoolController.Instance.TileSprites;
+        foreach (ActionData action in Actions)
+        {
+            if (action.ID == Action.ReadyHand)
+            {
+                for (int i = 0; i < action.OptionTiles.Count; i++)
+                {
+                    ListenOption[i].SetActive(true);
+                    ListenOptionTiles[i].SetTile(TileSprites[(int)action.OptionTiles[i][0]]);
+                }
+            }
+        }
+
     }
 
     public void SetListenOptionOff()
     {
+    }
+
+    public void ChowSelect(int index)
+    {
+        Debug.Log("test");
+    }
+
+    public void ListenSelect(int index)
+    {
+        Debug.Log("test");
     }
     public void buttontest()
     {

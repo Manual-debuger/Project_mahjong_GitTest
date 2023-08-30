@@ -61,4 +61,11 @@ public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         //Debug.Log("OnPointerExit");
     }
+
+    public void ListenOn()
+    { 
+    }
+    public void ListenOff()
+    {
+    }
 }

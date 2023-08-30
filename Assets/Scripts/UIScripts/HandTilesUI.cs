@@ -72,4 +72,15 @@ public class HandTilesUI : MonoBehaviour
         //Debug.Log("UI");
         OnPointerUpEvent?.Invoke(this, e);
     }
+
+    private void ListenSetOn()
+    {
+        
+    }
+
+    private void ListenSetOff()
+    {
+
+    }
+
 }

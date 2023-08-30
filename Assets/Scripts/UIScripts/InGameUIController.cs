@@ -164,6 +164,7 @@ public class InGameUIController : MonoBehaviour
 
     private void UIActiveAction(object sender, ActionData e)
     {
+        DiscardTileUIViewer.ActionUISetOff();
         UIActiveActionEvent?.Invoke(this, e);
     }
 

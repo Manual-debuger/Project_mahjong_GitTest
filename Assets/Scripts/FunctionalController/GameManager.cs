@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour,IInitiable
         else if (_instance == null)
         {
             _instance = this;
+            if(_effectController==null)
+                _effectController = GameObject.Find("EffectController").GetComponent<EffectController>();
             _playerControllers = new List<PlayerControllerBase>
             {
                 GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
@@ -241,7 +243,9 @@ public class GameManager : MonoBehaviour,IInitiable
 
                 
             }
+
             //Effect
+            _effectController.StopAllEffects();
             //if (e.PlayingIndex != null && e.Actions != null)
             //{
             //    switch (e.Actions[0].ID)
@@ -381,18 +385,24 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnChowActionEvent(object sender, ChowActionEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnChowActionEvent!!!!!!!!!!!!");
+        //Effect
+        Instance._effectController.PlayEffect(EffectID.Chow, CastAPIIndexToLocalIndex(e.Index));
         //throw new System.NotImplementedException();
     }
     
     private void OnPongActionEvent(object sender, PongActionEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnPongActionEvent!!!!!!!!!!!!");
+        //Effect
+        Instance._effectController.PlayEffect(EffectID.Pong, CastAPIIndexToLocalIndex(e.Index));
         //throw new System.NotImplementedException();
     }
     
     private void OnKongActionEvent(object sender, KongActionEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnKongActionEvent!!!!!!!!!!!!");
+        //Effect
+        Instance._effectController.PlayEffect(EffectID.Kong, CastAPIIndexToLocalIndex(e.Index));
         //throw new System.NotImplementedException();
     }
     

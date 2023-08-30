@@ -15126,6 +15126,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4959803279435751449, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: m_Name
+      value: EffectController
+      objectReference: {fileID: 0}
     - target: {fileID: 4995592799052392847, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_Enabled
       value: 0

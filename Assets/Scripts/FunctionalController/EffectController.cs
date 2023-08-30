@@ -43,7 +43,7 @@ public class EffectController : Singleton<EffectController>
             throw;
         }                
     }
-    protected void StopAllEffects()
+    public void StopAllEffects()
     {
         foreach (var effect in _effectsdict)
         {

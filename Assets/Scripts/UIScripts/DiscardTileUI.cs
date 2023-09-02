@@ -10,12 +10,15 @@ public class DiscardTileUI : MonoBehaviour
     [SerializeField] private ActionUI actionUI;
     private ActionData[] Actions;
     public event EventHandler<ActionData> ActionEvent;
+    public event EventHandler<ActionData> ListenOnActionEvent;
+    public GameObject ChowObject;
+    public GameObject ListenObject;
 
     public GameObject[] ChowOption;
     public HandTileUI[] ChowOptionTiles;
 
     public GameObject[] ListenOption;
-    public HandTileUI[] ListenOptionTiles;
+    public ListenTile[] ListenOptionTiles;
     public TMP_Text[] ListenOptionRemain;
     public TMP_Text[] ListenOptionScore;
     public void ActionUISetOn(ActionData[] _actions)
@@ -109,6 +112,7 @@ public class DiscardTileUI : MonoBehaviour
         {
             if (action.ID == Action.Chow)
             {
+                ChowObject.SetActive(true);
                 for (int i = 0; i < action.OptionTiles.Count; i++)
                 {
                     ChowOption[i].SetActive(true);
@@ -127,6 +131,7 @@ public class DiscardTileUI : MonoBehaviour
         {
             ChowOption[i].SetActive(false);
         }
+        ChowObject.SetActive(false);
     }
     public void SetListenOptionOn()
     {
@@ -136,14 +141,33 @@ public class DiscardTileUI : MonoBehaviour
         {
             if (action.ID == Action.ReadyHand)
             {
-                for (int i = 0; i < action.OptionTiles.Count; i++)
-                {
-                    ListenOption[i].SetActive(true);
-                    ListenOptionTiles[i].SetTile(TileSprites[(int)action.OptionTiles[i][0]]);
-                }
+                ListenObject.SetActive(true);
+                ListenOnActionEvent?.Invoke(this, action);
             }
         }
 
+    }
+
+    public void SetListenTile(ListeningTilesType listeningTilesTypes)
+    {
+        int count = 0;
+        foreach (KeyValuePair<string, int> keyValuePair in listeningTilesTypes.Mahjong)
+        {
+            ListenOption[count].SetActive(true);
+            ListenOptionTiles[count].Appear();
+            ListenOptionRemain[count].text = "台數" + "\n" + "999";
+            //ListenOptionScore[count];
+
+            count++;
+        }
+    }
+
+    public void CloseListenTile()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            ListenOptionTiles[i].Disappear();
+        }
     }
 
     public void SetListenOptionOff()
@@ -152,13 +176,20 @@ public class DiscardTileUI : MonoBehaviour
 
     public void ChowSelect(int index)
     {
-        Debug.Log("test");
+        foreach (ActionData action in Actions)
+        {
+            if (action.ID == Action.Chow)
+            {
+                List<TileSuits> tile = action.OptionTiles[index];
+                List<List<TileSuits>> tilelist = new List<List<TileSuits>>();
+                tilelist.Add(tile);
+                action.OptionTiles = tilelist;
+                ActionEvent?.Invoke(this, action);
+            }
+        }
+        SetChowOptionOff();
     }
 
-    public void ListenSelect(int index)
-    {
-        Debug.Log("test");
-    }
     public void buttontest()
     {
         Debug.Log("test");

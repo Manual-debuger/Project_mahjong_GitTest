@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using DataTransformNamespace;
 
 //Duty: 遊戲中的UI控制器
 public class InGameUIController : MonoBehaviour
@@ -25,6 +26,8 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
     public event EventHandler<ActionData> UIActiveActionEvent;
     private int NumberOfRemainingTiles = 17;
+    public bool IsListenState = false;
+    private ReadyInfoType readyInfo;
     public List<TileSuits> HandTileSuits = new() {
         TileSuits.NULL,TileSuits.NULL,
         TileSuits.NULL, TileSuits.NULL,
@@ -49,6 +52,7 @@ public class InGameUIController : MonoBehaviour
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
         _discardTileUIViewer.ActionEvent += UIActiveAction;
+        _discardTileUIViewer.ListenOnActionEvent += ListenOn;
     }    
     // Start is called before the first frame update
     void Start()
@@ -86,13 +90,38 @@ public class InGameUIController : MonoBehaviour
         //Debug.Log("OnDiscardTileSuggestEvent");
         //我猜你會需要這個
         //new TileSuitEventArgs(HandTileSuits[e.TileIndex])
-        OnTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        if (IsListenState)
+        {
+            List<TileSuits> tileList = new List<TileSuits> { HandTileSuits[e.TileIndex] };
+            string[] tileArray = DataTransform.ReturnIndexToTile(tileList);
+            string Tile = tileArray.ToString();
+            foreach (KeyValuePair<string, ListeningTilesType> key in readyInfo.key)
+            {
+                if (Tile == key.Key)
+                {
+
+                    _discardTileUIViewer.SetListenTile(key.Value);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            OnTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        }
     }
 
     private void LeaveDiscardTileSuggestEvent(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("LeaveDiscardTileSuggestEvent");
-        LeaveTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        if (IsListenState)
+        {
+            _discardTileUIViewer.CloseListenTile();
+        }
+        else
+        {
+            LeaveTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        }
     }
 
     public void HandTileSort()
@@ -168,6 +197,34 @@ public class InGameUIController : MonoBehaviour
         UIActiveActionEvent?.Invoke(this, e);
     }
 
+    private void ListenOn(object sender, ActionData e)
+    {
+        IsListenState = true;
+        List<string> tilesStrList = new List<string>();
+        readyInfo = e.ReadyInfo;
+        foreach (KeyValuePair<string, ListeningTilesType> key in readyInfo.key)
+        {
+            tilesStrList.Add(key.Key);
+        }
+        string[] tilesStrArray = tilesStrList.ToArray();
+        List<TileSuits> tilesList = DataTransform.ReturnTileToIndex(tilesStrArray);
+        List<int> ListenIndex = new List<int>();
+        foreach (TileSuits tile in tilesList)
+        {
+            for (int i = 0; i < 17; i++)
+            {
+                if (HandTileSuits[i] == tile)
+                {
+                    ListenIndex.Add(i);
+                }
+            }
+        }
+        _handTilesUIViewer.ListenSetOn(ListenIndex);
+    }
+    private void ListenOff(object sender, ActionData e)
+    {
+        IsListenState = false;
+    }
     public SettingUIButton SettingUIButton
     {
         get => default;

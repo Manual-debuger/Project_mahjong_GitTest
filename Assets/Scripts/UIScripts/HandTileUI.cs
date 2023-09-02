@@ -9,6 +9,8 @@ public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 {
     [SerializeField] 
     private Image _image;
+    [SerializeField]
+    private Button _button;
     public int index;
     public event EventHandler<TileIndexEventArgs> DiscardTileEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerDownEvent;
@@ -63,9 +65,19 @@ public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     }
 
     public void ListenOn()
-    { 
+    {
+        _image.color = new Color(255,255,0);
+        _button.interactable = true;
     }
     public void ListenOff()
     {
+        _image.color = new Color(127, 127, 127);
+        _button.interactable = false;
+        
+    }
+    public void ListenLeave()
+    {
+        _image.color = new Color(255, 255, 255);
+        _button.interactable = true;
     }
 }

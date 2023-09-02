@@ -11,7 +11,6 @@ public class HandTilesUI : MonoBehaviour
     public List<HandTileUI> _TilesComponents = new();
     [SerializeField] 
     private Sprite[] _tileMeshs;
-    public bool IsListenState = false;
     ReadyInfoType readyInfo;
     public event EventHandler<TileIndexEventArgs> DiscardTileEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerDownEvent;
@@ -78,7 +77,6 @@ public class HandTilesUI : MonoBehaviour
 
     public void ListenSetOn(List<int> ListenIndex)
     {
-        IsListenState = true;
         foreach (HandTileUI handTileUI in _TilesComponents)
         {
             handTileUI.ListenOff();
@@ -89,9 +87,8 @@ public class HandTilesUI : MonoBehaviour
         }
     }
 
-    private void ListenSetOff()
+    public void ListenSetOff()
     {
-        IsListenState = false;
         foreach (HandTileUI handTileUI in _TilesComponents)
         {
             handTileUI.ListenLeave();

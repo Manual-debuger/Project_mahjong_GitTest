@@ -46,13 +46,13 @@ public class ListenTile : MonoBehaviour
     //    OnPointerUpEvent?.Invoke(this, new TileIndexEventArgs(index));
     //}
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerEnter");
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerEnter");
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerExit");
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerExit");
+    //}
 }

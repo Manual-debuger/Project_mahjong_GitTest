@@ -71,7 +71,16 @@ public class InGameUIController : MonoBehaviour
     {
         //Debug.Log("UI");
         ActionData DiscardTileInfo = new ActionData();
-        DiscardTileInfo.ID = Action.Discard;
+        if (!IsListenState)
+        {
+            DiscardTileInfo.ID = Action.Discard;
+        }
+        else
+        {
+            DiscardTileInfo.ID = Action.ReadyHand;
+            DiscardTileUIViewer.SetListenOptionOff();
+            HandTilesUIViewer.ListenSetOff();
+        }
         DiscardTileInfo.OptionTiles = new List<List<TileSuits>>();
         DiscardTileInfo.OptionTiles.Add(new List<TileSuits> { HandTileSuits[e.TileIndex] });
         TileSuits tile = HandTileSuits[e.TileIndex];
@@ -100,7 +109,7 @@ public class InGameUIController : MonoBehaviour
                 if (Tile == key.Key)
                 {
 
-                    _discardTileUIViewer.SetListenTile(key.Value);
+                    _discardTileUIViewer.SetListenTileSuggest(key.Value);
                     break;
                 }
             }
@@ -116,7 +125,7 @@ public class InGameUIController : MonoBehaviour
         //Debug.Log("LeaveDiscardTileSuggestEvent");
         if (IsListenState)
         {
-            _discardTileUIViewer.CloseListenTile();
+            _discardTileUIViewer.CloseListenTileSuggest();
         }
         else
         {

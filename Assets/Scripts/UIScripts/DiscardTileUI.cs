@@ -11,12 +11,12 @@ public class DiscardTileUI : MonoBehaviour
     private ActionData[] Actions;
     public event EventHandler<ActionData> ActionEvent;
     public event EventHandler<ActionData> ListenOnActionEvent;
-    public GameObject ChowObject;
-    public GameObject ListenObject;
 
+    public GameObject ChowObject;
     public GameObject[] ChowOption;
     public HandTileUI[] ChowOptionTiles;
 
+    public GameObject ListenObject;
     public GameObject[] ListenOption;
     public ListenTile[] ListenOptionTiles;
     public TMP_Text[] ListenOptionRemain;
@@ -136,7 +136,6 @@ public class DiscardTileUI : MonoBehaviour
     public void SetListenOptionOn()
     {
         SetChowOptionOff();
-        Sprite[] TileSprites = AssetsPoolController.Instance.TileSprites;
         foreach (ActionData action in Actions)
         {
             if (action.ID == Action.ReadyHand)
@@ -148,13 +147,15 @@ public class DiscardTileUI : MonoBehaviour
 
     }
 
-    public void SetListenTile(ListeningTilesType listeningTilesTypes)
+    public void SetListenTileSuggest(ListeningTilesType listeningTilesTypes)
     {
         int count = 0;
         foreach (KeyValuePair<string, int> keyValuePair in listeningTilesTypes.Mahjong)
         {
             ListenOption[count].SetActive(true);
             ListenOptionTiles[count].Appear();
+            ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
+            ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
             ListenOptionRemain[count].text = "台數" + "\n" + "999";
             //ListenOptionScore[count];
 
@@ -162,16 +163,20 @@ public class DiscardTileUI : MonoBehaviour
         }
     }
 
-    public void CloseListenTile()
+    public void CloseListenTileSuggest()
     {
         for (int i = 0; i < 10; i++)
         {
+            ListenOption[i].SetActive(false);
             ListenOptionTiles[i].Disappear();
+            ListenOptionRemain[i].GetComponent<GameObject>().SetActive(false);
+            ListenOptionScore[i].GetComponent<GameObject>().SetActive(false);
         }
     }
 
     public void SetListenOptionOff()
     {
+        ListenObject.SetActive(false);
     }
 
     public void ChowSelect(int index)

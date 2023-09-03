@@ -19,6 +19,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private WinningSuggestUI _winningSuggestUIViewer;
     [SerializeField] private SettlementScreen _settlementScreen;
 
+    [SerializeField] private GameObject InGameUI;
+    [SerializeField] private GameObject SettlementUI;
     public event EventHandler<DiscardTileEventArgs> DiscardTileEvent;
     public event EventHandler<TileSuitEventArgs> OnTileBeHoldingEvent;
     public event EventHandler<TileSuitEventArgs> LeaveTileBeHoldingEvent;
@@ -74,6 +76,7 @@ public class InGameUIController : MonoBehaviour
         if (!IsListenState)
         {
             DiscardTileInfo.ID = Action.Discard;
+            ListenOff();
         }
         else
         {
@@ -230,9 +233,11 @@ public class InGameUIController : MonoBehaviour
         }
         _handTilesUIViewer.ListenSetOn(ListenIndex);
     }
-    private void ListenOff(object sender, ActionData e)
+    private void ListenOff()
     {
         IsListenState = false;
+        HandTilesUIViewer.ListenSetOff();
+        _discardTileUIViewer.SetListenOptionOff();
     }
     public SettingUIButton SettingUIButton
     {

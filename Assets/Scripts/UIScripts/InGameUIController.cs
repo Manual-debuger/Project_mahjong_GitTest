@@ -239,6 +239,13 @@ public class InGameUIController : MonoBehaviour
         HandTilesUIViewer.ListenSetOff();
         _discardTileUIViewer.SetListenOptionOff();
     }
+
+    public void Settlement(List<SeatInfo> seatInfos)
+    {
+        InGameUI.SetActive(false);
+        SettlementUI.SetActive(true);
+        _settlementScreen.SetSettlement(seatInfos);
+    }
     public SettingUIButton SettingUIButton
     {
         get => default;

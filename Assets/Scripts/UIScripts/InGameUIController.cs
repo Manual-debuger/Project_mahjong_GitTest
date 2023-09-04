@@ -306,9 +306,10 @@ public class InGameUIController : MonoBehaviour
 
     public DiscardTileUI DiscardTileUIViewer
     {
-        get => default;
-        set
+        get { return _discardTileUIViewer; }
+        private set
         {
+            _discardTileUIViewer = value;
         }
     }
 

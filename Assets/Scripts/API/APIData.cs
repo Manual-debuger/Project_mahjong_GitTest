@@ -162,8 +162,9 @@ namespace APIDataNamespace
             {
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
+                ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions) : null;
 
-                WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, eventData.Actions, processedSeats);
+                WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
 
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)

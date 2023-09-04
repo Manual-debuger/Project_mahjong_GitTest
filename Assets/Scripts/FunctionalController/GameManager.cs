@@ -298,7 +298,7 @@ public class GameManager : MonoBehaviour,IInitiable
         {
             _centralAreaController.SetWallCount(e.WallCount ?? -1);
             _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
-            if (e.Actions != null&&e.PlayingIndex==this._playerIndex)
+            if (e.Actions != null)
                 _inGameUIController.ActionUISet(e.Actions);
             
             for (int i = 0; i < e.Seats.Count(); i++)

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DataTransformNamespace
@@ -111,6 +113,41 @@ namespace DataTransformNamespace
                 }
             }
             return option;
+        }
+
+        public static ActionData[] MapActionData(ActionData[] actionData)
+        {
+            ActionData[] processedActionData = new ActionData[actionData.Length];
+            for(int i = 0;  i < processedActionData.Length; i++)
+            {
+                ActionData actionData1 = actionData[i];
+                if(actionData1 != null)
+                {
+                    processedActionData[i] = new ActionData();
+                    processedActionData[i].ID = actionData1.ID;
+                    switch (actionData1.ID)
+                    {
+                        case Action.Pass:
+                            break;
+                        case Action.Chow:
+                        case Action.Pong:
+                        case Action.Kong:
+                        case Action.AdditionKong:
+                        case Action.ConcealedKong:
+                            processedActionData[i].OptionTiles = MapStringListsToTileSuitsLists(actionData1.Options);
+                            break;
+                        case Action.ReadyHand:
+                            processedActionData[i].OptionTiles = MapStringListsToTileSuitsLists(actionData1.Options);
+                            processedActionData[i].ReadyInfo = actionData1.ReadyInfo;
+                            break;
+                        case Action.Win:
+                        case Action.DrawnFromDeadWall:
+                        case Action.SelfDrawnWin:
+                            break;
+                    };
+                }
+            }
+            return processedActionData;
         }
     }
 }

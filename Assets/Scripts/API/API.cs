@@ -21,8 +21,11 @@ public class API : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else if(Instance == null)
             Instance = this;
+
         uri = new Uri("ws://localhost:80/api/v1/games/mahjong16");
     }
 
@@ -118,35 +121,33 @@ public class API : MonoBehaviour
         // Parse the incoming JSON data into a Unity C# object
         MessageObject message = JsonConvert.DeserializeObject<MessageObject>(data);
 
-        if (message?.Data?.Index == 0 || message.Path != Path.TableEvent) // 東風人
-        {
-            Debug.Log("From Server: " + data);
         
-            // Switch based on the Path to handle different message types
-            switch (message.Path)
-            {
-                case Path.Ack:
-                    HandleAck();
-                    break;
-                case Path.Login:
-                    HandleLogin();
-                    break;
-                case Path.TableEnter:
-                    HandleTableEnter();
-                    break;
-                case Path.TableEvent:
-                    HandleTableEvent(message.Data);
-                    break;
-                case Path.TablePlay:
-                    HandleTablePlay(message.Data);
-                    break;
-                case Path.TableResult:
-                    HandleTableResult(message.Data);
-                    break;
-                default:
-                    Debug.LogError("Unknown message Path: " + message.Path);
-                    break;
-            }
+        Debug.Log("From Server: " + data);
+        
+        // Switch based on the Path to handle different message types
+        switch (message.Path)
+        {
+            case Path.Ack:
+                HandleAck();
+                break;
+            case Path.Login:
+                HandleLogin();
+                break;
+            case Path.TableEnter:
+                HandleTableEnter();
+                break;
+            case Path.TableEvent:
+                HandleTableEvent(message.Data);
+                break;
+            case Path.TablePlay:
+                HandleTablePlay(message.Data);
+                break;
+            case Path.TableResult:
+                HandleTableResult(message.Data);
+                break;
+            default:
+                Debug.LogError("Unknown message Path: " + message.Path);
+                break;
         }
     }
 

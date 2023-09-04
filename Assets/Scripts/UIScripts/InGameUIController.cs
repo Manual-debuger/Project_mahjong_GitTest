@@ -80,6 +80,7 @@ public class InGameUIController : MonoBehaviour
         }
         else
         {
+            IsListenState = false;
             DiscardTileInfo.ID = Action.ReadyHand;
             DiscardTileUIViewer.SetListenOptionOff();
             _handTilesUIViewer.ListenSetOff();
@@ -205,6 +206,7 @@ public class InGameUIController : MonoBehaviour
 
     private void UIActiveAction(object sender, ActionData e)
     {
+        IsListenState = false;
         DiscardTileUIViewer.ActionUISetOff();
         UIActiveActionEvent?.Invoke(this, e);
     }

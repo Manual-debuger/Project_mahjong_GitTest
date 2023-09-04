@@ -82,7 +82,7 @@ public class InGameUIController : MonoBehaviour
         {
             DiscardTileInfo.ID = Action.ReadyHand;
             DiscardTileUIViewer.SetListenOptionOff();
-            HandTilesUIViewer.ListenSetOff();
+            _handTilesUIViewer.ListenSetOff();
         }
         DiscardTileInfo.OptionTiles = new List<List<TileSuits>>();
         DiscardTileInfo.OptionTiles.Add(new List<TileSuits> { HandTileSuits[e.TileIndex] });
@@ -236,7 +236,7 @@ public class InGameUIController : MonoBehaviour
     private void ListenOff()
     {
         IsListenState = false;
-        HandTilesUIViewer.ListenSetOff();
+        _handTilesUIViewer.ListenSetOff();
         _discardTileUIViewer.SetListenOptionOff();
     }
 

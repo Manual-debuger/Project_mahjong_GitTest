@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using DataTransformNamespace;
 
 //Duty: 遊戲中的UI控制器
 public class InGameUIController : MonoBehaviour
@@ -18,6 +19,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private WinningSuggestUI _winningSuggestUIViewer;
     [SerializeField] private SettlementScreen _settlementScreen;
 
+    [SerializeField] private GameObject InGameUI;
+    [SerializeField] private GameObject SettlementUI;
     public event EventHandler<DiscardTileEventArgs> DiscardTileEvent;
     public event EventHandler<TileSuitEventArgs> OnTileBeHoldingEvent;
     public event EventHandler<TileSuitEventArgs> LeaveTileBeHoldingEvent;
@@ -25,7 +28,9 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
     public event EventHandler<ActionData> UIActiveActionEvent;
     private int NumberOfRemainingTiles = 17;
-    private List<TileSuits> HandTileSuits = new() {
+    public bool IsListenState = false;
+    private ReadyInfoType readyInfo;
+    public List<TileSuits> HandTileSuits = new() {
         TileSuits.NULL,TileSuits.NULL,
         TileSuits.NULL, TileSuits.NULL,
         TileSuits.NULL, TileSuits.NULL,
@@ -49,6 +54,7 @@ public class InGameUIController : MonoBehaviour
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
         _discardTileUIViewer.ActionEvent += UIActiveAction;
+        _discardTileUIViewer.ListenOnActionEvent += ListenOn;
     }    
     // Start is called before the first frame update
     void Start()
@@ -66,6 +72,20 @@ public class InGameUIController : MonoBehaviour
     private void DiscardTile(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("UI");
+        ActionData DiscardTileInfo = new ActionData();
+        if (!IsListenState)
+        {
+            DiscardTileInfo.ID = Action.Discard;
+            ListenOff();
+        }
+        else
+        {
+            DiscardTileInfo.ID = Action.ReadyHand;
+            DiscardTileUIViewer.SetListenOptionOff();
+            HandTilesUIViewer.ListenSetOff();
+        }
+        DiscardTileInfo.OptionTiles = new List<List<TileSuits>>();
+        DiscardTileInfo.OptionTiles.Add(new List<TileSuits> { HandTileSuits[e.TileIndex] });
         TileSuits tile = HandTileSuits[e.TileIndex];
         //HandTileSuits[e.TileIndex] = TileSuits.NULL;
         HandTileSuits[e.TileIndex] = HandTileSuits[16];
@@ -73,20 +93,47 @@ public class InGameUIController : MonoBehaviour
 
         HandTileSort();
         HandTileUISet();
-        DiscardTileEvent?.Invoke(this, new DiscardTileEventArgs(tile, 0));
+        //DiscardTileEvent?.Invoke(this, new DiscardTileEventArgs(tile, 0));
+        UIActiveActionEvent?.Invoke(this, DiscardTileInfo);
+        Debug.Log("test");
     }
     private void OnDiscardTileSuggestEvent(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("OnDiscardTileSuggestEvent");
         //我猜你會需要這個
         //new TileSuitEventArgs(HandTileSuits[e.TileIndex])
-        OnTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        if (IsListenState)
+        {
+            List<TileSuits> tileList = new List<TileSuits> { HandTileSuits[e.TileIndex] };
+            string[] tileArray = DataTransform.ReturnIndexToTile(tileList);
+            string Tile = tileArray.ToString();
+            foreach (KeyValuePair<string, ListeningTilesType> key in readyInfo.key)
+            {
+                if (Tile == key.Key)
+                {
+
+                    _discardTileUIViewer.SetListenTileSuggest(key.Value);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            OnTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        }
     }
 
     private void LeaveDiscardTileSuggestEvent(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("LeaveDiscardTileSuggestEvent");
-        LeaveTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        if (IsListenState)
+        {
+            _discardTileUIViewer.CloseListenTileSuggest();
+        }
+        else
+        {
+            LeaveTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
+        }
     }
 
     public void HandTileSort()
@@ -153,14 +200,52 @@ public class InGameUIController : MonoBehaviour
     }
     public void ActionUISet(ActionData[] actions)
     {
-        DiscardTileUIViewer.ActionUISet(actions);
+        DiscardTileUIViewer.ActionUISetOn(actions);
     }
 
     private void UIActiveAction(object sender, ActionData e)
     {
+        DiscardTileUIViewer.ActionUISetOff();
         UIActiveActionEvent?.Invoke(this, e);
     }
 
+    private void ListenOn(object sender, ActionData e)
+    {
+        IsListenState = true;
+        List<string> tilesStrList = new List<string>();
+        readyInfo = e.ReadyInfo;
+        foreach (KeyValuePair<string, ListeningTilesType> key in readyInfo.key)
+        {
+            tilesStrList.Add(key.Key);
+        }
+        string[] tilesStrArray = tilesStrList.ToArray();
+        List<TileSuits> tilesList = DataTransform.ReturnTileToIndex(tilesStrArray);
+        List<int> ListenIndex = new List<int>();
+        foreach (TileSuits tile in tilesList)
+        {
+            for (int i = 0; i < 17; i++)
+            {
+                if (HandTileSuits[i] == tile)
+                {
+                    ListenIndex.Add(i);
+                }
+            }
+        }
+        _handTilesUIViewer.ListenSetOn(ListenIndex);
+    }
+    private void ListenOff()
+    {
+        IsListenState = false;
+        HandTilesUIViewer.ListenSetOff();
+        _discardTileUIViewer.SetListenOptionOff();
+    }
+
+    public void Settlement(List<SeatInfo> seatInfos)
+    {
+        InGameUI.SetActive(false);
+        SettlementUI.SetActive(true);
+        _settlementScreen.SetSettlement(seatInfos);
+    }
     public SettingUIButton SettingUIButton
     {
         get => default;

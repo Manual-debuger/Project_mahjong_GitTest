@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DataTransformNamespace;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 
 
 namespace APIDataNamespace
@@ -36,7 +37,12 @@ namespace APIDataNamespace
 
         private void Awake()
         {
-            instance = this;
+            if (instance != null && instance != this)
+                Destroy(this.gameObject);
+            else if (instance == null)
+            {
+                instance = this;
+            }
         }
 
         public static void HandleWaitingState(MessageData eventData)
@@ -309,10 +315,10 @@ namespace APIDataNamespace
             }
             else
             {
-                TablePlayObject requestData = new TablePlayObject
+                var requestData = new
                 {
                     Path = Path.TablePlay,
-                    Data = new TablePlayData
+                    Data = new
                     {
                         Index = index,
                         Action = actionData.ID,

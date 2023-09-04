@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using DataTransformNamespace;
 //Duty: To display the tiles in the hand of the player跟回傳事件
 public class HandTilesUI : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class HandTilesUI : MonoBehaviour
     public List<HandTileUI> _TilesComponents = new();
     [SerializeField] 
     private Sprite[] _tileMeshs;
+    ReadyInfoType readyInfo;
     public event EventHandler<TileIndexEventArgs> DiscardTileEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerDownEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerUpEvent;
@@ -72,4 +74,25 @@ public class HandTilesUI : MonoBehaviour
         //Debug.Log("UI");
         OnPointerUpEvent?.Invoke(this, e);
     }
+
+    public void ListenSetOn(List<int> ListenIndex)
+    {
+        foreach (HandTileUI handTileUI in _TilesComponents)
+        {
+            handTileUI.ListenOff();
+        }
+        foreach (int index in ListenIndex)
+        {
+            _TilesComponents[index].ListenOn();
+        }
+    }
+
+    public void ListenSetOff()
+    {
+        foreach (HandTileUI handTileUI in _TilesComponents)
+        {
+            handTileUI.ListenLeave();
+        }
+    }
+
 }

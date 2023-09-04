@@ -87,6 +87,49 @@ MonoBehaviour:
   - {fileID: 4300254, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
   - {fileID: 4300258, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
   - {fileID: 4300260, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
+  _tileSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _defaultTileMaterial: {fileID: 2100000, guid: 44268c0e0ea7ef441a8bea5d89652aa3, type: 2}
   _highLightedTileMaterial: {fileID: 2100000, guid: 1b2b8a16023b90f4599bb2ee991d7511, type: 2}
   _effectsPrefabs:

@@ -71,7 +71,15 @@ public class GameManager : MonoBehaviour,IInitiable
   
     public void Init()
     {
-        throw new System.NotImplementedException();
+        foreach (PlayerControllerBase playerController in _playerControllers)
+        {
+            playerController.Init();
+        }
+        _abandonedTilesAreaController.Init();
+        _centralAreaController.Init();
+        //_inGameUIController.Init();
+        //_effectController.Init();
+        //_audioController.Init();
     }
     // Start is called before the first frame update
     void Start()
@@ -335,7 +343,7 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
-            
+            Init();
         }
         catch (Exception ex)
         {

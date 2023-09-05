@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 //Server as a Controller for the abandoned tiles area
-public class AbandonedTilesAreaController : MonoBehaviour
+public class AbandonedTilesAreaController : MonoBehaviour,IInitiable
 {
     [SerializeField]private List<SeaTilesAreaController> _abandonedTilesAreas;
 
@@ -41,5 +41,13 @@ public class AbandonedTilesAreaController : MonoBehaviour
     public void SetTiles(int targetIndex, List<TileSuits> tileSuits)
     {
         _abandonedTilesAreas[targetIndex].SetTiles(tileSuits);
+    }
+
+    public void Init()
+    {
+        foreach(SeaTilesAreaController seaTilesAreaController in _abandonedTilesAreas)
+        {
+            seaTilesAreaController.Init();
+        }
     }
 }

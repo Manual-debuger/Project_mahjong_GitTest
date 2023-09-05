@@ -138,14 +138,14 @@ namespace APIDataNamespace
         {
             try
             {
-                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-                List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-
-                PlayingEventArgs playingEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, processedSeats);
-
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)
                 {
+                    List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                    List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
+                    ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
+
+                    PlayingEventArgs playingEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
                     PlayingDeadline = eventData.PlayingDeadline;
                     PlayingEvent?.Invoke(instance, playingEventArgs);
                 }
@@ -162,7 +162,7 @@ namespace APIDataNamespace
             {
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
-                ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions) : null;
+                ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
                 WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
 

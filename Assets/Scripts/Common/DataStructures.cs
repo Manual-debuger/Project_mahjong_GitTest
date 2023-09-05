@@ -135,13 +135,15 @@ public class PlayingEventArgs : EventArgs
     public long? PlayingDeadline;
     public int? WallCount;
     public List<TileSuits> Tiles;
+    public ActionData[] Actions;
     public List<SeatInfo> Seats;
-    public PlayingEventArgs(int? playingIndex, long? playingDeadline, int? wallCount, List<TileSuits> tiles, List<SeatInfo> seats)
+    public PlayingEventArgs(int? playingIndex, long? playingDeadline, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
     {
         PlayingIndex = playingIndex;
         PlayingDeadline = playingDeadline;
         WallCount = wallCount;
         Tiles = tiles;
+        Actions = actions;
         Seats = seats;
     }
 }

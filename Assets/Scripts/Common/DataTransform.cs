@@ -115,7 +115,7 @@ namespace DataTransformNamespace
             return option;
         }
 
-        public static ActionData[] MapActionData(ActionData[] actionData)
+        public static ActionData[] MapActionData(ActionData[] actionData, List<TileSuits> tiles)
         {
             ActionData[] processedActionData = new ActionData[actionData.Length];
             for(int i = 0;  i < processedActionData.Length; i++)
@@ -123,11 +123,16 @@ namespace DataTransformNamespace
                 ActionData actionData1 = actionData[i];
                 if(actionData1 != null)
                 {
-                    processedActionData[i] = new ActionData();
-                    processedActionData[i].ID = actionData1.ID;
+                    processedActionData[i] = new ActionData
+                    {
+                        ID = actionData1.ID
+                    };
                     switch (actionData1.ID)
                     {
                         case Action.Pass:
+                            break;
+                        case Action.Discard:
+                            processedActionData[i].OptionTiles = (actionData1.Options == null) ? new List<List<TileSuits>>(){ tiles } : MapStringListsToTileSuitsLists(actionData1.Options);
                             break;
                         case Action.Chow:
                         case Action.Pong:

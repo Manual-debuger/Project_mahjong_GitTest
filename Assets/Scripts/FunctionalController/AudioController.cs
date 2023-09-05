@@ -38,7 +38,7 @@ public class AudioController : MonoBehaviour
         isPlayingReadyHand = true;
         bgmSource.clip = bgmClip;
         bgmSource.loop = true;
-        bgmSource.volume = 0.3f;
+        bgmSource.volume = 0.2f;
         bgmSource.Play();
     }
 
@@ -60,6 +60,7 @@ public class AudioController : MonoBehaviour
                 break;
         }
         audioSource.loop = false;
+        audioSource.volume = 0.8f;
         audioSource.Play();
     }
 }

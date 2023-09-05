@@ -2098,6 +2098,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 591035072}
     m_Modifications:
+    - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
+      propertyPath: bgmClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e81b331883dc6f140b9cbf188a4fbec1, type: 3}
+    - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
+      propertyPath: chowClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+    - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
+      propertyPath: kongClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+    - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
+      propertyPath: pongClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+    - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
+      propertyPath: groundingFlowerClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
     - target: {fileID: 2296638117945630328, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3797,7 +3817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1296958875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3841,7 +3861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1298207310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5322,7 +5342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1739439338
 MonoBehaviour:
   m_ObjectHideFlags: 0

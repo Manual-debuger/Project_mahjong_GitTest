@@ -23,7 +23,7 @@ namespace DataTransformNamespace
                         string typeString = tile.Substring(1, 2);
                         if (Enum.TryParse(typeString, out TileSuits tileSuit))
                         {
-                            tileSuitsList.Add(tileSuit + 100);
+                            // tileSuitsList.Add(tileSuit + 100);
                         }
                         else
                         {

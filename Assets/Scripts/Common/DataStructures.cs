@@ -132,15 +132,15 @@ public class GroundingFlowerEventArgs : EventArgs
 public class PlayingEventArgs : EventArgs
 {
     public int? PlayingIndex; 
-    public long? PlayingDeadline;
+    public long? PlayingTimeLeft;
     public int? WallCount;
     public List<TileSuits> Tiles;
     public ActionData[] Actions;
     public List<SeatInfo> Seats;
-    public PlayingEventArgs(int? playingIndex, long? playingDeadline, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
+    public PlayingEventArgs(int? playingIndex, long? playingTimeLeft, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
     {
         PlayingIndex = playingIndex;
-        PlayingDeadline = playingDeadline;
+        PlayingTimeLeft = playingTimeLeft;
         WallCount = wallCount;
         Tiles = tiles;
         Actions = actions;
@@ -151,15 +151,15 @@ public class PlayingEventArgs : EventArgs
 public class WaitingActionEventArgs : EventArgs
 {
     public int? PlayingIndex;
-    public long? PlayingDeadline;
+    public long? PlayingTimeLeft;
     public int? WallCount;
     public List<TileSuits> Tiles;
     public ActionData[] Actions;
     public List<SeatInfo> Seats;
-    public WaitingActionEventArgs(int? playingIndex, long? playingDeadline, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
+    public WaitingActionEventArgs(int? playingIndex, long? playingTimeLeft, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
     {
         PlayingIndex = playingIndex;
-        PlayingDeadline = playingDeadline;
+        PlayingTimeLeft = playingTimeLeft;
         WallCount = wallCount;
         Tiles = tiles;
         Actions = actions;

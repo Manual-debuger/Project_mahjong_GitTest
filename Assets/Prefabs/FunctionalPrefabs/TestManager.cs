@@ -19,7 +19,7 @@ public class TestManager : MonoBehaviour
 
     public void PlayEffect(string effectID)
     {
-        _effectController.PlayEffect((EffectID)int.Parse(effectID), 0);
+         _effectController.PlayEffect((EffectID)int.Parse(effectID), 0);
     }
     
 }

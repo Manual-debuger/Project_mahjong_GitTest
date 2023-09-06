@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 //Duty: 處理特效/動畫相關的控制
@@ -23,7 +24,7 @@ public class EffectController : Singleton<EffectController>
         
     }
     
-    public void PlayEffect(EffectID effectID,int PlayerIndex)
+    public async void PlayEffect(EffectID effectID,int PlayerIndex)
     {        
         StopAllEffects();
         if (effectID == EffectID.None)
@@ -32,10 +33,23 @@ public class EffectController : Singleton<EffectController>
         {
             if (PlayerIndex < 0 || PlayerIndex > 3)
                 throw new System.Exception("PlayerIndex out of range");
+
             var effectobject = Instance._effectsdict[effectID];
+            
+            ParticleSystem ps = effectobject.GetComponent<ParticleSystem>();
             var effectTransform = effectobject.GetComponent<Transform>();
-            effectTransform.position = Instance._effectTransforms[PlayerIndex].position;
-            effectobject.SetActive(true);
+            if (ps != null)
+            {
+                effectTransform.position = Instance._effectTransforms[PlayerIndex].position;
+                effectobject.SetActive(true);
+                ps.Play();
+                await Task.Delay((int)ps.main.duration * 1000);
+                effectobject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("EffectController: PlayEffect: ParticleSystem not found");
+            }
         }
         catch (KeyNotFoundException e)
         {

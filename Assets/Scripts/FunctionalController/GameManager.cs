@@ -253,38 +253,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
                 
             }
-
-            //Effect
-            _effectController.StopAllEffects();
-            //if (e.PlayingIndex != null && e.Actions != null)
-            //{
-            //    switch (e.Actions[0].ID)
-            //    {
-            //        case Action.Chow:
-            //            _effectController.PlayEffect(EffectID.Chow, CastAPIIndexToLocalIndex(e.PlayingIndex ?? 0));
-            //            break;
-            //        case Action.Pong:
-            //            _effectController.PlayEffect(EffectID.Pong, CastAPIIndexToLocalIndex(e.PlayingIndex ?? 0));
-            //            break;
-            //        case Action.Kong:
-            //        case Action.ConcealedKong:
-            //        case Action.AdditionKong:
-            //            _effectController.PlayEffect(EffectID.Kong, CastAPIIndexToLocalIndex(e.PlayingIndex ?? 0));
-            //            break;
-            //        case Action.Discard:
-            //        case Action.Pass:
-            //        case Action.Win:
-            //        case Action.SelfDrawnWin:
-            //        case Action.Drawn:
-            //        case Action.ReadyHand:
-            //            //_effectController.PlayEffect(EffectID.Win, CastAPIIndexToLocalIndex(e.PlayingIndex ?? 0));
-            //            Debug.LogWarning("Not Implemented this Effect yet");
-            //            break;
-            //        default:
-            //            Debug.LogWarning("Not Implemented this Effect yet");
-            //            break;
-            //    }
-            //}
+            
             Debug.Log(debugMessage);
         }
         catch (Exception ex)

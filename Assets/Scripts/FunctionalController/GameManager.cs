@@ -235,6 +235,8 @@ public class GameManager : MonoBehaviour,IInitiable
         {
             _centralAreaController.SetWallCount(e.WallCount ?? -1);
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
+            if (e.Actions != null)
+                _inGameUIController.ActionUISet(e.Actions);
             for (int i=0;i< e.Seats.Count();i++)
             {
                 debugMessage += ", Name: " + e.Seats[i].Nickname;
@@ -275,6 +277,7 @@ public class GameManager : MonoBehaviour,IInitiable
         {
             _centralAreaController.SetWallCount(e.WallCount ?? -1);
             _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
+            
             if (e.Actions != null)
                 _inGameUIController.ActionUISet(e.Actions);
             

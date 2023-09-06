@@ -53,6 +53,8 @@ public class InGameUIController : MonoBehaviour
         TileSuits.NULL,
         TileSuits.NULL
     };
+
+    private long CountTime;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -78,7 +80,11 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CountTime -= (long)(Time.deltaTime * 1000);
+        if (CountTime < 0)
+        {
+            TimeOut();
+        }
     }
 
     private void DiscardTile(object sender, TileIndexEventArgs e)
@@ -136,7 +142,6 @@ public class InGameUIController : MonoBehaviour
         }
         OnTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
     }
-
     private void LeaveDiscardTileSuggestEvent(object sender, TileIndexEventArgs e)
     {
         //Debug.Log("LeaveDiscardTileSuggestEvent");
@@ -147,7 +152,6 @@ public class InGameUIController : MonoBehaviour
         LeaveTileBeHoldingEvent?.Invoke(this, new TileSuitEventArgs(HandTileSuits[e.TileIndex]));
 
     }
-
     public void HandTileSort()
     {
         List<TileSuits> sublist = HandTileSuits.GetRange(0, 16);
@@ -163,7 +167,6 @@ public class InGameUIController : MonoBehaviour
         HandTileSuits.InsertRange(0, sublist);
         //HandTileSuits.Sort(new Comparison<TileSuits>((x, y) => x.CompareTo(y)));
     }
-
     public void HandTileUISet()
     {
         for (int i = 0; i < 17; i++)
@@ -171,7 +174,6 @@ public class InGameUIController : MonoBehaviour
             _handTilesUIViewer.HandTileSet(i, HandTileSuits[i]);
         }
     }
-
     public void SetHandTile(List<TileSuits> tileSuits, bool IsDrawing)
     {
         if (tileSuits.Count == 17)
@@ -198,13 +200,11 @@ public class InGameUIController : MonoBehaviour
         }
         HandTileUISet();
     }
-
     private void SetMusic(object sender, FloatEventArgs e)
     {
         //Debug.Log(e.f);
         SetMusicEvent?.Invoke(this, e);
     }
-
     private void SetSound(object sender, FloatEventArgs e)
     {
         //Debug.Log(e.f);
@@ -266,14 +266,68 @@ public class InGameUIController : MonoBehaviour
         }
         //DiscardTileUIViewer.ActionUISetOn(actions);
     }
-
+    public void ActionUISet(ActionData[] actions, long time)
+    {
+        Actions = actions;
+        foreach (ActionData action in actions)
+        {
+            switch (action.ID)
+            {
+                case Action.Pass:
+                    _discardTileUIViewer.SetPassOn();
+                    break;
+                case Action.Discard:
+                    for (int i = 0; i < 17; i++)
+                    {
+                        CanDiscardList[i] = false;
+                    }
+                    foreach (List<TileSuits> tileSuits in action.OptionTiles)
+                    {
+                        foreach (TileSuits tileSuit in tileSuits)
+                        {
+                            for (int i = 0; i < 17; i++)
+                            {
+                                if (HandTileSuits[i] == tileSuit)
+                                {
+                                    CanDiscardList[i] = true;
+                                }
+                            }
+                        }
+                    }
+                    _handTilesUIViewer.DiscardTileSet(CanDiscardList);
+                    IsDiscardState = true;
+                    break;
+                case Action.Chow:
+                    _discardTileUIViewer.SetChowOn();
+                    break;
+                case Action.Pong:
+                    _discardTileUIViewer.SetPongOn();
+                    break;
+                case Action.Kong:
+                case Action.AdditionKong:
+                case Action.ConcealedKong:
+                    _discardTileUIViewer.SetKongOn();
+                    break;
+                case Action.ReadyHand:
+                    _discardTileUIViewer.SetListenOn();
+                    break;
+                case Action.Win:
+                case Action.DrawnFromDeadWall:
+                case Action.SelfDrawnWin:
+                    _discardTileUIViewer.SetWinningOn();
+                    break;
+                default:
+                    break;
+            }
+        }
+        CountTime = time;
+    }
     private void UIActiveAction(object sender, ActionData e)
     {
         IsListenState = false;
         DiscardTileUIViewer.ActionUISetOff();
         UIActiveActionEvent?.Invoke(this, e);
     }
-
     private void ListenOn(object sender, ActionData e)
     {
         IsListenState = true;
@@ -303,14 +357,12 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.ListenSetOff();
         _discardTileUIViewer.SetListenOptionOff();
     }
-
     public void Settlement(List<SeatInfo> seatInfos)
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         _settlementScreen.SetSettlement(seatInfos);
     }
-
     public void Pass()
     {
         _discardTileUIViewer.ActionUISetOff();
@@ -455,7 +507,6 @@ public class InGameUIController : MonoBehaviour
             CanDiscardList[i] = false;
         }
     }
-
     public void ChowSelect(int index)
     {
         foreach (ActionData action in Actions)
@@ -480,7 +531,19 @@ public class InGameUIController : MonoBehaviour
             CanDiscardList[i] = false;
         }
     }
-
+    private void TimeOut()
+    {
+        for (int i = 0; i < 17; i++)
+        {
+            CanDiscardList[i] = false;
+        }
+        IsListenState = false;
+        IsDiscardState = false;
+        _handTilesUIViewer.SetBright();
+        _discardTileUIViewer.SetListenOptionOff();
+        _discardTileUIViewer.SetChowOptionOff();
+        _discardTileUIViewer.ActionUISetOff();
+    }
     public SettingUIButton SettingUIButton
     {
         get => default;
@@ -488,7 +551,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public UICountdownTimer UICountdownTimer
     {
         get => default;
@@ -496,7 +558,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public HandTilesUI HandTilesUIViewer
     {
         get => default;
@@ -504,7 +565,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public WinningSuggestUI WinningSuggestUIViewer
     {
         get => default;
@@ -512,7 +572,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public SocialUIButton SocialUIButton
     {
         get => default;
@@ -520,7 +579,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public SupportUIButton SupportUIButton
     {
         get => default;
@@ -528,7 +586,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public ListeningHolesUI ListeningHolesUI
     {
         get => default;
@@ -536,7 +593,6 @@ public class InGameUIController : MonoBehaviour
         {
         }
     }
-
     public DiscardTileUI DiscardTileUIViewer
     {
         get { return _discardTileUIViewer; }
@@ -545,7 +601,6 @@ public class InGameUIController : MonoBehaviour
             _discardTileUIViewer = value;
         }
     }
-
     public SettlementScreen SettlementScreen
     {
         get => default;

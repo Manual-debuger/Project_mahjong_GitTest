@@ -141,11 +141,12 @@ namespace APIDataNamespace
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)
                 {
+                    long? playingtimeLeft = eventData.PlayingDeadline - eventData.Time;
                     List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                     List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                     ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                    PlayingEventArgs playingEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                    PlayingEventArgs playingEventArgs = new(eventData.PlayingIndex, playingtimeLeft, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
                     PlayingDeadline = eventData.PlayingDeadline;
                     PlayingEvent?.Invoke(instance, playingEventArgs);
                 }
@@ -160,11 +161,12 @@ namespace APIDataNamespace
         {
             try
             {
+                long? playingtimeLeft = eventData.PlayingDeadline - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, eventData.PlayingDeadline, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, playingtimeLeft, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
 
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)

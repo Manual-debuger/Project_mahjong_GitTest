@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         Debug.Log("!!!!!!!!!!!!OnPlayingEvent!!!!!!!!!!!!");
 
-        string debugMessage = "PlayingDeadline = " + e.PlayingDeadline;
+        string debugMessage = "PlayingDeadline = " + e.PlayingTimeLeft;
 
         try
         {
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.LogWarning("!!!!!!!!!!!!OnWaitingActionEvent!!!!!!!!!!!!");
         Debug.LogWarning($"OnWaitingActionEvent e.Seats.Count={e.Seats.Count}");
 
-        string debugMessage = "PlayingDeadline = " + e.PlayingDeadline;
+        string debugMessage = "PlayingDeadline = " + e.PlayingTimeLeft;
 
         try
         {

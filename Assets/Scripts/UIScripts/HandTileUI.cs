@@ -5,9 +5,9 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 //Duty: To display the tiles in the hand of the player跟回傳事件
-public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,IPointerEnterHandler, IPointerExitHandler
+public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] 
+    [SerializeField]
     private Image _image;
     [SerializeField]
     private Button _button;
@@ -64,20 +64,16 @@ public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         //Debug.Log("OnPointerExit");
     }
 
-    public void ListenOn()
-    {
-        _image.color = new Color(255,255,0);
-        _button.interactable = true;
-    }
-    public void ListenOff()
+    public void SetDark()
     {
         _image.color = new Color(127, 127, 127);
-        _button.interactable = false;
-        
     }
-    public void ListenLeave()
+    public void SetBright()
     {
         _image.color = new Color(255, 255, 255);
-        _button.interactable = true;
+    }
+    public void SetYellow()
+    {
+        _image.color = new Color(255, 255, 0);
     }
 }

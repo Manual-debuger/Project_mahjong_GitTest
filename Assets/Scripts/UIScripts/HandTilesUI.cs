@@ -9,7 +9,7 @@ public class HandTilesUI : MonoBehaviour
 {
     [SerializeField]
     public List<HandTileUI> _TilesComponents = new();
-    [SerializeField] 
+    [SerializeField]
     private Sprite[] _tileMeshs;
     ReadyInfoType readyInfo;
     public event EventHandler<TileIndexEventArgs> DiscardTileEvent;
@@ -31,7 +31,7 @@ public class HandTilesUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void Appear()
     {
@@ -41,8 +41,8 @@ public class HandTilesUI : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-    
-    public void HandTileSet(int index,TileSuits HandTileSuit)
+
+    public void HandTileSet(int index, TileSuits HandTileSuit)
     {
         if (HandTileSuit != TileSuits.NULL)
         {
@@ -54,13 +54,6 @@ public class HandTilesUI : MonoBehaviour
     }
     private void DiscardTile(object sender, TileIndexEventArgs e)
     {
-        //Debug.Log("Tiles");
-        //if(_TilesComponents[0].gameObject.activeSelf)
-        //    _TilesComponents[0].Disappear();
-        //else
-        //    _TilesComponents[0].Appear();
-        //_TilesComponents[0].Appear();
-
         DiscardTileEvent?.Invoke(this, e);
     }
     private void OnPointerDown(object sender, TileIndexEventArgs e)
@@ -79,11 +72,11 @@ public class HandTilesUI : MonoBehaviour
     {
         foreach (HandTileUI handTileUI in _TilesComponents)
         {
-            handTileUI.ListenOff();
+            handTileUI.SetDark();
         }
         foreach (int index in ListenIndex)
         {
-            _TilesComponents[index].ListenOn();
+            _TilesComponents[index].SetYellow();
         }
     }
 
@@ -91,8 +84,37 @@ public class HandTilesUI : MonoBehaviour
     {
         foreach (HandTileUI handTileUI in _TilesComponents)
         {
-            handTileUI.ListenLeave();
+            handTileUI.SetBright();
         }
     }
 
+    public void DiscardTileSet(bool[] CanDiscardList)
+    {
+        for (int i = 0; i < 17; i++)
+        {
+            if (CanDiscardList[i])
+            {
+                _TilesComponents[i].SetBright();
+            }
+            else
+            {
+                _TilesComponents[i].SetDark();
+            }
+        }
+    }
+
+    public void SetBright()
+    {
+        foreach (HandTileUI tileComponent in _TilesComponents)
+        {
+            tileComponent.SetBright();
+        }
+    }
+    public void SetDark()
+    {
+        foreach (HandTileUI tileComponent in _TilesComponents)
+        {
+            tileComponent.SetDark();
+        }
+    }
 }

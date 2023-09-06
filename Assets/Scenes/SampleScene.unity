@@ -1093,8 +1093,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: ChowSelect
         m_Mode: 3
         m_Arguments:
@@ -1256,8 +1256,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Chow
         m_Mode: 1
         m_Arguments:
@@ -1923,8 +1923,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Pong
         m_Mode: 1
         m_Arguments:
@@ -2440,8 +2440,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: ChowSelect
         m_Mode: 3
         m_Arguments:
@@ -2451,7 +2451,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!1001 &866574206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4238,8 +4238,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Pass
         m_Mode: 1
         m_Arguments:
@@ -4865,8 +4865,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: ChowSelect
         m_Mode: 3
         m_Arguments:
@@ -4876,7 +4876,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!1 &1646445954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5661,6 +5661,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 682319145}
+    - target: {fileID: 4296743635505566759, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: buttontest
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
 --- !u!224 &1821839245 stripped
@@ -7275,8 +7279,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Listen
         m_Mode: 1
         m_Arguments:
@@ -7331,8 +7335,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Kong
         m_Mode: 1
         m_Arguments:
@@ -7431,8 +7435,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682319145}
-        m_TargetAssemblyTypeName: DiscardTileUI, Assembly-CSharp
+      - m_Target: {fileID: 1967460404}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
         m_MethodName: Winning
         m_Mode: 1
         m_Arguments:
@@ -7669,6 +7673,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 682319145}
+    - target: {fileID: 4296743635505566759, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: buttontest
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
 --- !u!114 &4296743635064212801 stripped

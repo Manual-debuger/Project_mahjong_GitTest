@@ -8,7 +8,7 @@ using TMPro;
 public class DiscardTileUI : MonoBehaviour
 {
     [SerializeField] private ActionUI actionUI;
-    private ActionData[] Actions;
+    //private ActionData[] Actions;
     public event EventHandler<ActionData> ActionEvent;
     public event EventHandler<ActionData> ListenOnActionEvent;
 
@@ -21,106 +21,108 @@ public class DiscardTileUI : MonoBehaviour
     public ListenTile[] ListenOptionTiles;
     public TMP_Text[] ListenOptionRemain;
     public TMP_Text[] ListenOptionScore;
-    public void ActionUISetOn(ActionData[] _actions)
-    {
-        Actions = _actions;
-        actionUI.ActionUISet(_actions);
-    }
+    //public void ActionUISetOn(ActionData[] _actions)
+    //{
+    //    Actions = _actions;
+    //    actionUI.ActionUISet(_actions);
+    //}
     public void ActionUISetOff()
     {
         actionUI.ActionUISetOff();
     }
-    public void Pass()
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Pass)
-            {
-                ActionEvent?.Invoke(this, action);
-                break;
-            }
-        }
-    }
-    public void Chow()//未完成
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Chow)
-            {
-                if (action.OptionTiles.Count == 1)
-                    ActionEvent?.Invoke(this, action);
-                else
-                    SetChowOptionOn();
-                break;
-            }
-        }
-    }
-    public void Pong()
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Pong)
-            {
-                ActionEvent?.Invoke(this, action);
-                break;
-            }
-        }
-    }
-    public void Kong()
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Kong || action.ID == Action.AdditionKong || action.ID == Action.ConcealedKong)
-            {
-                ActionEvent?.Invoke(this, action);
-                break;
-            }
-        }
-    }
-    public void Listen()//未完成
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.ReadyHand)
-            {
-                if (action.OptionTiles.Count == 1)
-                    ActionEvent?.Invoke(this, action);
-                else
-                    SetListenOptionOn();
-                break;
-            }
-        }
-    }
-    public void Winning()
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Win || action.ID == Action.DrawnFromDeadWall || action.ID == Action.SelfDrawnWin)
-            {
-                ActionEvent?.Invoke(this, action);
-                break;
-            }
-        }
-    }
+    //public void Pass()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Pass)
+    //        {
+    //            ActionEvent?.Invoke(this, action);
+    //            break;
+    //        }
+    //    }
+    //}
+    //public void Chow()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Chow)
+    //        {
+    //            if (action.OptionTiles.Count == 1)
+    //                ActionEvent?.Invoke(this, action);
+    //            else
+    //                SetChowOptionOn(action);
+    //            break;
+    //        }
+    //    }
+    //}
+    //public void Pong()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Pong)
+    //        {
+    //            ActionEvent?.Invoke(this, action);
+    //            break;
+    //        }
+    //    }
+    //}
+    //public void Kong()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Kong || action.ID == Action.AdditionKong || action.ID == Action.ConcealedKong)
+    //        {
+    //            ActionEvent?.Invoke(this, action);
+    //            break;
+    //        }
+    //    }
+    //}
+    //public void Listen()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.ReadyHand)
+    //        {
+    //            if (action.OptionTiles.Count == 1)
+    //                ActionEvent?.Invoke(this, action);
+    //            else
+    //                SetListenOptionOn();
+    //            break;
+    //        }
+    //    }
+    //}
+    //public void Winning()
+    //{
+    //    ActionUISetOff();
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Win || 
+    //            action.ID == Action.DrawnFromDeadWall || 
+    //            action.ID == Action.SelfDrawnWin)
+    //        {
+    //            ActionEvent?.Invoke(this, action);
+    //            break;
+    //        }
+    //    }
+    //}
 
 
-    public void SetChowOptionOn()
+    public void SetChowOptionOn(ActionData action)
     {
-        SetListenOptionOff();
+        //SetListenOptionOff();
         Sprite[] TileSprites = AssetsPoolController.Instance.TileSprites;
-        foreach (ActionData action in Actions)
+        ChowObject.SetActive(true);
+        for (int i = 0; i < action.OptionTiles.Count; i++)
         {
-            if (action.ID == Action.Chow)
+            ChowOption[i].SetActive(true);
+            for (int j = 0; j < 3; j++)
             {
-                ChowObject.SetActive(true);
-                for (int i = 0; i < action.OptionTiles.Count; i++)
-                {
-                    ChowOption[i].SetActive(true);
-                    for (int j = 0; j < 3; j++)
-                    {
-                        ChowOptionTiles[3 * i + j].SetTile(TileSprites[(int)action.OptionTiles[i][j]]);
-                    }
-                }
+                ChowOptionTiles[3 * i + j].SetTile(TileSprites[(int)action.OptionTiles[i][j]]);
             }
         }
     }
@@ -133,18 +135,14 @@ public class DiscardTileUI : MonoBehaviour
         }
         ChowObject.SetActive(false);
     }
-    public void SetListenOptionOn()
+    public void SetListenOptionOn(ActionData action)
     {
         SetChowOptionOff();
-        foreach (ActionData action in Actions)
+        if (action.ID == Action.ReadyHand)
         {
-            if (action.ID == Action.ReadyHand)
-            {
-                ListenObject.SetActive(true);
-                ListenOnActionEvent?.Invoke(this, action);
-            }
+            ListenObject.SetActive(true);
+            ListenOnActionEvent?.Invoke(this, action);
         }
-
     }
 
     public void SetListenTileSuggest(ListeningTilesType listeningTilesTypes)
@@ -156,7 +154,7 @@ public class DiscardTileUI : MonoBehaviour
             ListenOptionTiles[count].Appear();
             ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
             ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
-            ListenOptionRemain[count].text = "台數" + "\n" + "999";
+            ListenOptionRemain[count].text = "剩餘" + "\n" + keyValuePair.Value;
             //ListenOptionScore[count];
 
             count++;
@@ -179,25 +177,74 @@ public class DiscardTileUI : MonoBehaviour
         ListenObject.SetActive(false);
     }
 
-    public void ChowSelect(int index)
-    {
-        foreach (ActionData action in Actions)
-        {
-            if (action.ID == Action.Chow)
-            {
-                List<TileSuits> tile = action.OptionTiles[index];
-                List<List<TileSuits>> tilelist = new List<List<TileSuits>>();
-                tilelist.Add(tile);
-                action.OptionTiles = tilelist;
-                ActionEvent?.Invoke(this, action);
-            }
-        }
-        SetChowOptionOff();
-    }
+    //public void ChowSelect(int index)
+    //{
+    //    foreach (ActionData action in Actions)
+    //    {
+    //        if (action.ID == Action.Chow)
+    //        {
+    //            List<TileSuits> tile = action.OptionTiles[index];
+    //            List<List<TileSuits>> tilelist = new List<List<TileSuits>>();
+    //            tilelist.Add(tile);
+    //            action.OptionTiles = tilelist;
+    //            ActionEvent?.Invoke(this, action);
+    //        }
+    //    }
+    //    SetChowOptionOff();
+    //}
 
     public void buttontest()
     {
-        Debug.Log("test");
+        //Debug.Log("test");
+    }
+
+    public void SetPassOn()
+    {
+        actionUI.SetPassOn();
+    }
+    public void SetChowOn()
+    {
+        actionUI.SetChowOn();
+    }
+    public void SetPongOn()
+    {
+        actionUI.SetPongOn();
+    }
+    public void SetKongOn()
+    {
+        actionUI.SetKongOn();
+    }
+    public void SetListenOn()
+    {
+        actionUI.SetListenOn();
+    }
+    public void SetWinningOn()
+    {
+        actionUI.SetWinningOn();
+    }
+    public void SetPassOff()
+    {
+        actionUI.SetPassOff();
+    }
+    public void SetChowOff()
+    {
+        actionUI.SetChowOff();
+    }
+    public void SetPongOff()
+    {
+        actionUI.SetPongOff();
+    }
+    public void SetKongOff()
+    {
+        actionUI.SetKongOff();
+    }
+    public void SetListenOff()
+    {
+        actionUI.SetListenOff();
+    }
+    public void SetWinningOff()
+    {
+        actionUI.SetWinningOff();
     }
 }
 

@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnDecideBankerEvent(object sender, DecideBankerEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
-        _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex??0),e.RemainingBankerCount??1);
+        _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
         //throw new System.NotImplementedException();
     }
 
@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnOpenDoorEvent!!!!!!!!!!!!");
         try
         {
-            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _centralAreaController.SetWallCount(e.WallCount);
             for (int i = 0; i < e.Seats.Count; i++)
             {
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             Debug.Log("!!!!!!!!!!!!OnGroundingFlowerEvent!!!!!!!!!!!!"); ;
-            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _centralAreaController.SetWallCount(e.WallCount);
             for (int i = 0; i < e.Seats.Count; i++)
             {
                 e.Seats[i].SeaTile.Add(TileSuits.c1);
@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
         try
         {
-            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _centralAreaController.SetWallCount(e.WallCount);
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
             if (e.Actions != null)
                 _inGameUIController.ActionUISet(e.Actions);
@@ -275,7 +275,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
         try
         {
-            _centralAreaController.SetWallCount(e.WallCount ?? -1);
+            _centralAreaController.SetWallCount(e.WallCount);
             _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
             
             if (e.Actions != null)

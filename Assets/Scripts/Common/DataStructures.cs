@@ -94,9 +94,9 @@ public class RandomSeatEventArgs : EventArgs
 
 public class DecideBankerEventArgs : EventArgs
 {
-    public int? BankerIndex;
+    public int BankerIndex;
     public int? RemainingBankerCount;
-    public DecideBankerEventArgs(int? bankerIndex, int? remainingBankerCount)
+    public DecideBankerEventArgs(int bankerIndex, int? remainingBankerCount)
     {
         BankerIndex = bankerIndex;
         RemainingBankerCount = remainingBankerCount;
@@ -105,10 +105,10 @@ public class DecideBankerEventArgs : EventArgs
 
 public class OpenDoorEventArgs : EventArgs
 {
-    public int? WallCount;
+    public int WallCount;
     public List<TileSuits> Tiles;
     public List<SeatInfo> Seats;
-    public OpenDoorEventArgs(int? wallCount, List<TileSuits> tiles, List<SeatInfo> seats)
+    public OpenDoorEventArgs(int wallCount, List<TileSuits> tiles, List<SeatInfo> seats)
     {
         WallCount = wallCount;
         Tiles = tiles;
@@ -118,10 +118,10 @@ public class OpenDoorEventArgs : EventArgs
 
 public class GroundingFlowerEventArgs : EventArgs
 {
-    public int? WallCount;
+    public int WallCount;
     public List<TileSuits> Tiles;
     public List<SeatInfo> Seats;
-    public GroundingFlowerEventArgs(int? wallCount, List<TileSuits> tiles, List<SeatInfo> seats)
+    public GroundingFlowerEventArgs(int wallCount, List<TileSuits> tiles, List<SeatInfo> seats)
     {
         WallCount = wallCount;
         Tiles = tiles;
@@ -131,13 +131,13 @@ public class GroundingFlowerEventArgs : EventArgs
 
 public class PlayingEventArgs : EventArgs
 {
-    public int? PlayingIndex; 
-    public long? PlayingTimeLeft;
-    public int? WallCount;
+    public int PlayingIndex; 
+    public long PlayingTimeLeft;
+    public int WallCount;
     public List<TileSuits> Tiles;
     public ActionData[] Actions;
     public List<SeatInfo> Seats;
-    public PlayingEventArgs(int? playingIndex, long? playingTimeLeft, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
+    public PlayingEventArgs(int playingIndex, long playingTimeLeft, int wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
     {
         PlayingIndex = playingIndex;
         PlayingTimeLeft = playingTimeLeft;
@@ -150,13 +150,13 @@ public class PlayingEventArgs : EventArgs
 
 public class WaitingActionEventArgs : EventArgs
 {
-    public int? PlayingIndex;
-    public long? PlayingTimeLeft;
-    public int? WallCount;
+    public int PlayingIndex;
+    public long PlayingTimeLeft;
+    public int WallCount;
     public List<TileSuits> Tiles;
     public ActionData[] Actions;
     public List<SeatInfo> Seats;
-    public WaitingActionEventArgs(int? playingIndex, long? playingTimeLeft, int? wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
+    public WaitingActionEventArgs(int playingIndex, long playingTimeLeft, int wallCount, List<TileSuits> tiles, ActionData[] actions, List<SeatInfo> seats)
     {
         PlayingIndex = playingIndex;
         PlayingTimeLeft = playingTimeLeft;
@@ -262,8 +262,8 @@ public class DrawnActionEventArgs : EventArgs
 {
     public int Index;
     public Action Action;
-    public int? DrawnCount;
-    public DrawnActionEventArgs(int index, Action action, int? drawnCount)
+    public int DrawnCount;
+    public DrawnActionEventArgs(int index, Action action, int drawnCount)
     {
         Index = index;
         Action = action;
@@ -275,8 +275,8 @@ public class GroundingFlowerActionEventArgs : EventArgs
 {
     public int Index;
     public Action Action;
-    public int? DrawnCount;
-    public GroundingFlowerActionEventArgs(int index, Action action, int? drawnCount)
+    public int DrawnCount;
+    public GroundingFlowerActionEventArgs(int index, Action action, int drawnCount)
     {
         Index = index;
         Action = action;

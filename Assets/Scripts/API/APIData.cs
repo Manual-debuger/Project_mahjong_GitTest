@@ -79,7 +79,7 @@ namespace APIDataNamespace
         {
             try
             {
-                DecideBankerEventArgs decideBankerEventArgs = new(eventData.BankerIndex, eventData.RemainingBankerCount);
+                DecideBankerEventArgs decideBankerEventArgs = new((int)eventData.BankerIndex, eventData.RemainingBankerCount);
                 if (NowState != eventData.State)
                 {
                     NowState = eventData.State;
@@ -99,7 +99,7 @@ namespace APIDataNamespace
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
 
-                OpenDoorEventArgs openDoorEventArgs = new(eventData.WallCount, tileSuitsList, processedSeats);
+                OpenDoorEventArgs openDoorEventArgs = new((int)eventData.WallCount, tileSuitsList, processedSeats);
 
                 if (NowState != eventData.State)
                 {
@@ -120,7 +120,7 @@ namespace APIDataNamespace
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
 
-                GroundingFlowerEventArgs groundingFlowerEventArgs = new(eventData.WallCount, tileSuitsList, processedSeats);
+                GroundingFlowerEventArgs groundingFlowerEventArgs = new((int)eventData.WallCount, tileSuitsList, processedSeats);
 
                 if (NowState != eventData.State)
                 {
@@ -146,7 +146,7 @@ namespace APIDataNamespace
                     List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                     ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                    PlayingEventArgs playingEventArgs = new(eventData.PlayingIndex, playingtimeLeft, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                    PlayingEventArgs playingEventArgs = new((int)eventData.PlayingIndex, (long)playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
                     PlayingDeadline = eventData.PlayingDeadline;
                     PlayingEvent?.Invoke(instance, playingEventArgs);
                 }
@@ -166,7 +166,7 @@ namespace APIDataNamespace
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                WaitingActionEventArgs waitingActionEventArgs = new(eventData.PlayingIndex, playingtimeLeft, eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                WaitingActionEventArgs waitingActionEventArgs = new((int)eventData.PlayingIndex, (long)playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
 
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)
@@ -282,7 +282,7 @@ namespace APIDataNamespace
         {
             //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
 
-            DrawnActionEventArgs drawnActionEventArgs = new(playData.Index, playData.Action, playData.DrawnCount);
+            DrawnActionEventArgs drawnActionEventArgs = new(playData.Index, playData.Action, (int)playData.DrawnCount);
 
             DrawnEvent?.Invoke(instance, drawnActionEventArgs);
         }
@@ -291,7 +291,7 @@ namespace APIDataNamespace
         {
             //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
 
-            GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, playData.DrawnCount);
+            GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, (int)playData.DrawnCount);
 
             GroundingFlowerActionEvent?.Invoke(instance, groundingFlowerActionEventArgs);
         }

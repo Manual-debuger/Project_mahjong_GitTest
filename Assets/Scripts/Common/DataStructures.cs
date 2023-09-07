@@ -169,18 +169,22 @@ public class WaitingActionEventArgs : EventArgs
 
 public class HandEndEventArgs : EventArgs
 {
+    public long PlayingTimeLeft;
     public List<SeatInfo> Seats;
-    public HandEndEventArgs(List<SeatInfo> seats)
+    public HandEndEventArgs(long playingTimeLeft, List<SeatInfo> seats)
     {
+        PlayingTimeLeft = playingTimeLeft;
         Seats = seats;
     }
 }
 
 public class GameEndEventArgs : EventArgs
 {
+    public long PlayingTimeLeft;
     public List<SeatInfo> Seats;
-    public GameEndEventArgs(List<SeatInfo> seats)
+    public GameEndEventArgs(long playingTimeLeft, List<SeatInfo> seats)
     {
+        PlayingTimeLeft = playingTimeLeft;
         Seats = seats;
     }
 }

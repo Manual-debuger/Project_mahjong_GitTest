@@ -141,7 +141,7 @@ namespace APIDataNamespace
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)
                 {
-                    long? playingtimeLeft = eventData.PlayingDeadline - eventData.Time;
+                    long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
                     List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                     List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                     ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
@@ -161,7 +161,7 @@ namespace APIDataNamespace
         {
             try
             {
-                long? playingtimeLeft = eventData.PlayingDeadline - eventData.Time;
+                long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;

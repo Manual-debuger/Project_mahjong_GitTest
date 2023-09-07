@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using DataTransformNamespace;
+using System.Threading.Tasks;
 
 //Duty: 遊戲中的UI控制器
 public class InGameUIController : MonoBehaviour
@@ -362,11 +363,21 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.ListenSetOff();
         _discardTileUIViewer.SetListenOptionOff();
     }
-    public void Settlement(List<SeatInfo> seatInfos)
+    public async void Settlement(List<SeatInfo> seatInfos,int time)
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         _settlementScreen.SetSettlement(seatInfos);
+        await Task.Delay(time);
+        InGameUI.SetActive(true);
+        SettlementUI.SetActive(false);
+        for (int i = 0; i < 17; i++)
+        {
+            HandTileSuits[i] = TileSuits.NULL;
+        }
+        HandTileUISet();
+        TimeOut();
+        CountTime = 0;
     }
     public void Pass()
     {

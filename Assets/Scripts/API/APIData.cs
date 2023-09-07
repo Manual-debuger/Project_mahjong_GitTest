@@ -146,7 +146,7 @@ namespace APIDataNamespace
                     List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                     ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                    PlayingEventArgs playingEventArgs = new((int)eventData.PlayingIndex, (long)playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                    PlayingEventArgs playingEventArgs = new((int)eventData.PlayingIndex, playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
                     PlayingDeadline = eventData.PlayingDeadline;
                     PlayingEvent?.Invoke(instance, playingEventArgs);
                 }
@@ -166,7 +166,7 @@ namespace APIDataNamespace
                 List<TileSuits> tileSuitsList = DataTransform.ReturnTileToIndex(eventData.Tiles);
                 ActionData[] actionDatas = (eventData.Actions != null) ? DataTransform.MapActionData(eventData.Actions, tileSuitsList) : null;
 
-                WaitingActionEventArgs waitingActionEventArgs = new((int)eventData.PlayingIndex, (long)playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
+                WaitingActionEventArgs waitingActionEventArgs = new((int)eventData.PlayingIndex, playingtimeLeft, (int)eventData.WallCount, tileSuitsList, actionDatas, processedSeats);
 
                 // Playing State not change until action
                 if (PlayingDeadline != eventData.PlayingDeadline)
@@ -185,9 +185,9 @@ namespace APIDataNamespace
         {
             try
             {
+                long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
-
-                HandEndEventArgs handEndEventArgs = new(processedSeats);
+                HandEndEventArgs handEndEventArgs = new(playingtimeLeft, processedSeats);
 
                 // Playing State not change until action
                 if (NowState != eventData.State)
@@ -205,11 +205,11 @@ namespace APIDataNamespace
         {
             try
             {
+                long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                GameEndEventArgs gameEndEventArgs = new(playingtimeLeft, processedSeats);
 
-                HandEndEventArgs handEndEventArgs = new(processedSeats);
-
-                HandEndEvent?.Invoke(instance, handEndEventArgs);
+                GameEndEvent?.Invoke(instance, gameEndEventArgs);
             }
             catch (Exception e)
             {
@@ -222,10 +222,9 @@ namespace APIDataNamespace
             try
             {
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                ClosingEventArgs closingEventArgs = new(processedSeats);
 
-                HandEndEventArgs handEndEventArgs = new(processedSeats);
-
-                HandEndEvent?.Invoke(instance, handEndEventArgs);
+                ClosingEvent?.Invoke(instance, closingEventArgs);
                 API.Instance.CloseConnection();
             }
             catch (Exception e)

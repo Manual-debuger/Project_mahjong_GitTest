@@ -21,6 +21,7 @@ public class DiscardTileUI : MonoBehaviour
     public ListenTile[] ListenOptionTiles;
     public TMP_Text[] ListenOptionRemain;
     public TMP_Text[] ListenOptionScore;
+    public TMP_Text TimeTxt;
     //public void ActionUISetOn(ActionData[] _actions)
     //{
     //    Actions = _actions;
@@ -245,6 +246,10 @@ public class DiscardTileUI : MonoBehaviour
     public void SetWinningOff()
     {
         actionUI.SetWinningOff();
+    }
+    public void SetTime(int CountTime)
+    {
+        TimeTxt.text = CountTime.ToString();
     }
 }
 

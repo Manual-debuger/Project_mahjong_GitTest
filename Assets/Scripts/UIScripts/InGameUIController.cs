@@ -84,6 +84,11 @@ public class InGameUIController : MonoBehaviour
         if (CountTime < 0)
         {
             TimeOut();
+            _discardTileUIViewer.SetTime(0);
+        }
+        else
+        {
+            _discardTileUIViewer.SetTime((int)(CountTime/1000));
         }
     }
 

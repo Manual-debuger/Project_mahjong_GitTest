@@ -363,12 +363,12 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.ListenSetOff();
         _discardTileUIViewer.SetListenOptionOff();
     }
-    public async void Settlement(List<SeatInfo> seatInfos,int time)
+    public async void Settlement(List<SeatInfo> seatInfos,long time)
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         _settlementScreen.SetSettlement(seatInfos);
-        await Task.Delay(time);
+        await Task.Delay((int)time);
         InGameUI.SetActive(true);
         SettlementUI.SetActive(false);
         for (int i = 0; i < 17; i++)

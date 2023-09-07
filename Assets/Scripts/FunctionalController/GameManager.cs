@@ -308,12 +308,14 @@ public class GameManager : MonoBehaviour,IInitiable
 
         //throw new System.NotImplementedException();
     }
-    
+
+    //打完一局(胡牌/流局)
     private void OnHandEndEvent(object sender, HandEndEventArgs e)
     {
         try
         {
             Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
+            _inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
             Init();
         }
         catch (Exception ex)
@@ -322,13 +324,13 @@ public class GameManager : MonoBehaviour,IInitiable
             throw;
         }
     }
-    
+    //打完一圈
     private void OnGameEndEvent(object sender, GameEndEventArgs e)
     {
         try
         {
             Debug.Log("!!!!!!!!!!!!OnGameEndEvent!!!!!!!!!!!!"); ;
-            
+            _inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
         }
         catch (Exception ex)
         {
@@ -336,7 +338,7 @@ public class GameManager : MonoBehaviour,IInitiable
             throw;
         }
     }
-    
+    //最後一步
     private void OnClosingEvent(object sender, ClosingEventArgs e)
     {
         try

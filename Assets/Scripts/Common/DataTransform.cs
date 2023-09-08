@@ -135,7 +135,7 @@ namespace DataTransformNamespace
                         case Action.Pass:
                             break;
                         case Action.Discard:
-                            processedActionData[i].OptionTiles = (actionData1.Options == null) ? new List<List<TileSuits>>(){ tiles } : MapStringListsToTileSuitsLists(actionData1.Options);
+                            processedActionData[i].OptionTiles = (actionData1.Options == null) ? new List<List<TileSuits>>(){ tiles.ToList() } : MapStringListsToTileSuitsLists(actionData1.Options);
                             break;
                         case Action.Chow:
                         case Action.Pong:

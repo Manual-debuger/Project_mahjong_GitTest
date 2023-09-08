@@ -18,25 +18,28 @@ namespace DataTransformNamespace
 
                 foreach (string tile in tiles)
                 {
-                    if (tile[0] == '_')
+                    if (tile != null && tile.Length > 0)
                     {
-                        string typeString = tile.Substring(1, 2);
-                        if (Enum.TryParse(typeString, out TileSuits tileSuit))
+                        if (tile[0] == '_')
                         {
-                            // tileSuitsList.Add(tileSuit + 100);
+                            string typeString = tile.Substring(1, 2);
+                            if (Enum.TryParse(typeString, out TileSuits tileSuit))
+                            {
+                                // tileSuitsList.Add(tileSuit + 100);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Error: Invalid tile value '{tile}'. Possible values are: {string.Join(", ", Enum.GetNames(typeof(TileSuits)))}");
+                            }
                         }
                         else
                         {
-                            Console.WriteLine($"Error: Invalid tile value '{tile}'. Possible values are: {string.Join(", ", Enum.GetNames(typeof(TileSuits)))}");
+                            if (Enum.TryParse(tile, out TileSuits tileSuit))
+                            {
+                                tileSuitsList.Add(tileSuit);
+                            }
+                            // Handle error case if enum parsing fails
                         }
-                    }
-                    else
-                    {
-                        if (Enum.TryParse(tile, out TileSuits tileSuit))
-                        {
-                            tileSuitsList.Add(tileSuit);
-                        }
-                        // Handle error case if enum parsing fails
                     }
                 }
 

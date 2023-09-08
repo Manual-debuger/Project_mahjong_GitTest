@@ -185,7 +185,7 @@ namespace APIDataNamespace
         {
             try
             {
-                long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
+                long playingtimeLeft = (long)eventData.NextStateTime - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 HandEndEventArgs handEndEventArgs = new(playingtimeLeft, processedSeats);
 
@@ -205,7 +205,7 @@ namespace APIDataNamespace
         {
             try
             {
-                long playingtimeLeft = (long)eventData.PlayingDeadline - eventData.Time;
+                long playingtimeLeft = (long)eventData.NextStateTime - eventData.Time;
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
                 GameEndEventArgs gameEndEventArgs = new(playingtimeLeft, processedSeats);
 

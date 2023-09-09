@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-//Duty: �B�z���֭��Ĭ���������
+﻿using UnityEngine;
+using UnityEngine.Audio;
+//Duty: 處理音樂音效相關的控制
 public class AudioController : MonoBehaviour
 {
     private bool isPlayingReadyHand = false;
@@ -12,13 +11,14 @@ public class AudioController : MonoBehaviour
     public AudioClip kongClip;
     public AudioClip groundingFlowerClip;
 
-    private AudioSource bgmSource;
-    private AudioSource audioSource;
+    public AudioSource bgmSource;
+    public AudioSource audioSource;
+
+    public AudioMixer audioMixer;
 
     private void Awake()
     {
-        bgmSource = gameObject.AddComponent<AudioSource>();
-        audioSource = gameObject.AddComponent<AudioSource>();
+        
     }
 
     // Start is called before the first frame update
@@ -31,14 +31,30 @@ public class AudioController : MonoBehaviour
     void Update()
     {
         
+        
     }
+
+    public void SetMasterVolume(float volume)    // 控制主音量的函数
+    {
+        audioMixer.SetFloat("MasterVolume", volume);
+    }
+
+    public void SetMusicVolume(float volume)    // 控制背景音樂音量的函数
+    {
+        audioMixer.SetFloat("MusicVolume", volume);
+    }
+
+    public void SetSoundEffectVolume(float volume)    // 控制音效音量的函数
+    {
+        audioMixer.SetFloat("SoundEffectVolume", volume);
+    }
+
 
     public void PlayGameBGM()
     {
         isPlayingReadyHand = true;
         bgmSource.clip = bgmClip;
         bgmSource.loop = true;
-        bgmSource.volume = 0.2f;
         bgmSource.Play();
     }
 
@@ -60,7 +76,6 @@ public class AudioController : MonoBehaviour
                 break;
         }
         audioSource.loop = false;
-        audioSource.volume = 0.8f;
         audioSource.Play();
     }
 }

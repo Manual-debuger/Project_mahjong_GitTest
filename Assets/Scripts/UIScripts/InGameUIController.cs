@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using DataTransformNamespace;
 using System.Threading.Tasks;
+using TMPro;
 
 //Duty: 遊戲中的UI控制器
 public class InGameUIController : MonoBehaviour
@@ -56,6 +57,8 @@ public class InGameUIController : MonoBehaviour
     };
 
     private long CountTime;
+    [SerializeField] private GameObject StateName;
+    [SerializeField] private TMP_Text StateText;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -378,6 +381,13 @@ public class InGameUIController : MonoBehaviour
         HandTileUISet();
         TimeOut();
         CountTime = 0;
+    }
+    public async void ShowState(string State, long time)
+    {
+        this.StateName.SetActive(true);
+        this.StateText.text = State;
+        await Task.Delay((int)time);
+        this.StateName.SetActive(false);
     }
     public void Pass()
     {

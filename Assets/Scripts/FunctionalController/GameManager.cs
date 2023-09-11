@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
             }
-            
+            _inGameUIController.ShowState("RandomSeat", 500);
         }
         catch (Exception ex)
         {
@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
         _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
+        _inGameUIController.ShowState("DecideBanker", 500);
         //throw new System.NotImplementedException();
     }
 
@@ -193,6 +194,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.Tiles.Count==17);
+            _inGameUIController.ShowState("OpenDoor", 500);
         }
         catch (Exception)
         {
@@ -215,6 +217,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
+            _inGameUIController.ShowState("GroundingFlower", 500);
         }
         catch (Exception)
         {

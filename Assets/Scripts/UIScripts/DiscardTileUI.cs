@@ -149,12 +149,16 @@ public class DiscardTileUI : MonoBehaviour
     public void SetListenTileSuggest(ListeningTilesType listeningTilesTypes)
     {
         int count = 0;
+        foreach (GameObject listenTile in ListenOption)
+        {
+            listenTile.SetActive(false);
+        }
         foreach (KeyValuePair<string, int> keyValuePair in listeningTilesTypes.Mahjong)
         {
             ListenOption[count].SetActive(true);
             ListenOptionTiles[count].Appear();
-            ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
-            ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
+            //ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
+            //ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
             ListenOptionRemain[count].text = "剩餘" + "\n" + keyValuePair.Value;
             //ListenOptionScore[count];
 
@@ -168,8 +172,8 @@ public class DiscardTileUI : MonoBehaviour
         {
             ListenOption[i].SetActive(false);
             ListenOptionTiles[i].Disappear();
-            ListenOptionRemain[i].GetComponent<GameObject>().SetActive(false);
-            ListenOptionScore[i].GetComponent<GameObject>().SetActive(false);
+            //ListenOptionRemain[i].GetComponent<GameObject>().SetActive(false);
+            //ListenOptionScore[i].GetComponent<GameObject>().SetActive(false);
         }
     }
 

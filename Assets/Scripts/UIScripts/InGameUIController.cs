@@ -502,6 +502,22 @@ public class InGameUIController : MonoBehaviour
                 {
                     IsListenState = true;
                     IsDiscardState = false;
+                    List<string> listeningString = new List<string>();
+                    foreach (KeyValuePair<string, ListeningTilesType> key in action.ReadyInfo.key)
+                    {
+                        listeningString.Add(key.Key);
+                    }
+                    List<TileSuits> listeningTiles = DataTransform.ReturnTileToIndex(listeningString.ToArray());
+                    for (int i = 0; i < 17; i++)
+                    {
+                        foreach (TileSuits listeningTile in listeningTiles)
+                        {
+                            if (listeningTile == HandTileSuits[i])
+                            {
+                                CanDiscardList[i] = true;
+                            }
+                        }
+                    }
                     _discardTileUIViewer.SetListenOptionOn(action);
                 }
                 break;

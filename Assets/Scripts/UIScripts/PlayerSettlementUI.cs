@@ -15,13 +15,13 @@ public class PlayerSettlementUI : MonoBehaviour
     public Image[] Tiles;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Set(SeatInfo seatInfo)
@@ -29,8 +29,12 @@ public class PlayerSettlementUI : MonoBehaviour
         //HeadSet;
         Wind.text = seatInfo.DoorWind;
         PlayerId.text = seatInfo.Nickname;
-        string totalScore= seatInfo.Scores.ToString();
-        if (seatInfo.WinScores != 0)
+        string totalScore = seatInfo.Scores.ToString();
+        if (seatInfo.WinScores > 0)
+        {
+            totalScore += "+" + seatInfo.WinScores.ToString();
+        }
+        else if (seatInfo.WinScores < 0)
         {
             totalScore += seatInfo.WinScores.ToString();
         }

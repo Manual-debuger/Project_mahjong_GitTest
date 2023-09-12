@@ -1971,7 +1971,7 @@ MonoBehaviour:
   - {fileID: 851679840}
   - {fileID: 1611239771}
   ChowOptionTiles:
-  - {fileID: 1876334950}
+  - {fileID: 371258333}
   - {fileID: 1755495460}
   - {fileID: 1203585231}
   - {fileID: 941379937}
@@ -6386,17 +6386,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
   m_PrefabInstance: {fileID: 4296743635064212800}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1876334950 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4296743635505566758, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
-  m_PrefabInstance: {fileID: 4296743635064212800}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876334948}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e3bb02154d8bd4b98808cff290a91b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1916492446 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 907751052648793937, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}

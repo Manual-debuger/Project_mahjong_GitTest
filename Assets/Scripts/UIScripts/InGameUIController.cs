@@ -33,6 +33,7 @@ public class InGameUIController : MonoBehaviour
 
     public bool IsListenState = false;
     public bool IsDiscardState = false;
+    public bool isDraw = true;
     public bool[] CanDiscardList = new bool[17];
     private ActionData[] Actions;
     private ReadyInfoType readyInfo;
@@ -72,7 +73,7 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.OnPointerUpEvent += LeaveDiscardTileSuggestEvent;
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
-        _discardTileUIViewer.ActionEvent += UIActiveAction;
+        //_discardTileUIViewer.ActionEvent += UIActiveAction;
         _discardTileUIViewer.ListenOnActionEvent += ListenOn;
     }
     // Start is called before the first frame update
@@ -186,7 +187,7 @@ public class InGameUIController : MonoBehaviour
     }
     public void SetHandTile(List<TileSuits> tileSuits)
     {
-        if (tileSuits.Count % 3 == 2)
+        if (tileSuits.Count % 3 == 2 && isDraw)
         {
             HandTileSuits[16] = tileSuits[tileSuits.Count - 1];
             tileSuits.RemoveAt(tileSuits.Count - 1);
@@ -194,11 +195,13 @@ public class InGameUIController : MonoBehaviour
         else if (tileSuits.Count % 3 == 1)
         {
             HandTileSuits[16] = TileSuits.NULL;
+            isDraw = true;
         }
         else
         {
             Debug.LogError("Hand tile size error");
         }
+
         for (int i = 0; i < tileSuits.Count; i++)
         {
             HandTileSuits[16 - tileSuits.Count + i] = tileSuits[i];
@@ -434,6 +437,7 @@ public class InGameUIController : MonoBehaviour
                 }
             }
         }
+        isDraw = false;
         IsListenState = false;
         IsDiscardState = false;
         _discardTileUIViewer.ActionUISetOff();
@@ -454,6 +458,7 @@ public class InGameUIController : MonoBehaviour
                 break;
             }
         }
+        isDraw = false;
         IsListenState = false;
         IsDiscardState = false;
         _discardTileUIViewer.ActionUISetOff();
@@ -567,6 +572,7 @@ public class InGameUIController : MonoBehaviour
                 UIActiveActionEvent?.Invoke(this, action);
             }
         }
+        isDraw = false;
         _discardTileUIViewer.SetChowOptionOff();
         IsListenState = false;
         IsDiscardState = false;

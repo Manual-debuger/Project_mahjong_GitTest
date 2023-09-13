@@ -9,7 +9,7 @@ public class DiscardTileUI : MonoBehaviour
 {
     [SerializeField] private ActionUI actionUI;
     //private ActionData[] Actions;
-    public event EventHandler<ActionData> ActionEvent;
+    //public event EventHandler<ActionData> ActionEvent;
     public event EventHandler<ActionData> ListenOnActionEvent;
 
     public GameObject ChowObject;

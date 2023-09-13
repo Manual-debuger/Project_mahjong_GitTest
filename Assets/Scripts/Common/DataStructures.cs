@@ -287,6 +287,24 @@ public class GroundingFlowerActionEventArgs : EventArgs
         DrawnCount = drawnCount;
     }
 }
+
+public class ResultEventArgs : EventArgs
+{
+    public int Score;
+    public int? WinScores;
+    public bool? Banker;
+    public int Index;
+    public string DoorWind;
+    public List<List<TileSuits>> Door;
+    public List<TileSuits> Tiles;
+    public List<TileSuits> Flowers;
+    public ResultEventArgs(List<List<TileSuits>> door, List<TileSuits> tiles, List<TileSuits> flowers)
+    {
+        Door = door;
+        Tiles = tiles;
+        Flowers = flowers;
+    }
+}
 #endregion
 
 public class FloatEventArgs : EventArgs

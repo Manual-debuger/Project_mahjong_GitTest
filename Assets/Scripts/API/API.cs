@@ -281,7 +281,15 @@ public class API : MonoBehaviour
 
     private void HandleTableResult(MessageData data)
     {
-        // Implement the logic for handling the table result message
+        try
+        {
+            Debug.Log("TableResult: " + data.State);
+            APIData.HandleTableResult(data);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     // Call this method to send data to the WebSocket server

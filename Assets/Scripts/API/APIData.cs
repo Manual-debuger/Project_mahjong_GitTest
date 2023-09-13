@@ -35,6 +35,8 @@ namespace APIDataNamespace
         public static event EventHandler<DrawnActionEventArgs> DrawnEvent;
         public static event EventHandler<GroundingFlowerActionEventArgs> GroundingFlowerActionEvent;
 
+        public static event EventHandler<ResultEventArgs> ResultEvent;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -293,6 +295,17 @@ namespace APIDataNamespace
             GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, (int)playData.DrawnCount);
 
             GroundingFlowerActionEvent?.Invoke(instance, groundingFlowerActionEventArgs);
+        }
+
+        public static void HandleTableResult(MessageData resultData)
+        {
+            List<List<TileSuits>> doorList = DataTransform.MapStringListsToTileSuitsLists(resultData.Door);
+            List<TileSuits> optionTile = DataTransform.ReturnTileToIndex(resultData.Option);
+            List<TileSuits> flowerList = DataTransform.ReturnTileToIndex(resultData.Flowers);
+
+            ResultEventArgs resultEventArgs = new(doorList, optionTile, flowerList);
+
+            ResultEvent?.Invoke(instance, resultEventArgs);
         }
 
         public async void HandleClickAction(ActionData actionData, int index)

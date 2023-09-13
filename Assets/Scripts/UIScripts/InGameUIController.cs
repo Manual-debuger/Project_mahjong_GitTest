@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DataTransformNamespace;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 
 //Duty: 遊戲中的UI控制器
 public class InGameUIController : MonoBehaviour
@@ -340,13 +341,16 @@ public class InGameUIController : MonoBehaviour
     private void ListenOn(object sender, ActionData e)
     {
         IsListenState = true;
-        List<string> tilesStrList = new List<string>();
-        foreach (KeyValuePair<string, ListeningTilesType> key in e.ReadyInfo.key)
+
+        List<TileSuits> tilesList = new List<TileSuits>();
+        foreach (Dictionary<TileSuits, int> key in e.ReadyInfoTile.Values)
         {
-            tilesStrList.Add(key.Key);
+            foreach (TileSuits suit in key.Keys)
+            {
+                tilesList.Add(suit);
+            }
         }
-        string[] tilesStrArray = tilesStrList.ToArray();
-        List<TileSuits> tilesList = DataTransform.ReturnTileToIndex(tilesStrArray);
+
         List<int> ListenIndex = new List<int>();
         foreach (TileSuits tile in tilesList)
         {
@@ -502,12 +506,14 @@ public class InGameUIController : MonoBehaviour
                 {
                     IsListenState = true;
                     IsDiscardState = false;
-                    List<string> listeningString = new List<string>();
-                    foreach (KeyValuePair<string, ListeningTilesType> key in action.ReadyInfo.key)
+                    List<TileSuits> listeningTiles = new List<TileSuits>();
+                    foreach (Dictionary<TileSuits, int> key in action.ReadyInfoTile.Values)
                     {
-                        listeningString.Add(key.Key);
+                        foreach (TileSuits suit in key.Keys)
+                        {
+                            listeningTiles.Add(suit);
+                        }
                     }
-                    List<TileSuits> listeningTiles = DataTransform.ReturnTileToIndex(listeningString.ToArray());
                     for (int i = 0; i < 17; i++)
                     {
                         foreach (TileSuits listeningTile in listeningTiles)

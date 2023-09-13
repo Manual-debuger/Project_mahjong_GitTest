@@ -113,20 +113,21 @@ public class MessageData
     public Action ID;
     public ReadyInfoType ReadyInfo;
 
-    
 
-    public string NickName;
-    public int PlayerID;
-    public int WinScores;
+    // Result
+    public string Name;
+    public string Nickname;
     public int Scores;
-    public bool Winner;
-    public bool Loser;
-    public bool Banker;
-    public bool SelfDrawn;
-    public int CardinalDirection;
-    public int Points;
-    public PointType[] PointList;
-    public string LastTile;
+    public string Avatar;
+    public string AvatarBackground; // 頭像背景
+    public int Gender;
+    public int VoiceLanguage;
+    public int Score;
+    public int? WinScores;
+    public bool? Banker;
+    public string DoorWind;
+    public string[] Flowers;
+    public int WinPoint;
 }
 
 // Define the MessageObject structure to match the incoming JSON data
@@ -137,13 +138,31 @@ public class MessageObject
     public MessageData Data;
 }
 
+/*
+ * ReadyInfo: {
+	丟的牌1: {
+		 聽的牌1: 幾台,
+		 聽的牌2: 幾台   
+	},
+    丟的牌2: {
+		 聽的牌3: 幾台,
+		 聽的牌4: 幾台
+	}
+   }
+
+    "ReadyInfo": {
+        "c5": {"c8": 2},
+        "c8": {"c5": 2}
+    }
+ */
 [System.Serializable]
 public class ActionData
 {
     public Action ID;
     public List<string[]> Options;
     public List<List<TileSuits>> OptionTiles;
-    public ReadyInfoType ReadyInfo;
+    public Dictionary<string, Dictionary<string, int>> ReadyInfo;
+    public Dictionary<TileSuits, Dictionary<TileSuits, int>> ReadyInfoTile;
 }
 
 [System.Serializable]
@@ -154,16 +173,62 @@ public class PointType
 }
 
 [System.Serializable]
-public class PlayerResultData<T>
+public class TableResultData
 {
-    public T[] Tiles;
+    public int Round;
+    public int Hand;
+    public int? RemainingBankerCount;
+    public string Name;
+    public string Nickname;
+    public int Scores;
+    public string Avatar;
+    public string AvatarBackground; // 頭像背景
+    public int Gender;
+    public int VoiceLanguage;
+    public int Score;
+    public int? WinScores;
+    public bool? Banker;
+    public int Index;
+    public string DoorWind;
+    public List<string[]> Door;
+    public string[] Tiles;
+    public string[] Flowers;
+    public int WinPoint;
+}
+
+[System.Serializable]
+public class PlayerResultData
+{
+    public string Name;
+    public string Nickname;
+    public int Scores;
+    public string Avatar;
+    public string AvatarBackground; // 頭像背景
+    public int Gender;
+    public int VoiceLanguage;
+    public int Score;
+    public int? WinScores;
+    public bool? Banker;
+    public int Index;
+    public string DoorWind;
+    public List<string[]> Door;
+
+
+    public string[] Tiles;
     public int Points;
     public PointType[] PointList;
-    public int? WinScores;
+    
     public bool? SelfDrawn;
     public bool? Winner;
     public bool? Loser;
-    public bool? Banker;
+    
+    
+    
+    
+    
+    public int WinCount;
+    public int LoseCount;
+    public int WinPoint;
     public bool? Bankruptcy;
     public bool? Disconnected;
     public bool? InsufficientBalance;
@@ -185,6 +250,7 @@ public class PlayerGameResultData
     public int WinCount;
     public int LoseCount;
     public int WinScores;
+    public int WinPoint;
     public int? Compensation;
     public int? TableFee;
     public bool? Bankruptcy;
@@ -206,6 +272,7 @@ public class PlayerGameResultData
 public class ReadyInfoType
 {
     public Dictionary<string, ListeningTilesType> key;
+    public Dictionary<TileSuits, ListeningTilesType> tileKey;
 }
 
 /**
@@ -217,6 +284,7 @@ public class ReadyInfoType
 public class ListeningTilesType
 {
     public Dictionary<string, int> Mahjong;
+    public Dictionary<TileSuits, int> tileMahjong;
 }
 
 public static class Path

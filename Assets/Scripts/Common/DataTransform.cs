@@ -146,7 +146,7 @@ namespace DataTransformNamespace
                             break;
                         case Action.ReadyHand:
                             processedActionData[i].OptionTiles = MapStringListsToTileSuitsLists(actionData1.Options);
-                            processedActionData[i].ReadyInfo = actionData1.ReadyInfo;
+                            processedActionData[i].ReadyInfoTile = MapKeyToTileKey(actionData1.ReadyInfo);
                             break;
                         case Action.Win:
                         case Action.DrawnFromDeadWall:
@@ -156,6 +156,35 @@ namespace DataTransformNamespace
                 }
             }
             return processedActionData;
+        }
+
+        public static Dictionary<TileSuits, Dictionary<TileSuits, int>> MapKeyToTileKey(Dictionary<string, Dictionary<string, int>> key)
+        {
+            Dictionary<TileSuits, Dictionary<TileSuits, int>> tileKey = new Dictionary<TileSuits, Dictionary<TileSuits, int>>();
+
+            foreach (var kvp in key)
+            {
+                if (Enum.TryParse<TileSuits>(kvp.Key, out TileSuits tileSuit))
+                {
+                    Dictionary<TileSuits, int> innerDictionary = new Dictionary<TileSuits, int>();
+
+                    foreach (var innerKvp in kvp.Value)
+                    {
+                        if (Enum.TryParse<TileSuits>(innerKvp.Key, out TileSuits innerTileSuit))
+                        {
+                            innerDictionary[innerTileSuit] = innerKvp.Value;
+                        }
+                        // Handle any other cases if needed
+                    }
+
+                    tileKey[tileSuit] = innerDictionary;
+                }
+                else
+                {
+                }
+            }
+
+            return tileKey;
         }
     }
 }

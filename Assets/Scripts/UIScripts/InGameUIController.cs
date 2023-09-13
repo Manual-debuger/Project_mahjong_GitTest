@@ -75,6 +75,7 @@ public class InGameUIController : MonoBehaviour
         _settingUIButton.SetSoundEvent += SetSound;
         //_discardTileUIViewer.ActionEvent += UIActiveAction;
         _discardTileUIViewer.ListenOnActionEvent += ListenOn;
+        isDraw = true;
     }
     // Start is called before the first frame update
     void Start()

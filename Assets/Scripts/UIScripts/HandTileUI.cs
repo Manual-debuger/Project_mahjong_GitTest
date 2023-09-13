@@ -66,14 +66,15 @@ public class HandTileUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void SetDark()
     {
-        _image.color = new Color(127, 127, 127);
+        _image.color = Color.gray;
     }
     public void SetBright()
     {
-        _image.color = new Color(255, 255, 255);
+        //_image.color = new Color(255, 255, 255);
+        _image.color = Color.white;
     }
     public void SetYellow()
     {
-        _image.color = new Color(255, 255, 0);
+        _image.color = Color.yellow;
     }
 }

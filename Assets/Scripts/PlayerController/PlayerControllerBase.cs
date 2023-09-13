@@ -88,7 +88,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
         //    throw;
         //}
     }   
-    public virtual void SetHandTiles(List<TileSuits> tileSuits,bool IsDrawing = false)
+    public virtual void SetHandTiles(List<TileSuits> tileSuits)
     {
         Debug.LogWarning("Must override this function SetHandTiles, Do NOT Use this base function");
     }

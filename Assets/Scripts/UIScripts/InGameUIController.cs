@@ -184,22 +184,21 @@ public class InGameUIController : MonoBehaviour
             _handTilesUIViewer.HandTileSet(i, HandTileSuits[i]);
         }
     }
-    public void SetHandTile(List<TileSuits> tileSuits, bool IsDrawing)
+    public void SetHandTile(List<TileSuits> tileSuits)
     {
-        if (tileSuits.Count == 17)
-        {
-            IsDrawing = true;
-        }
-        if (IsDrawing)
+        if (tileSuits.Count % 3 == 2)
         {
             HandTileSuits[16] = tileSuits[tileSuits.Count - 1];
             tileSuits.RemoveAt(tileSuits.Count - 1);
         }
-        else
+        else if (tileSuits.Count % 3 == 1)
         {
             HandTileSuits[16] = TileSuits.NULL;
         }
-
+        else
+        {
+            Debug.LogError("Hand tile size error");
+        }
         for (int i = 0; i < tileSuits.Count; i++)
         {
             HandTileSuits[16 - tileSuits.Count + i] = tileSuits[i];

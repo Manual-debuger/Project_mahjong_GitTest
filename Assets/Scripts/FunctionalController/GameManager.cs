@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour,IInitiable
             {
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
             }
-            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.Tiles.Count==17);
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             _inGameUIController.ShowState("OpenDoor", 500);
         }
         catch (Exception)
@@ -237,7 +237,7 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             _centralAreaController.SetWallCount(e.WallCount);
-            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles, e.PlayingIndex == this._playerIndex);
+            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             
             _inGameUIController.ActionUISet(e.Actions ?? new ActionData[0], e.PlayingTimeLeft);
             for (int i=0;i< e.Seats.Count();i++)

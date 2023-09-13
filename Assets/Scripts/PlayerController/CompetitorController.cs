@@ -43,10 +43,11 @@ namespace Assets.Scripts.UIScripts
                 _handTilesAreaController.SetTiles(tileCount);
             }
         }
-        public override void SetHandTiles(List<TileSuits> tileSuits, bool IsDrawing=false)
+        public override void SetHandTiles(List<TileSuits> tileSuits)
         {
             _drawedTileAreaController.Init();
-            if (IsDrawing)
+            //if (IsDrawing)
+            if(tileSuits.Count % 3 == 2)
             {
                 _drawedTileAreaController.AddTile(tileSuits.Last());    
                 tileSuits.RemoveAt(tileSuits.Count-1);

@@ -35,18 +35,18 @@ public class PlayerController : PlayerControllerBase
     {
         base.SetSeatInfo(seatInfo);        
     }
-    public override void SetHandTiles(List<TileSuits> tileSuits, bool IsDrawing = false)
+    public override void SetHandTiles(List<TileSuits> tileSuits)
     {
         try
         {
-            Debug.LogWarning($"PlayerController.SetHandTiles(List<TileSuits> tileSuits, bool IsDrawing ={IsDrawing})");
+            Debug.LogWarning($"PlayerController.SetHandTiles(List<TileSuits> tileSuits)");
             //for (int i = 0; i < tileSuits.Count; i++)
             //{
             //    Debug.Log(i + " : " + tileSuits[i]);
             //}
 
-            Debug.LogWarning($"size ={tileSuits.Count}),IsDrawing ={IsDrawing})");
-            _inGameUIController.SetHandTile(tileSuits, IsDrawing);
+            Debug.LogWarning($"size ={tileSuits.Count})");
+            _inGameUIController.SetHandTile(tileSuits);
         }
         catch (System.Exception)
         {

@@ -181,23 +181,6 @@ public class DiscardTileUI : MonoBehaviour
     {
         ListenObject.SetActive(false);
     }
-
-    //public void ChowSelect(int index)
-    //{
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Chow)
-    //        {
-    //            List<TileSuits> tile = action.OptionTiles[index];
-    //            List<List<TileSuits>> tilelist = new List<List<TileSuits>>();
-    //            tilelist.Add(tile);
-    //            action.OptionTiles = tilelist;
-    //            ActionEvent?.Invoke(this, action);
-    //        }
-    //    }
-    //    SetChowOptionOff();
-    //}
-
     public void buttontest()
     {
         //Debug.Log("test");

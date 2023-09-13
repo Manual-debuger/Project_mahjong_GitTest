@@ -192,14 +192,10 @@ public class InGameUIController : MonoBehaviour
             HandTileSuits[16] = tileSuits[tileSuits.Count - 1];
             tileSuits.RemoveAt(tileSuits.Count - 1);
         }
-        else if (tileSuits.Count % 3 == 1)
+        else
         {
             HandTileSuits[16] = TileSuits.NULL;
             isDraw = true;
-        }
-        else
-        {
-            Debug.LogError("Hand tile size error");
         }
 
         for (int i = 0; i < tileSuits.Count; i++)

@@ -41,6 +41,10 @@ namespace DataTransformNamespace
                             // Handle error case if enum parsing fails
                         }
                     }
+                    else if (tile.Length == 0) // add kong if tile is ""
+                    {
+                        tileSuitsList.Add(TileSuits.NULL);
+                    }
                 }
 
                 return tileSuitsList;

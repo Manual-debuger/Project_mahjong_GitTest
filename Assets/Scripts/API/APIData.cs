@@ -299,11 +299,9 @@ namespace APIDataNamespace
 
         public static void HandleTableResult(MessageData resultData)
         {
-            List<List<TileSuits>> doorList = DataTransform.MapStringListsToTileSuitsLists(resultData.Door);
-            List<TileSuits> optionTile = DataTransform.ReturnTileToIndex(resultData.Option);
-            List<TileSuits> flowerList = DataTransform.ReturnTileToIndex(resultData.Flowers);
+            List<PlayerResultData> playerResultData = DataTransform.MapAllResult(resultData.Results);
 
-            ResultEventArgs resultEventArgs = new(doorList, optionTile, flowerList);
+            ResultEventArgs resultEventArgs = new(playerResultData);
 
             ResultEvent?.Invoke(instance, resultEventArgs);
         }

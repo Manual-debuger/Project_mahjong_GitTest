@@ -146,14 +146,14 @@ public class DiscardTileUI : MonoBehaviour
         }
     }
 
-    public void SetListenTileSuggest(ListeningTilesType listeningTilesTypes)
+    public void SetListenTileSuggest(Dictionary<TileSuits, int> listeningTilesTypes)
     {
         int count = 0;
         foreach (GameObject listenTile in ListenOption)
         {
             listenTile.SetActive(false);
         }
-        foreach (KeyValuePair<string, int> keyValuePair in listeningTilesTypes.Mahjong)
+        foreach (KeyValuePair<TileSuits, int> keyValuePair in listeningTilesTypes)
         {
             ListenOption[count].SetActive(true);
             ListenOptionTiles[count].Appear();

@@ -69,7 +69,7 @@ public static class SeatExtensions
 [System.Serializable]
 public class MessageData
 {
-    #region Event data
+    // Event Data
     public long Time;
     public int ClubID;
     public int TableID;
@@ -90,44 +90,23 @@ public class MessageData
     public int Ante;
     public int ScorePerPoint;
     public string[] Doras;
-    #endregion
 
-    #region Play data
-    // public int SelfSeatIndex; Have it already
+    // Play Data
     public Action Action;
     public int? DrawnCount;
     public string[] Option;
     public List<string[]> Options;
-    #endregion
 
-    public int? RemainingBankerCount;
-    public List<string[]> Door;
-    public List<string[]> AllTiles;
-    public ListeningTilesType ListeningTiles;
     // 遊戲回放給予
     public int? PrePlayingIndex;
     public string RoundID;
     public bool? PassingWin;
 
-
-    public Action ID;
-    public ReadyInfoType ReadyInfo;
-
-
-    // Result
-    public string Name;
-    public string Nickname;
-    public int Scores;
-    public string Avatar;
-    public string AvatarBackground; // 頭像背景
-    public int Gender;
-    public int VoiceLanguage;
-    public int Score;
-    public int? WinScores;
-    public bool? Banker;
-    public string DoorWind;
-    public string[] Flowers;
-    public int WinPoint;
+    // Result Data
+    public bool? InterceptWin;
+    public int? RemainingBankerCount;
+    public PlayerResultData[] Results;
+    public string[] Wall;
 }
 
 // Define the MessageObject structure to match the incoming JSON data
@@ -173,30 +152,6 @@ public class PointType
 }
 
 [System.Serializable]
-public class TableResultData
-{
-    public int Round;
-    public int Hand;
-    public int? RemainingBankerCount;
-    public string Name;
-    public string Nickname;
-    public int Scores;
-    public string Avatar;
-    public string AvatarBackground; // 頭像背景
-    public int Gender;
-    public int VoiceLanguage;
-    public int Score;
-    public int? WinScores;
-    public bool? Banker;
-    public int Index;
-    public string DoorWind;
-    public List<string[]> Door;
-    public string[] Tiles;
-    public string[] Flowers;
-    public int WinPoint;
-}
-
-[System.Serializable]
 public class PlayerResultData
 {
     public string Name;
@@ -205,30 +160,30 @@ public class PlayerResultData
     public string Avatar;
     public string AvatarBackground; // 頭像背景
     public int Gender;
-    public int VoiceLanguage;
+    public string VoiceLanguage;
     public int Score;
-    public int? WinScores;
+    public int WinScores;
     public bool? Banker;
     public int Index;
     public string DoorWind;
     public List<string[]> Door;
-
-
     public string[] Tiles;
-    public int Points;
-    public PointType[] PointList;
-    
+    public string[] Flowers;
+    public List<List<TileSuits>> DoorTile;
+    public List<TileSuits> Tile;
+    public List<TileSuits> FlowerTile;
     public bool? SelfDrawn;
     public bool? Winner;
     public bool? Loser;
-    
-    
-    
-    
-    
-    public int WinCount;
-    public int LoseCount;
     public int WinPoint;
+
+    // need add
+    public int Points;
+    public PointType[] PointList;
+
+    // never seen
+    public int? WinCount;
+    public int? LoseCount;
     public bool? Bankruptcy;
     public bool? Disconnected;
     public bool? InsufficientBalance;
@@ -236,6 +191,47 @@ public class PlayerResultData
     public bool? HandWin;
 }
 
+public static class PlayerResultExtensions
+{
+    public static PlayerResultData CloneWithTiles(this PlayerResultData playerResult, List<List<TileSuits>> doorList, List<TileSuits> tileList, List<TileSuits> flowerList)
+    {
+        return new PlayerResultData
+        {
+            Name = playerResult.Name,
+            Nickname = playerResult.Nickname,
+            Scores = playerResult.Scores,
+            Avatar = playerResult.Avatar,
+            AvatarBackground = playerResult.AvatarBackground,
+            Gender = playerResult.Gender,
+            VoiceLanguage = playerResult.VoiceLanguage,
+            Score = playerResult.Score,
+            WinScores = playerResult.WinScores,
+            Banker = playerResult.Banker,
+            Index = playerResult.Index,
+            DoorWind = playerResult.DoorWind,
+            DoorTile = doorList,
+            Tile = tileList,
+            FlowerTile = flowerList,
+            SelfDrawn = playerResult.SelfDrawn,
+            Winner = playerResult.Winner,
+            Loser = playerResult.Loser,
+            WinPoint = playerResult.WinPoint,
+
+            Points = playerResult.Points,
+            PointList = playerResult.PointList,
+
+            WinCount = playerResult.WinCount,
+            LoseCount = playerResult.LoseCount,
+            Bankruptcy = playerResult.Bankruptcy,
+            Disconnected = playerResult.Disconnected,
+            InsufficientBalance = playerResult.InsufficientBalance,
+            TableFee = playerResult.TableFee,
+            HandWin = playerResult.HandWin,
+        };
+    }
+}
+
+// Leave this table's result
 [System.Serializable]
 public class PlayerGameResultData
 {
@@ -257,34 +253,6 @@ public class PlayerGameResultData
     public bool? Disconnected;
     public bool? TableOwner;
     public bool? InsufficientBalance;
-}
-/**
- * ReadyInfo => {
- * 
-	丟的牌: {
-
-		 聽的牌: 幾台,
-		 聽的牌: 幾台   
-	}
-  }
- */
-[System.Serializable]
-public class ReadyInfoType
-{
-    public Dictionary<string, ListeningTilesType> key;
-    public Dictionary<TileSuits, ListeningTilesType> tileKey;
-}
-
-/**
- * {
- * 聽的牌: 幾台
- * }
- */
-[System.Serializable]
-public class ListeningTilesType
-{
-    public Dictionary<string, int> Mahjong;
-    public Dictionary<TileSuits, int> tileMahjong;
 }
 
 public static class Path
@@ -318,39 +286,6 @@ public class TableEnterObject
     public object Data;
 }
 
-[Serializable]
-public class TableEventData
-{
-    public int Ante;
-    public int ScorePerPoint;
-    public int ClubID;
-    public int TableID;
-    public int MaxHand;
-    public int Hand;
-    public int Round;
-    public int Index;
-    public SeatInfo[] Seats;
-    public string State;
-    public long Time;
-    public ActionData[] Actions;
-    public long? NextStateTime;
-    public int? Dice;
-    public string[] Doras;
-    public int? BankerIndex;
-    public int? RemainingBankerCount;
-    public int? WallCount;
-    public int? PlayingIndex;
-    public string[] Tiles;
-    public List<string[]> Door;
-    public long? PlayingDeadline;
-    public List<string[]> AllTiles;
-    public ListeningTilesType ListeningTiles;
-    // 遊戲回放給予
-    public int? PrePlayingIndex;
-    public string RoundID;
-    public bool? PassingWin;
-}
-
 [System.Serializable]
 public class TablePlayData
 {
@@ -365,24 +300,4 @@ public class TablePlayObject
 {
     public string Path;
     public TablePlayData Data;
-}
-
-[System.Serializable]
-public class ResultData
-{
-    public int Index;
-    public string NickName;
-    public int PlayerID;
-    public int WinScores;
-    public int Scores;
-    public bool Winner;
-    public bool Loser;
-    public bool Banker;
-    public bool SelfDrawn;
-    public int CardinalDirection;
-    public int Points;
-    public PointType[] PointList;
-    public string[] Door;
-    public string[] Tiles;
-    public string LastTile;
 }

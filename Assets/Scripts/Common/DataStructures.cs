@@ -287,25 +287,16 @@ public class GroundingFlowerActionEventArgs : EventArgs
         DrawnCount = drawnCount;
     }
 }
+#endregion
 
 public class ResultEventArgs : EventArgs
 {
-    public int Score;
-    public int? WinScores;
-    public bool? Banker;
-    public int Index;
-    public string DoorWind;
-    public List<List<TileSuits>> Door;
-    public List<TileSuits> Tiles;
-    public List<TileSuits> Flowers;
-    public ResultEventArgs(List<List<TileSuits>> door, List<TileSuits> tiles, List<TileSuits> flowers)
+    public List<PlayerResultData> PlayerResult;
+    public ResultEventArgs(List<PlayerResultData> playerResult)
     {
-        Door = door;
-        Tiles = tiles;
-        Flowers = flowers;
+        PlayerResult = playerResult;
     }
 }
-#endregion
 
 public class FloatEventArgs : EventArgs
 {

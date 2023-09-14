@@ -6669,6 +6669,7 @@ MonoBehaviour:
   SettlementUI: {fileID: 1981678792}
   IsListenState: 0
   IsDiscardState: 0
+  isDraw: 1
   CanDiscardList: 0000000000000000000000000000000000
   HandTileSuits: 2a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a000000
   StateName: {fileID: 2042669021}
@@ -7603,7 +7604,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8736474432135689243, guid: 07cf7a086bbd94c4082f773f7f8a455d, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -7698,8 +7699,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8666046274477973863, guid: 07cf7a086bbd94c4082f773f7f8a455d, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -14299,7 +14300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -35, y: 260}
+  m_AnchoredPosition: {x: -34.999878, y: 260}
   m_SizeDelta: {x: -370, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &9125152869244581237 stripped

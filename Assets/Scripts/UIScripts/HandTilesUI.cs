@@ -11,7 +11,7 @@ public class HandTilesUI : MonoBehaviour
     public List<HandTileUI> _TilesComponents = new();
     [SerializeField]
     private Sprite[] _tileMeshs;
-    ReadyInfoType readyInfo;
+    Dictionary<TileSuits, Dictionary<TileSuits, int>> readyInfo;
     public event EventHandler<TileIndexEventArgs> DiscardTileEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerDownEvent;
     public event EventHandler<TileIndexEventArgs> OnPointerUpEvent;

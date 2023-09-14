@@ -178,17 +178,34 @@ namespace DataTransformNamespace
                         {
                             innerDictionary[innerTileSuit] = innerKvp.Value;
                         }
-                        // Handle any other cases if needed
+                        else
+                        {
+                        }
                     }
 
                     tileKey[tileSuit] = innerDictionary;
                 }
-                else
-                {
-                }
             }
-
             return tileKey;
+        }
+
+        public static List<PlayerResultData> MapAllResult(IEnumerable<PlayerResultData> playerResults)
+        {
+            List<PlayerResultData> playerResultDatas = new List<PlayerResultData>();
+            foreach (PlayerResultData Result in playerResults)
+            {
+                PlayerResultData processedResult = MapResult(Result);
+                playerResultDatas.Add(processedResult);
+            }
+            return playerResultDatas;
+        }
+
+        public static PlayerResultData MapResult(PlayerResultData result)
+        {
+            List<List<TileSuits>> doorList = MapStringListsToTileSuitsLists(result.Door);
+            List<TileSuits> tileList = ReturnTileToIndex(result.Tiles);
+            List<TileSuits> flowerList = ReturnTileToIndex(result.Flowers);
+            return result.CloneWithTiles(doorList, tileList, flowerList);
         }
     }
 }

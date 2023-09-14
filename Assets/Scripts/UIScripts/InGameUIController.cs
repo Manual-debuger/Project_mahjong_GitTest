@@ -36,7 +36,7 @@ public class InGameUIController : MonoBehaviour
     public bool isDraw = true;
     public bool[] CanDiscardList = new bool[17];
     private ActionData[] Actions;
-    private ReadyInfoType readyInfo;
+    private Dictionary<TileSuits, Dictionary<TileSuits, int>> readyInfo;
     public List<TileSuits> HandTileSuits = new()
     {
         TileSuits.NULL,
@@ -140,12 +140,10 @@ public class InGameUIController : MonoBehaviour
     {
         if (IsListenState)
         {
-            List<TileSuits> tileList = new List<TileSuits> { HandTileSuits[e.TileIndex] };
-            string[] tileArray = DataTransform.ReturnIndexToTile(tileList);
-            string Tile = tileArray.ToString();
-            foreach (KeyValuePair<string, ListeningTilesType> key in readyInfo.key)
+            TileSuits tile = HandTileSuits[e.TileIndex];
+            foreach (KeyValuePair<TileSuits, Dictionary<TileSuits, int>> key in readyInfo)
             {
-                if (Tile == key.Key)
+                if (tile == key.Key)
                 {
                     _discardTileUIViewer.SetListenTileSuggest(key.Value);
                     break;

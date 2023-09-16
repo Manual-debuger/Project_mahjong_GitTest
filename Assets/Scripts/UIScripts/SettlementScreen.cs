@@ -53,4 +53,26 @@ public class SettlementScreen : MonoBehaviour
         }
         CountTime = time;
     }
+    public void SetSettlement(List<PlayerResultData> playerResultDatas, long time = 6000)
+    {
+        for (int i = 1; i < playerResultDatas.Count; i++)
+        {
+            bool swapped;
+            do
+            {
+                swapped = false;
+                if (playerResultDatas[i - 1].Scores > playerResultDatas[i].Scores)
+                {
+                    PlayerResultData temp = playerResultDatas[i - 1];
+                    playerResultDatas[i - 1] = playerResultDatas[i];
+                    playerResultDatas[i] = temp;
+                }
+            } while (swapped);
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].Set(playerResultDatas[i]);
+        }
+        CountTime = time;
+    }
 }

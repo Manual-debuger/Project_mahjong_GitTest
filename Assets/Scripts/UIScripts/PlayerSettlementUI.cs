@@ -45,4 +45,32 @@ public class PlayerSettlementUI : MonoBehaviour
         Score.text = totalScore;
         //Tiles;
     }
+    public void Set(PlayerResultData playerResultData)
+    {
+        //HeadSet;
+        Wind.text = playerResultData.DoorWind;
+        PlayerId.text = playerResultData.Nickname;
+        string totalScore = playerResultData.Scores.ToString();
+        if (playerResultData.Score > 0)
+        {
+            totalScore += "+" + playerResultData.WinScores.ToString();
+        }
+        else if (playerResultData.Score < 0)
+        {
+            totalScore += playerResultData.WinScores.ToString();
+        }
+        Score.text = totalScore;
+        for (int i = 0; i < playerResultData.DoorTile.Count; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Tiles[3 * i + j].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.DoorTile[i][j]];
+            }
+        }
+        for (int i = 3 * playerResultData.DoorTile.Count; i < 17; i++)
+        {
+            Tiles[i].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.Tile[i]];
+        }
+        //Tiles;
+    }
 }

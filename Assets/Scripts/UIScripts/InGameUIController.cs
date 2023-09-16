@@ -288,6 +288,23 @@ public class InGameUIController : MonoBehaviour
         UIReset();
         CountTime = 0;
     }
+    public async void Settlement(List<PlayerResultData> playerResultDatas, long time)
+    {
+        InGameUI.SetActive(false);
+        SettlementUI.SetActive(true);
+        _settlementScreen.SetSettlement(playerResultDatas, time);
+
+        await Task.Delay((int)time);
+        InGameUI.SetActive(true);
+        SettlementUI.SetActive(false);
+        for (int i = 0; i < 17; i++)
+        {
+            HandTileSuits[i] = TileSuits.NULL;
+        }
+        HandTileUISet();
+        UIReset();
+        CountTime = 0;
+    }
     public async void ShowState(string State, long time)
     {
         this.StateName.SetActive(true);

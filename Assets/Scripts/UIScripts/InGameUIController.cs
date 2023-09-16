@@ -88,7 +88,7 @@ public class InGameUIController : MonoBehaviour
         CountTime -= (long)(Time.deltaTime * 1000);
         if (CountTime < 0)
         {
-            TimeOut();
+            UIReset();
             _discardTileUIViewer.SetTime(0);
         }
         else
@@ -217,6 +217,7 @@ public class InGameUIController : MonoBehaviour
     }
     public void ActionUISet(ActionData[] actions, long time)
     {
+        UIReset();
         Actions = actions;
         foreach (ActionData action in actions)
         {
@@ -271,12 +272,6 @@ public class InGameUIController : MonoBehaviour
         }
         CountTime = time;
     }
-    private void UIActiveAction(object sender, ActionData e)
-    {
-        IsListenState = false;
-        DiscardTileUIViewer.ActionUISetOff();
-        UIActiveActionEvent?.Invoke(this, e);
-    }
     public async void Settlement(List<SeatInfo> seatInfos,long time)
     {
         InGameUI.SetActive(false);
@@ -291,7 +286,7 @@ public class InGameUIController : MonoBehaviour
             HandTileSuits[i] = TileSuits.NULL;
         }
         HandTileUISet();
-        TimeOut();
+        UIReset();
         CountTime = 0;
     }
     public async void ShowState(string State, long time)
@@ -333,6 +328,7 @@ public class InGameUIController : MonoBehaviour
                 {
                     UIActiveActionEvent?.Invoke(this, action);
                     _handTilesUIViewer.SetBright();
+                    isDraw = false;
                     break;
                 }
                 else
@@ -343,7 +339,6 @@ public class InGameUIController : MonoBehaviour
                 }
             }
         }
-        isDraw = false;
         IsListenState = false;
         IsDiscardState = false;
         _discardTileUIViewer.ActionUISetOff();
@@ -485,7 +480,7 @@ public class InGameUIController : MonoBehaviour
             CanDiscardList[i] = false;
         }
     }
-    private void TimeOut()
+    private void UIReset()
     {
         for (int i = 0; i < 17; i++)
         {
@@ -493,9 +488,8 @@ public class InGameUIController : MonoBehaviour
         }
         IsListenState = false;
         IsDiscardState = false;
+        isDraw = true;
         _handTilesUIViewer.SetBright();
-        _discardTileUIViewer.SetListenOptionOff();
-        _discardTileUIViewer.SetChowOptionOff();
         _discardTileUIViewer.ActionUISetOff();
     }
     public SettingUIButton SettingUIButton

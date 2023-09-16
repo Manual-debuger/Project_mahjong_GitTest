@@ -28,90 +28,10 @@ public class DiscardTileUI : MonoBehaviour
     //}
     public void ActionUISetOff()
     {
+        SetChowOptionOff();
+        SetListenOptionOff();
         actionUI.ActionUISetOff();
     }
-    //public void Pass()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Pass)
-    //        {
-    //            ActionEvent?.Invoke(this, action);
-    //            break;
-    //        }
-    //    }
-    //}
-    //public void Chow()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Chow)
-    //        {
-    //            if (action.OptionTiles.Count == 1)
-    //                ActionEvent?.Invoke(this, action);
-    //            else
-    //                SetChowOptionOn(action);
-    //            break;
-    //        }
-    //    }
-    //}
-    //public void Pong()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Pong)
-    //        {
-    //            ActionEvent?.Invoke(this, action);
-    //            break;
-    //        }
-    //    }
-    //}
-    //public void Kong()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Kong || action.ID == Action.AdditionKong || action.ID == Action.ConcealedKong)
-    //        {
-    //            ActionEvent?.Invoke(this, action);
-    //            break;
-    //        }
-    //    }
-    //}
-    //public void Listen()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.ReadyHand)
-    //        {
-    //            if (action.OptionTiles.Count == 1)
-    //                ActionEvent?.Invoke(this, action);
-    //            else
-    //                SetListenOptionOn();
-    //            break;
-    //        }
-    //    }
-    //}
-    //public void Winning()
-    //{
-    //    ActionUISetOff();
-    //    foreach (ActionData action in Actions)
-    //    {
-    //        if (action.ID == Action.Win || 
-    //            action.ID == Action.DrawnFromDeadWall || 
-    //            action.ID == Action.SelfDrawnWin)
-    //        {
-    //            ActionEvent?.Invoke(this, action);
-    //            break;
-    //        }
-    //    }
-    //}
-
-
     public void SetChowOptionOn(ActionData action)
     {
         //SetListenOptionOff();

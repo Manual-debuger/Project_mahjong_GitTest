@@ -48,8 +48,8 @@ public class Meld : MonoBehaviour,IInitiable
             }
             else
             {
-                Debug.LogError("Error:Meld.SetByTileSuitsList() tileSuits.Count!=1,2,3");
-                throw new System.Exception("Error:Meld.SetByTileSuitsList() tileSuits.Count!=1,2,3");
+                Debug.LogError($"Error:Meld.SetByTileSuitsList() tileSuits.Count!=1,2,3 tileSuits.Count={tileSuits.Count}");
+                throw new System.Exception("Error:Meld.SetByTileSuitsList() tileSuits.Count!=1,2,3 tileSuits.Count={tileSuits.Count}");
             }
             _meldType = meldTypes;
             switch (meldTypes)

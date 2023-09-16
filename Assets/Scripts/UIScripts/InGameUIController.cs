@@ -281,7 +281,8 @@ public class InGameUIController : MonoBehaviour
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
-        _settlementScreen.SetSettlement(seatInfos);
+        _settlementScreen.SetSettlement(seatInfos, time);
+
         await Task.Delay((int)time);
         InGameUI.SetActive(true);
         SettlementUI.SetActive(false);

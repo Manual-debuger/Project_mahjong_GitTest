@@ -38,6 +38,10 @@ public class PlayerSettlementUI : MonoBehaviour
         {
             totalScore += seatInfo.WinScores.ToString();
         }
+        for (int i = 0; i < 17; i++)
+        {
+            //AssetsPoolController.Instance.TileSprites[(int)seatInfo.tile];
+        }
         Score.text = totalScore;
         //Tiles;
     }

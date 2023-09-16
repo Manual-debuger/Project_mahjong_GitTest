@@ -9,27 +9,25 @@ public class Seat<T>
     public string AvatarBackground; // 頭像背景
     public int Gender; //  0 男生 1 女生 
     public string VoiceLanguage; // 0 國語 1 台語
+    public bool? AutoPlaying; // 是否託管
     public int? TileCount; // 玩家手牌數量
-    public List<string[]> Door; // 玩家有碰槓吃等資訊
     public string[] Flowers; // 玩家花牌(後端字串格式)
     public string[] Sea; // 玩家海底(後端字串格式)
-    public List<List<TileSuits>> DoorTile; // 玩家花牌(遊戲內的數值格式)
+    public List<string[]> Door; // 玩家有碰槓吃等資訊
     public List<TileSuits> FlowerTile; // 玩家花牌(遊戲內的數值格式)
     public List<TileSuits> SeaTile; // 玩家海底(遊戲內的數值格式)
+    public List<List<TileSuits>> DoorTile; // 玩家花牌(遊戲內的數值格式)
+    public bool? ReadyHand; // 是否聽
     public string DoorWind; // 玩家此局風向
     public int WinScores; // 該場遊戲輸贏分
 
-
+    // never seen
     public int Scores; // 玩家金錢分數
     public int Index; // 玩家在陣列中的index
     public int? WinCount; // 玩家贏的場次
     public int? LoseCount; // 玩家輸的場次
-    
     public bool? Ready; // 是否準備
-    public bool? ReadyHand; // 是否聽
     public int[] Location; // 玩家座標位置
-    public bool? AutoPlaying; // 是否託管
-    
 }
 
 public class SeatInfo : Seat<List<string[]>>
@@ -163,6 +161,9 @@ public class PlayerResultData
     public string VoiceLanguage;
     public int Score;
     public int WinScores;
+    public bool? Winner;
+    public PointType[] PointList; // 贏的台型
+    public bool? Loser;
     public bool? Banker;
     public int Index;
     public string DoorWind;
@@ -173,13 +174,10 @@ public class PlayerResultData
     public List<TileSuits> Tile;
     public List<TileSuits> FlowerTile;
     public bool? SelfDrawn;
-    public bool? Winner;
-    public bool? Loser;
     public int WinPoint;
 
     // need add
     public int Points;
-    public PointType[] PointList;
 
     // never seen
     public int? WinCount;
@@ -263,6 +261,7 @@ public static class Path
     public const string TableEvent = "game.table.event";
     public const string TablePlay = "game.table.play";
     public const string TableResult = "game.table.result";
+    public const string TableAutoPlay = "game.table.autoplay";
 }
 
 [System.Serializable]

@@ -145,6 +145,9 @@ public class API : MonoBehaviour
             case Path.TableResult:
                 HandleTableResult(message.Data);
                 break;
+            case Path.TableAutoPlay:
+                APIData.HandleAutoPlay();
+                break;
             default:
                 Debug.LogError("Unknown message Path: " + message.Path);
                 break;
@@ -219,19 +222,11 @@ public class API : MonoBehaviour
                     Debug.LogError("Unknown state: " + eventData.State);
                     break;
             }
-
-            // GameClass.instance.UpdateEventTimer(); eventTimer = System.DateTime.Now.Ticks / 10000;
         }
-        catch (Exception ex)
+        catch
         {
             throw;
         }
-
-        /*if (GameClass.instance == null)
-        {
-            Global.UpdateTableBasicInfo(eventData);
-            return;
-        }*/
     }
 
     private void HandleTablePlay(MessageData playData)
@@ -273,10 +268,6 @@ public class API : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            //CloseAllBtn();
-        }
     }
 
     private void HandleTableResult(MessageData data)
@@ -286,7 +277,7 @@ public class API : MonoBehaviour
             Debug.Log("TableResult: " + data.State);
             APIData.HandleTableResult(data);
         }
-        catch (Exception ex)
+        catch
         {
             throw;
         }

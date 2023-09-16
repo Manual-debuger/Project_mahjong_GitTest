@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DataTransformNamespace;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
 
 
 namespace APIDataNamespace
@@ -305,43 +304,37 @@ namespace APIDataNamespace
 
             ResultEvent?.Invoke(instance, resultEventArgs);
         }
+        
+        public static void HandleAutoPlay()
+        {
+            // Global.gameData.AutoPlaying = !Global.gameData.AutoPlaying;
+        }
 
         public async void HandleClickAction(ActionData actionData, int index)
         {
-            // 可以選擇吃的牌型
-            // Selectable Chow Patterns
-            if (actionData.ID == Action.Chow && actionData.OptionTiles.Count >= 2)
+            var requestData = new
             {
-                
-            }
-            // 可以選擇槓的牌型
-            // Selectable Kong Patterns
-            else if ((actionData.ID == Action.AdditionKong || actionData.ID == Action.ConcealedKong) && actionData.OptionTiles.Count >= 2)
-            {
-                
-            }
-            else if (actionData.ID == Action.ReadyHand)
-            {
-                // 設定聽牌
-                // Set ReadyHand
-
-            }
-            else
-            {
-                var requestData = new
+                Path = Path.TablePlay,
+                Data = new
                 {
-                    Path = Path.TablePlay,
-                    Data = new
-                    {
-                        Index = index,
-                        Action = actionData.ID,
-                        Option = actionData.OptionTiles != null ? DataTransform.ReturnIndexToTile(actionData.OptionTiles[0]) : null
-                    }
-                };
-                string jsonData = JsonConvert.SerializeObject(requestData);
-                Debug.Log("TablePlay request: " + jsonData);
-                await API.Instance.SendData(jsonData);
-            }
+                    Index = index,
+                    Action = actionData.ID,
+                    Option = actionData.OptionTiles != null ? DataTransform.ReturnIndexToTile(actionData.OptionTiles[0]) : null
+                }
+            };
+            string jsonData = JsonConvert.SerializeObject(requestData);
+            Debug.Log("TablePlay request: " + jsonData);
+            await API.Instance.SendData(jsonData);
+        }
+
+        public async void HandleCancelAutoPlay()
+        {
+            var requestData = new
+            {
+                Path = Path.TableAutoPlay
+            };
+            string jsonData = JsonConvert.SerializeObject(requestData);
+            await API.Instance.SendData(jsonData);
         }
     }
 }

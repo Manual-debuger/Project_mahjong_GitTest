@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour,IInitiable
             APIData.KongEvent += OnKongActionEvent;
             APIData.DrawnEvent += OnDrawnActionEvent;
             APIData.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
+
+            APIData.ResultEvent += OnResultEvent;
         }
     }
 
@@ -423,6 +425,12 @@ public class GameManager : MonoBehaviour,IInitiable
         //Audio
         Instance._audioController.PlayAudioEffect(AudioType.GroundingFlower);
         //throw new System.NotImplementedException();
+    }
+
+    // µ²ºâ¸ê°T
+    private void OnResultEvent(object sender, ResultEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnResultEvent!!!!!!!!!!!!");
     }
     #endregion
 }

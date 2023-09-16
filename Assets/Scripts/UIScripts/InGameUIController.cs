@@ -288,7 +288,7 @@ public class InGameUIController : MonoBehaviour
         UIReset();
         CountTime = 0;
     }
-    public async void Settlement(List<PlayerResultData> playerResultDatas, long time)
+    public async void Settlement(List<PlayerResultData> playerResultDatas, long time=12000)
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);

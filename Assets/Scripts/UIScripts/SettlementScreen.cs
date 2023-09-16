@@ -31,7 +31,7 @@ public class SettlementScreen : MonoBehaviour
         }
     }
 
-    public void SetSettlement(List<SeatInfo> seatInfos, long time = 6000)
+    public void SetSettlement(List<SeatInfo> seatInfos, long time)
     {
         for (int i = 1; i < seatInfos.Count; i++)
         {
@@ -53,7 +53,7 @@ public class SettlementScreen : MonoBehaviour
         }
         CountTime = time;
     }
-    public void SetSettlement(List<PlayerResultData> playerResultDatas, long time = 6000)
+    public void SetSettlement(List<PlayerResultData> playerResultDatas, long time)
     {
         for (int i = 1; i < playerResultDatas.Count; i++)
         {

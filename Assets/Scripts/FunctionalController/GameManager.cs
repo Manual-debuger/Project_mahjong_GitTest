@@ -430,7 +430,16 @@ public class GameManager : MonoBehaviour,IInitiable
     // µ²ºâ¸ê°T
     private void OnResultEvent(object sender, ResultEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnResultEvent!!!!!!!!!!!!");
+        try
+        {
+            Debug.Log("!!!!!!!!!!!!OnResultEvent!!!!!!!!!!!!"); ;
+            _inGameUIController.Settlement(e.PlayerResult);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw;
+        }
     }
     #endregion
 }

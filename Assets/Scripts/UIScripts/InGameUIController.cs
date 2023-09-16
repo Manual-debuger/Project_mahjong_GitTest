@@ -122,10 +122,9 @@ public class InGameUIController : MonoBehaviour
             HandTileSort();
             HandTileUISet();
 
+            _discardTileUIViewer.ActionUISetOff();
             IsListenState = false;
             IsDiscardState = false;
-            _discardTileUIViewer.ActionUISetOff();
-            _discardTileUIViewer.SetListenOptionOff();
             _handTilesUIViewer.SetBright();
             for (int i = 0; i < 17; i++)
             {
@@ -309,8 +308,6 @@ public class InGameUIController : MonoBehaviour
         }
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         _handTilesUIViewer.SetBright();
         for (int i = 0; i < 17; i++)
         {
@@ -341,8 +338,6 @@ public class InGameUIController : MonoBehaviour
         }
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         for (int i = 0; i < 17; i++)
         {
             CanDiscardList[i] = false;
@@ -362,8 +357,6 @@ public class InGameUIController : MonoBehaviour
         isDraw = false;
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         _handTilesUIViewer.SetBright();
         for (int i = 0; i < 17; i++)
         {
@@ -383,8 +376,6 @@ public class InGameUIController : MonoBehaviour
         }
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         _handTilesUIViewer.SetBright();
         for (int i = 0; i < 17; i++)
         {
@@ -447,8 +438,6 @@ public class InGameUIController : MonoBehaviour
         }
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         _handTilesUIViewer.SetBright();
         for (int i = 0; i < 17; i++)
         {
@@ -457,6 +446,7 @@ public class InGameUIController : MonoBehaviour
     }
     public void ChowSelect(int index)
     {
+        _discardTileUIViewer.ActionUISetOff();
         foreach (ActionData action in Actions)
         {
             if (action.ID == Action.Chow)
@@ -469,11 +459,8 @@ public class InGameUIController : MonoBehaviour
             }
         }
         isDraw = false;
-        _discardTileUIViewer.SetChowOptionOff();
         IsListenState = false;
         IsDiscardState = false;
-        _discardTileUIViewer.ActionUISetOff();
-        _discardTileUIViewer.SetListenOptionOff();
         _handTilesUIViewer.SetBright();
         for (int i = 0; i < 17; i++)
         {
@@ -482,6 +469,7 @@ public class InGameUIController : MonoBehaviour
     }
     private void UIReset()
     {
+        _discardTileUIViewer.ActionUISetOff();
         for (int i = 0; i < 17; i++)
         {
             CanDiscardList[i] = false;
@@ -490,7 +478,6 @@ public class InGameUIController : MonoBehaviour
         IsDiscardState = false;
         isDraw = true;
         _handTilesUIViewer.SetBright();
-        _discardTileUIViewer.ActionUISetOff();
     }
     public SettingUIButton SettingUIButton
     {

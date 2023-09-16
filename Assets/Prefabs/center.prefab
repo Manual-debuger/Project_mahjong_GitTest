@@ -2122,7 +2122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e7d3b698f5d8a4fb7310bfb5459c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberOfRemainedTilesTextMeshPro: {fileID: 2221322818441307690}
+  _WallCountTextMeshPro: {fileID: 0}
   _scoresTextMeshProList:
   - {fileID: 185758290490838961}
   - {fileID: 5718251493181655495}
@@ -2133,6 +2133,11 @@ MonoBehaviour:
   - {fileID: 7139752960288002658}
   - {fileID: 2482864357904757294}
   - {fileID: 175896411873043026}
+  _highlightBarMeshRenderList:
+  - {fileID: 1177595886242339589}
+  - {fileID: 1464887256984275569}
+  - {fileID: 7608962950119908772}
+  - {fileID: 997834435502652988}
 --- !u!1 &7657212017868352305
 GameObject:
   m_ObjectHideFlags: 0

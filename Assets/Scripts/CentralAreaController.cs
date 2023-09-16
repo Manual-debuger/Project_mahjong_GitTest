@@ -8,10 +8,17 @@ using UnityEngine;
 public class CentralAreaController : MonoBehaviour,IInitiable
 {
     [SerializeField] private TextMeshPro _WallCountTextMeshPro;    
-    [SerializeField] private List<TextMeshPro> _scoresTextMeshProList; // Default ESWN
-    [SerializeField] private List<TextMeshPro> _dealersTextMeshProList;// Default ESWN
+    [SerializeField] private List<TextMeshPro> _scoresTextMeshProList; // Default SWNE
+    [SerializeField] private List<TextMeshPro> _dealersTextMeshProList;// Default SWNE
+    [SerializeField] private List<MeshRenderer> _highlightBarMeshRenderList;   // Default SWNE
+    private List<Material> _highlightBarmaterialList;
     void Awake()
     {
+        _highlightBarmaterialList = new List<Material>()
+        {
+            AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Default],
+            AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Highlight]
+        };
         Init();
     }
     // Start is called before the first frame update
@@ -35,7 +42,11 @@ public class CentralAreaController : MonoBehaviour,IInitiable
         {
             dealerTextMeshPro.text = "";
         }
-        _WallCountTextMeshPro.text = "88";        
+        foreach(var highlightBarMeshRender in _highlightBarMeshRenderList)
+        {
+            highlightBarMeshRender.material = _highlightBarmaterialList[(int)HighlightBarState.Default];
+        }
+        _WallCountTextMeshPro.text = "88";       
     }
     public void SetScore(int plyaerIndex, int score)
     {
@@ -50,8 +61,14 @@ public class CentralAreaController : MonoBehaviour,IInitiable
     {
         _WallCountTextMeshPro.text = number.ToString();
     }
-    public void ReduceNumberOfRemainedTilesByOne()
+    public void SetHighLightBar(int localPlayerIndex)
     {
-        throw new System.NotImplementedException();
+        for(int i = 0; i < _highlightBarMeshRenderList.Count; i++)
+        {
+            if (i == localPlayerIndex)
+                _highlightBarMeshRenderList[localPlayerIndex].material = _highlightBarmaterialList[(int)HighlightBarState.Highlight];
+            else
+                _highlightBarMeshRenderList[localPlayerIndex].material = _highlightBarmaterialList[(int)HighlightBarState.Default];
+        }
     }
 }

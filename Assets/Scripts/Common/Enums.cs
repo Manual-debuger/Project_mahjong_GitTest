@@ -105,3 +105,9 @@ public enum AudioType
     SelfWin,
     GroundingFlower
 }
+
+public enum HighlightBarState
+{
+    Default=0,
+    Highlight=1
+}

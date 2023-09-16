@@ -136,4 +136,6 @@ MonoBehaviour:
   - {fileID: 7986504087968017091, guid: 2d880e1fdd82121459bbaeff5c35b2d9, type: 3}
   - {fileID: 1535640691960112, guid: acb3847ebb8952d4d85d4798e16bf36f, type: 3}
   - {fileID: 1701074268541622, guid: 952598852633cdc4a85f75d1d00bc001, type: 3}
-  _effectTransforms: []
+  _highlightBarmaterialList:
+  - {fileID: 2100000, guid: dcbf59263b64f9547b9e5f674d49cbc2, type: 2}
+  - {fileID: 2100000, guid: ef65d4b444eaab54fbfadb904d9ac764, type: 2}

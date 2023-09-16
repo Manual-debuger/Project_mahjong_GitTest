@@ -11,10 +11,10 @@ public class CentralAreaController : MonoBehaviour,IInitiable
     [SerializeField] private List<TextMeshPro> _scoresTextMeshProList; // Default SWNE
     [SerializeField] private List<TextMeshPro> _dealersTextMeshProList;// Default SWNE
     [SerializeField] private List<MeshRenderer> _highlightBarMeshRenderList;   // Default SWNE
-    private List<Material> _highlightBarmaterialList;
+    private List<Material> _highlightBarMaterialList;
     void Awake()
     {
-        _highlightBarmaterialList = new List<Material>()
+        _highlightBarMaterialList = new List<Material>()
         {
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Default],
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Highlight]
@@ -44,7 +44,7 @@ public class CentralAreaController : MonoBehaviour,IInitiable
         }
         foreach(var highlightBarMeshRender in _highlightBarMeshRenderList)
         {
-            highlightBarMeshRender.material = _highlightBarmaterialList[(int)HighlightBarState.Default];
+            highlightBarMeshRender.material = _highlightBarMaterialList[(int)HighlightBarState.Default];
         }
         _WallCountTextMeshPro.text = "88";       
     }
@@ -66,9 +66,9 @@ public class CentralAreaController : MonoBehaviour,IInitiable
         for(int i = 0; i < _highlightBarMeshRenderList.Count; i++)
         {
             if (i == localPlayerIndex)
-                _highlightBarMeshRenderList[localPlayerIndex].material = _highlightBarmaterialList[(int)HighlightBarState.Highlight];
+                _highlightBarMeshRenderList[i].material = _highlightBarMaterialList[(int)HighlightBarState.Highlight];//
             else
-                _highlightBarMeshRenderList[localPlayerIndex].material = _highlightBarmaterialList[(int)HighlightBarState.Default];
+                _highlightBarMeshRenderList[i].material = _highlightBarMaterialList[(int)HighlightBarState.Default];//
         }
     }
 }

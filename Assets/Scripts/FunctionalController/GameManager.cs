@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour,IInitiable
             _centralAreaController.SetWallCount(e.WallCount);
             _centralAreaController.SetHighLightBar(CastAPIIndexToLocalIndex(e.PlayingIndex));
 
-            _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
+            _playerControllers[CastAPIIndexToLocalIndex(_playerIndex)].SetHandTiles(e.Tiles);
             
             _inGameUIController.ActionUISet(e.Actions ?? new ActionData[0], e.PlayingTimeLeft);
             for (int i=0;i< e.Seats.Count();i++)

@@ -326,7 +326,8 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
-            _inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
+            //_inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
+            _inGameUIController.SettlementSetCloseTime(e.PlayingTimeLeft);
             Init();
         }
         catch (Exception ex)
@@ -341,7 +342,8 @@ public class GameManager : MonoBehaviour,IInitiable
         try
         {
             Debug.Log("!!!!!!!!!!!!OnGameEndEvent!!!!!!!!!!!!"); ;
-            _inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
+            //_inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
+            _inGameUIController.SettlementSetCloseTime(e.PlayingTimeLeft);
         }
         catch (Exception ex)
         {

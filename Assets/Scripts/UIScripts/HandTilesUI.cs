@@ -68,16 +68,20 @@ public class HandTilesUI : MonoBehaviour
         OnPointerUpEvent?.Invoke(this, e);
     }
 
-    public void ListenSetOn(List<int> ListenIndex)
+    public void ListenSetOn(bool[] CanDiscardList)
     {
-        foreach (HandTileUI handTileUI in _TilesComponents)
+        for (int i = 0; i < CanDiscardList.Length; i++)
         {
-            handTileUI.SetDark();
+            if (CanDiscardList[i])
+            {
+                _TilesComponents[i].SetYellow();
+            }
+            else
+            {
+                _TilesComponents[i].SetDark();
+            }
         }
-        foreach (int index in ListenIndex)
-        {
-            _TilesComponents[index].SetYellow();
-        }
+
     }
 
     public void ListenSetOff()

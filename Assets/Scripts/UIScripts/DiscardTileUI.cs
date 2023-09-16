@@ -10,7 +10,6 @@ public class DiscardTileUI : MonoBehaviour
     [SerializeField] private ActionUI actionUI;
     //private ActionData[] Actions;
     //public event EventHandler<ActionData> ActionEvent;
-    public event EventHandler<ActionData> ListenOnActionEvent;
 
     public GameObject ChowObject;
     public GameObject[] ChowOption;
@@ -139,11 +138,7 @@ public class DiscardTileUI : MonoBehaviour
     public void SetListenOptionOn(ActionData action)
     {
         SetChowOptionOff();
-        if (action.ID == Action.ReadyHand)
-        {
-            ListenObject.SetActive(true);
-            ListenOnActionEvent?.Invoke(this, action);
-        }
+        ListenObject.SetActive(true);
     }
 
     public void SetListenTileSuggest(Dictionary<TileSuits, int> listeningTilesTypes)
@@ -157,6 +152,7 @@ public class DiscardTileUI : MonoBehaviour
         {
             ListenOption[count].SetActive(true);
             ListenOptionTiles[count].Appear();
+            ListenOptionTiles[count].SetTile(AssetsPoolController.Instance.TileSprites[(int)keyValuePair.Key]);
             //ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
             //ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
             ListenOptionRemain[count].text = "剩餘" + "\n" + keyValuePair.Value;

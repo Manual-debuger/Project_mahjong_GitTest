@@ -73,8 +73,6 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.OnPointerUpEvent += LeaveDiscardTileSuggestEvent;
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
-        //_discardTileUIViewer.ActionEvent += UIActiveAction;
-        _discardTileUIViewer.ListenOnActionEvent += ListenOn;
         isDraw = true;
     }
     // Start is called before the first frame update
@@ -217,62 +215,6 @@ public class InGameUIController : MonoBehaviour
         //Debug.Log(e.f);
         SetSoundEvent?.Invoke(this, e);
     }
-    public void ActionUISet(ActionData[] actions)
-    {
-        Actions = actions;
-        foreach (ActionData action in actions)
-        {
-            switch (action.ID)
-            {
-                case Action.Pass:
-                    _discardTileUIViewer.SetPassOn();
-                    break;
-                case Action.Discard:
-                    for (int i = 0; i < 17; i++)
-                    {
-                        CanDiscardList[i] = false;
-                    }
-                    foreach (List<TileSuits> tileSuits in action.OptionTiles)
-                    {
-                        foreach (TileSuits tileSuit in tileSuits)
-                        {
-                            for (int i = 0; i < 17; i++)
-                            {
-                                if (HandTileSuits[i] == tileSuit)
-                                {
-                                    CanDiscardList[i] = true;
-                                }
-                            }
-                        }
-                    }
-                    _handTilesUIViewer.DiscardTileSet(CanDiscardList);
-                    IsDiscardState = true;
-                    break;
-                case Action.Chow:
-                    _discardTileUIViewer.SetChowOn();
-                    break;
-                case Action.Pong:
-                    _discardTileUIViewer.SetPongOn();
-                    break;
-                case Action.Kong:
-                case Action.AdditionKong:
-                case Action.ConcealedKong:
-                    _discardTileUIViewer.SetKongOn();
-                    break;
-                case Action.ReadyHand:
-                    _discardTileUIViewer.SetListenOn();
-                    break;
-                case Action.Win:
-                case Action.DrawnFromDeadWall:
-                case Action.SelfDrawnWin:
-                    _discardTileUIViewer.SetWinningOn();
-                    break;
-                default:
-                    break;
-            }
-        }
-        //DiscardTileUIViewer.ActionUISetOn(actions);
-    }
     public void ActionUISet(ActionData[] actions, long time)
     {
         Actions = actions;
@@ -334,38 +276,6 @@ public class InGameUIController : MonoBehaviour
         IsListenState = false;
         DiscardTileUIViewer.ActionUISetOff();
         UIActiveActionEvent?.Invoke(this, e);
-    }
-    private void ListenOn(object sender, ActionData e)
-    {
-        IsListenState = true;
-
-        List<TileSuits> tilesList = new List<TileSuits>();
-        foreach (Dictionary<TileSuits, int> key in e.ReadyInfoTile.Values)
-        {
-            foreach (TileSuits suit in key.Keys)
-            {
-                tilesList.Add(suit);
-            }
-        }
-
-        List<int> ListenIndex = new List<int>();
-        foreach (TileSuits tile in tilesList)
-        {
-            for (int i = 0; i < 17; i++)
-            {
-                if (HandTileSuits[i] == tile)
-                {
-                    ListenIndex.Add(i);
-                }
-            }
-        }
-        _handTilesUIViewer.ListenSetOn(ListenIndex);
-    }
-    private void ListenOff()
-    {
-        IsListenState = false;
-        _handTilesUIViewer.ListenSetOff();
-        _discardTileUIViewer.SetListenOptionOff();
     }
     public async void Settlement(List<SeatInfo> seatInfos,long time)
     {
@@ -492,44 +402,39 @@ public class InGameUIController : MonoBehaviour
         {
             if (action.ID == Action.ReadyHand)
             {
-                if (action.OptionTiles.Count == 1)
+                IsListenState = true;
+                IsDiscardState = false;
+                List<TileSuits> listeningTiles = new List<TileSuits>();
+                readyInfo = action.ReadyInfoTile;
+                foreach (KeyValuePair<TileSuits, Dictionary<TileSuits, int>> key in action.ReadyInfoTile)
                 {
-                    UIActiveActionEvent?.Invoke(this, action);
-                    _handTilesUIViewer.SetBright();
-                    for (int i = 0; i < 17; i++)
-                    {
-                        CanDiscardList[i] = false;
-                    }
+                    listeningTiles.Add(key.Key);
                 }
-                else
+                for (int i = 0; i < 17; i++)
                 {
-                    IsListenState = true;
-                    IsDiscardState = false;
-                    List<TileSuits> listeningTiles = new List<TileSuits>();
-                    foreach (Dictionary<TileSuits, int> key in action.ReadyInfoTile.Values)
+                    foreach (TileSuits listeningTile in listeningTiles)
                     {
-                        foreach (TileSuits suit in key.Keys)
+                        if (listeningTile == HandTileSuits[i])
                         {
-                            listeningTiles.Add(suit);
+                            CanDiscardList[i] = true;
+                        }
+                        else
+                        {
+                            CanDiscardList[i] = false;
                         }
                     }
-                    for (int i = 0; i < 17; i++)
-                    {
-                        foreach (TileSuits listeningTile in listeningTiles)
-                        {
-                            if (listeningTile == HandTileSuits[i])
-                            {
-                                CanDiscardList[i] = true;
-                            }
-                        }
-                    }
-                    _discardTileUIViewer.SetListenOptionOn(action);
                 }
+                _handTilesUIViewer.ListenSetOn(CanDiscardList);
+                _discardTileUIViewer.SetListenOptionOn(action);
                 break;
             }
         }
-        _discardTileUIViewer.ActionUISetOff();
-        //_discardTileUIViewer.SetListenOptionOff();
+    }
+    private void ListenOff()
+    {
+        IsListenState = false;
+        _handTilesUIViewer.ListenSetOff();
+        _discardTileUIViewer.SetListenOptionOff();
     }
     public void Winning()
     {

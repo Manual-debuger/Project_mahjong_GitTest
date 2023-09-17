@@ -66,6 +66,7 @@ public class SettlementScreen : MonoBehaviour
                     PlayerResultData temp = playerResultDatas[i - 1];
                     playerResultDatas[i - 1] = playerResultDatas[i];
                     playerResultDatas[i] = temp;
+                    swapped = true;
                 }
             } while (swapped);
         }

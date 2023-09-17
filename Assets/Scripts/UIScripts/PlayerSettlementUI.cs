@@ -57,7 +57,7 @@ public class PlayerSettlementUI : MonoBehaviour
         }
         else if (playerResultData.Score < 0)
         {
-            totalScore += playerResultData.WinScores.ToString();
+            totalScore += playerResultData.Score.ToString();
         }
         Score.text = totalScore;
         for (int i = 0; i < playerResultData.DoorTile.Count; i++)
@@ -67,8 +67,10 @@ public class PlayerSettlementUI : MonoBehaviour
                 Tiles[3 * i + j].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.DoorTile[i][j]];
             }
         }
-        for (int i = 3 * playerResultData.DoorTile.Count; i < 17; i++)
+        Debug.Log(playerResultData.Tile.Count);
+        for (int i = 3* playerResultData.DoorTile.Count; i < playerResultData.Tile.Count; i++)
         {
+            Debug.Log(i);
             Tiles[i].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.Tile[i]];
         }
         //Tiles;

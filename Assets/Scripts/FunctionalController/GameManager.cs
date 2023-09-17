@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour,IInitiable
             APIData.KongEvent += OnKongActionEvent;
             APIData.DrawnEvent += OnDrawnActionEvent;
             APIData.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
-
             APIData.ResultEvent += OnResultEvent;
         }
     }
@@ -159,12 +158,23 @@ public class GameManager : MonoBehaviour,IInitiable
         List<string> WindString=new List<string> { "東", "南", "西", "北" };
         try
         {
-            for(int i=0;i<4;i++)
+            for(int i = 0;i < e.Seats.Count; i++)
             {
                 //e.Seats[i].DoorWind = WindString[i];
                 
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
+                if(i == _playerIndex)
+                {
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
+                }
             }
             _inGameUIController.ShowState("RandomSeat", 500);
         }
@@ -182,6 +192,21 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
         _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
         _inGameUIController.ShowState("DecideBanker", 500);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == _playerIndex)
+            {
+                if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                {
+                    _inGameUIController.Hosting();
+                }
+                else
+                {
+                    _inGameUIController.CancelHosting();
+                }
+            }
+        }
         //throw new System.NotImplementedException();
     }
 
@@ -194,6 +219,17 @@ public class GameManager : MonoBehaviour,IInitiable
             for (int i = 0; i < e.Seats.Count; i++)
             {
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+                if (i == _playerIndex)
+                {
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
+                }
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             _inGameUIController.ShowState("OpenDoor", 500);
@@ -217,6 +253,17 @@ public class GameManager : MonoBehaviour,IInitiable
                 e.Seats[i].SeaTile.Add(TileSuits.c1);
                 e.Seats[i].SeaTile.Add(TileSuits.c2);
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+                if (i == _playerIndex)
+                {
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
+                }
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             _inGameUIController.ShowState("GroundingFlower", 500);
@@ -261,7 +308,17 @@ public class GameManager : MonoBehaviour,IInitiable
                 _playerControllers[CastAPIIndexToLocalIndex(i)].UpdateSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
 
-                
+                if (i == _playerIndex)
+                {
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
+                }
             }
             
             Debug.Log(debugMessage);
@@ -306,9 +363,19 @@ public class GameManager : MonoBehaviour,IInitiable
                 }
                 _playerControllers[CastAPIIndexToLocalIndex(i)].UpdateSeatInfo(e.Seats[i]);
                 _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
+
+                if (i == _playerIndex)
+                {
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
+                }
             }
-            
-            
             Debug.Log(debugMessage);
         }
         catch (Exception ex)
@@ -329,6 +396,7 @@ public class GameManager : MonoBehaviour,IInitiable
             //_inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
             _inGameUIController.SettlementSetCloseTime(e.PlayingTimeLeft);
             Init();
+            _inGameUIController.CancelHosting();
         }
         catch (Exception ex)
         {

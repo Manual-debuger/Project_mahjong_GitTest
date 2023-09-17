@@ -96,10 +96,12 @@ public class DecideBankerEventArgs : EventArgs
 {
     public int BankerIndex;
     public int? RemainingBankerCount;
-    public DecideBankerEventArgs(int bankerIndex, int? remainingBankerCount)
+    public List<SeatInfo> Seats;
+    public DecideBankerEventArgs(int bankerIndex, int? remainingBankerCount, List<SeatInfo> seats)
     {
         BankerIndex = bankerIndex;
         RemainingBankerCount = remainingBankerCount;
+        Seats = seats;
     }
 }
 

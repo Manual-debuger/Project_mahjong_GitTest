@@ -80,7 +80,8 @@ namespace APIDataNamespace
         {
             try
             {
-                DecideBankerEventArgs decideBankerEventArgs = new((int)eventData.BankerIndex, eventData.RemainingBankerCount);
+                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                DecideBankerEventArgs decideBankerEventArgs = new((int)eventData.BankerIndex, eventData.RemainingBankerCount, processedSeats);
                 if (NowState != eventData.State)
                 {
                     NowState = eventData.State;
@@ -327,7 +328,7 @@ namespace APIDataNamespace
             await API.Instance.SendData(jsonData);
         }
 
-        public async void HandleCancelAutoPlay()
+        public async void SentAutoPlay()
         {
             var requestData = new
             {

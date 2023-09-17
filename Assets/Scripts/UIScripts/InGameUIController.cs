@@ -21,6 +21,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private SupportUIButton _supportUIButton;
     [SerializeField] private WinningSuggestUI _winningSuggestUIViewer;
     [SerializeField] private SettlementScreen _settlementScreen;
+    [SerializeField] private CancelHosting _cancelHosting;
+    [SerializeField] private Hosting _hosting;
 
     [SerializeField] private GameObject InGameUI;
     [SerializeField] private GameObject SettlementUI;
@@ -501,6 +503,19 @@ public class InGameUIController : MonoBehaviour
         isDraw = true;
         _handTilesUIViewer.SetBright();
     }
+
+    public void CancelHosting()
+    {
+        _cancelHosting.Disappear();
+        _hosting.Appear();
+    }
+
+    public void Hosting()
+    {
+        _cancelHosting.Appear();
+        _hosting.Disappear();
+    }
+
     public SettingUIButton SettingUIButton
     {
         get => default;

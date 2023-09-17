@@ -161,9 +161,9 @@ public class PlayerResultData
     public string VoiceLanguage;
     public int Score;
     public int WinScores;
-    public bool? Winner;
+    public bool? Winner; // 胡
     public PointType[] PointList; // 贏的台型
-    public bool? Loser;
+    public bool? Loser; // 放槍
     public bool? Banker;
     public int Index;
     public string DoorWind;

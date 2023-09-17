@@ -31,8 +31,12 @@ namespace APIDataNamespace
         public static event EventHandler<ChowActionEventArgs> ChowEvent;
         public static event EventHandler<PongActionEventArgs> PongEvent;
         public static event EventHandler<KongActionEventArgs> KongEvent;
+        public static event EventHandler<ReadyHandActionEventArgs> ReadyHandEvent;
+        public static event EventHandler<WinActionEventArgs> WinEvent;
         public static event EventHandler<DrawnActionEventArgs> DrawnEvent;
         public static event EventHandler<GroundingFlowerActionEventArgs> GroundingFlowerActionEvent;
+        public static event EventHandler<DrawnFromDeadWallActionEventArgs> DrawnFromDeadWallActionEvent;
+        public static event EventHandler<SelfDrawnWinActionEventArgs> SelfDrawnWinActionEvent;
 
         public static event EventHandler<ResultEventArgs> ResultEvent;
 
@@ -278,11 +282,23 @@ namespace APIDataNamespace
             KongEvent?.Invoke(instance, kongActionEventArgs);
         }
 
-        //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
+        public static void HandleReadyHandAction(MessageData playData)
+        {
+            List<TileSuits> optionTile = DataTransform.ReturnTileToIndex(playData.Option);
+
+            ReadyHandActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, optionTile);
+
+            ReadyHandEvent?.Invoke(instance, groundingFlowerActionEventArgs);
+        }
+        public static void HandleWinAction(MessageData playData)
+        {
+            WinActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action);
+
+            WinEvent?.Invoke(instance, groundingFlowerActionEventArgs);
+        }
+
         public static void HandleDrawnAction(MessageData playData)
         {
-            //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
-
             DrawnActionEventArgs drawnActionEventArgs = new(playData.Index, playData.Action, (int)playData.DrawnCount);
 
             DrawnEvent?.Invoke(instance, drawnActionEventArgs);
@@ -290,11 +306,23 @@ namespace APIDataNamespace
 
         public static void HandleGroundingFlowerAction(MessageData playData)
         {
-            //Debug.Log("2222222 From Server: " + JsonConvert.SerializeObject(eventData));
-
             GroundingFlowerActionEventArgs groundingFlowerActionEventArgs = new(playData.Index, playData.Action, (int)playData.DrawnCount);
 
             GroundingFlowerActionEvent?.Invoke(instance, groundingFlowerActionEventArgs);
+        }
+        
+        public static void HandleDrawnFromDeadWallAction(MessageData playData)
+        {
+            DrawnFromDeadWallActionEventArgs drawnFromDeadWallActionEventArgs = new(playData.Index, playData.Action);
+
+            DrawnFromDeadWallActionEvent?.Invoke(instance, drawnFromDeadWallActionEventArgs);
+        }
+
+        public static void HandleSelfDrawnWinAction(MessageData playData)
+        {
+            SelfDrawnWinActionEventArgs selfDrawnWinActionEventArgs = new(playData.Index, playData.Action);
+
+            SelfDrawnWinActionEvent?.Invoke(instance, selfDrawnWinActionEventArgs);
         }
 
         public static void HandleTableResult(MessageData resultData)

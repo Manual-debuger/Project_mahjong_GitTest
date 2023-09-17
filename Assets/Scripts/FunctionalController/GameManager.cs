@@ -62,14 +62,17 @@ public class GameManager : MonoBehaviour,IInitiable
             APIData.ChowEvent += OnChowActionEvent;
             APIData.PongEvent += OnPongActionEvent;
             APIData.KongEvent += OnKongActionEvent;
+            APIData.ReadyHandEvent += OnReadyHandActionEvent;
+            APIData.WinEvent += OnWinActionEvent;
             APIData.DrawnEvent += OnDrawnActionEvent;
             APIData.GroundingFlowerActionEvent += OnGroundingFlowerActionEvent;
+            APIData.DrawnFromDeadWallActionEvent += OnDrawnFromDeadWallActionEvent;
+            APIData.SelfDrawnWinActionEvent += OnSelfDrawnWinActionEvent;
             APIData.ResultEvent += OnResultEvent;
         }
     }
 
 
-  
     public void Init()
     {
         foreach (PlayerControllerBase playerController in _playerControllers)
@@ -482,6 +485,28 @@ public class GameManager : MonoBehaviour,IInitiable
         //throw new System.NotImplementedException();
     }
     
+    private void OnReadyHandActionEvent(object sender, ReadyHandActionEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnReadyHandActionEvent!!!!!!!!!!!!");
+        //Effect
+        Instance._effectController.PlayEffect(EffectID.Listen, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.ReadyHand);
+        //throw new System.NotImplementedException();
+    }
+    
+    private void OnWinActionEvent(object sender, WinActionEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnWinActionEvent!!!!!!!!!!!!");
+        //Effect
+        Instance._effectController.PlayEffect(EffectID.Win, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.Win);
+        //throw new System.NotImplementedException();
+    }
+    
     private void OnDrawnActionEvent(object sender, DrawnActionEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnDrawnActionEvent!!!!!!!!!!!!");        
@@ -494,6 +519,30 @@ public class GameManager : MonoBehaviour,IInitiable
 
         //Audio
         Instance._audioController.PlayAudioEffect(AudioType.GroundingFlower);
+        //throw new System.NotImplementedException();
+    }
+    
+    private void OnDrawnFromDeadWallActionEvent(object sender, DrawnFromDeadWallActionEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnDrawnFromDeadWallActionEvent!!!!!!!!!!!!");
+
+        //Effect
+        //Instance._effectController.PlayEffect(EffectID.DrawnFromDeadWall, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        //Instance._audioController.PlayAudioEffect(AudioType.DrawnFromDeadWall);
+        //throw new System.NotImplementedException();
+    }
+    
+    private void OnSelfDrawnWinActionEvent(object sender, SelfDrawnWinActionEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnSelfDrawnActionEvent!!!!!!!!!!!!");
+
+        //Effect
+        //Instance._effectController.PlayEffect(EffectID.SelfDrawn, CastAPIIndexToLocalIndex(e.Index));
+
+        //Audio
+        Instance._audioController.PlayAudioEffect(AudioType.SelfDrawn);
         //throw new System.NotImplementedException();
     }
 

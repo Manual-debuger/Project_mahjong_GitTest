@@ -253,8 +253,10 @@ public class API : MonoBehaviour
                     APIData.HandleKongAction(playData);
                     break;
                 case Action.ReadyHand:
+                    APIData.HandleReadyHandAction(playData);
                     break;
                 case Action.Win:
+                    APIData.HandleWinAction(playData);
                     break;
                 case Action.Drawn: // Action=9 
                     APIData.HandleDrawnAction(playData);
@@ -263,8 +265,10 @@ public class API : MonoBehaviour
                     APIData.HandleGroundingFlowerAction(playData);
                     break;
                 case Action.DrawnFromDeadWall:
+                    APIData.HandleDrawnFromDeadWallAction(playData);
                     break;
                 case Action.SelfDrawnWin:
+                    APIData.HandleSelfDrawnWinAction(playData);
                     break;
             }
         }

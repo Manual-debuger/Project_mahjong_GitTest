@@ -104,7 +104,7 @@ public enum AudioType
     Kong,
     ReadyHand,
     Win,
-    SelfWin,
+    SelfDrawn,
     GroundingFlower
 }
 

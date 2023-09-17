@@ -264,6 +264,30 @@ public class KongActionEventArgs : EventArgs
     }
 }
 
+public class ReadyHandActionEventArgs : EventArgs
+{
+    public int Index;
+    public Action Action;
+    public List<TileSuits> Option;
+    public ReadyHandActionEventArgs(int index, Action action, List<TileSuits> option)
+    {
+        Index = index;
+        Action = action;
+        Option = option;
+    }
+}
+
+public class WinActionEventArgs : EventArgs
+{
+    public int Index;
+    public Action Action;
+    public WinActionEventArgs(int index, Action action)
+    {
+        Index = index;
+        Action = action;
+    }
+}
+
 public class DrawnActionEventArgs : EventArgs
 {
     public int Index;
@@ -287,6 +311,28 @@ public class GroundingFlowerActionEventArgs : EventArgs
         Index = index;
         Action = action;
         DrawnCount = drawnCount;
+    }
+}
+
+public class DrawnFromDeadWallActionEventArgs : EventArgs
+{
+    public int Index;
+    public Action Action;
+    public DrawnFromDeadWallActionEventArgs(int index, Action action)
+    {
+        Index = index;
+        Action = action;
+    }
+}
+
+public class SelfDrawnWinActionEventArgs : EventArgs
+{
+    public int Index;
+    public Action Action;
+    public SelfDrawnWinActionEventArgs(int index, Action action)
+    {
+        Index = index;
+        Action = action;
     }
 }
 #endregion

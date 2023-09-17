@@ -92,6 +92,8 @@ public enum EffectID
     Chow,
     Pong,
     Kong,
+    Listen,
+    Win,
     None
 }
 

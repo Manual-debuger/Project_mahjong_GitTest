@@ -11338,6 +11338,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 1b2b8a16023b90f4599bb2ee991d7511, type: 2}
     - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: _effectsPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _tileSprites.Array.data[0]
       value: 
       objectReference: {fileID: -50943849145930616, guid: f534331b6e4d9834a8f411e823965a98, type: 3}
@@ -11505,6 +11509,14 @@ PrefabInstance:
       propertyPath: _tileSprites.Array.data[41]
       value: 
       objectReference: {fileID: 3218501681317002824, guid: f534331b6e4d9834a8f411e823965a98, type: 3}
+    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: _effectsPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 1651363388222792, guid: 268f65b8fbbba894a9e4936650ab7fc2, type: 3}
+    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: _effectsPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 1492667978523942, guid: 86e321f04a138b04ebe3aa8e30f41321, type: 3}
     - target: {fileID: 2573796054978741081, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.00000004371139

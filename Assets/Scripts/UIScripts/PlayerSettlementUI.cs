@@ -53,7 +53,7 @@ public class PlayerSettlementUI : MonoBehaviour
         string totalScore = playerResultData.Scores.ToString();
         if (playerResultData.Score > 0)
         {
-            totalScore += "+" + playerResultData.WinScores.ToString();
+            totalScore += "+" + playerResultData.Score.ToString();
         }
         else if (playerResultData.Score < 0)
         {

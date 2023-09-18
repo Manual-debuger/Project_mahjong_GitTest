@@ -551,7 +551,34 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnResultEvent!!!!!!!!!!!!"); ;
+            Debug.Log("!!!!!!!!!!!!OnResultEvent!!!!!!!!!!!!");
+            string debugMessage = "";
+            for (int i = 0; i < e.PlayerResult.Count; i++)
+            {
+                debugMessage += "Name: " + e.PlayerResult[i].Name;
+                debugMessage += ", Door Tiles: ";
+                foreach (var doorTiles in e.PlayerResult[i].DoorTile)
+                {
+                    foreach (var doorTile in doorTiles)
+                    {
+                        debugMessage += doorTile + ", ";
+                    }
+                }
+                
+                debugMessage += "Tiles: ";
+                foreach (var tile in e.PlayerResult[i].Tile)
+                {
+                    debugMessage += tile + ", ";
+                }
+
+                debugMessage += "Flower Tiles: ";
+                foreach (var FlowerTile in e.PlayerResult[i].FlowerTile)
+                {
+                    debugMessage += FlowerTile + ", ";
+                }
+            }
+            Debug.Log(debugMessage);
+
             _inGameUIController.Settlement(e.PlayerResult);
         }
         catch (Exception ex)

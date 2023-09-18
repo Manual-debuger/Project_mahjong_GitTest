@@ -278,7 +278,6 @@ public class API : MonoBehaviour
     {
         try
         {
-            Debug.Log("TableResult: " + data.State);
             APIData.HandleTableResult(data);
         }
         catch

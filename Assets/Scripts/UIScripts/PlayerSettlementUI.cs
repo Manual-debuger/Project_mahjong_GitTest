@@ -49,7 +49,7 @@ public class PlayerSettlementUI : MonoBehaviour
     {
         //HeadSet;
         Wind.text = playerResultData.DoorWind;
-        PlayerId.text = playerResultData.Nickname;
+        PlayerId.text = playerResultData.Name;
         string totalScore = playerResultData.Scores.ToString();
         if (playerResultData.Score > 0)
         {
@@ -60,18 +60,33 @@ public class PlayerSettlementUI : MonoBehaviour
             totalScore += playerResultData.Score.ToString();
         }
         Score.text = totalScore;
+        Sprite[] sprites = AssetsPoolController.Instance.TileSprites;
         for (int i = 0; i < playerResultData.DoorTile.Count; i++)
         {
-            for (int j = 0; j < 3; j++)
+            switch (playerResultData.DoorTile[i].Count)
             {
-                Tiles[3 * i + j].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.DoorTile[i][j]];
+                case 1:
+                    Tiles[3 * i].sprite = sprites[(int)playerResultData.DoorTile[i][0]];
+                    Tiles[3 * i + 1].sprite = sprites[(int)playerResultData.DoorTile[i][0]];
+                    Tiles[3 * i + 2].sprite = sprites[(int)playerResultData.DoorTile[i][0]];
+                    break;
+                case 2:
+                    Tiles[3 * i].sprite = sprites[(int)playerResultData.DoorTile[i][1]];
+                    Tiles[3 * i + 1].sprite = sprites[(int)playerResultData.DoorTile[i][1]];
+                    Tiles[3 * i + 2].sprite = sprites[(int)playerResultData.DoorTile[i][1]];
+                    break;
+                case 3:
+                    Tiles[3 * i].sprite = sprites[(int)playerResultData.DoorTile[i][0]];
+                    Tiles[3 * i + 1].sprite = sprites[(int)playerResultData.DoorTile[i][1]];
+                    Tiles[3 * i + 2].sprite = sprites[(int)playerResultData.DoorTile[i][2]];
+                    break;
             }
         }
         Debug.Log(playerResultData.Tile.Count);
         for (int i = 3* playerResultData.DoorTile.Count; i < playerResultData.Tile.Count; i++)
         {
-            Debug.Log(i);
-            Tiles[i].sprite = AssetsPoolController.Instance.TileSprites[(int)playerResultData.Tile[i]];
+            Debug.LogError(playerResultData.Tiles);
+            Tiles[i].sprite = sprites[(int)playerResultData.Tile[i]];
         }
         //Tiles;
     }

@@ -55,21 +55,21 @@ public class SettlementScreen : MonoBehaviour
     }
     public void SetSettlement(List<PlayerResultData> playerResultDatas)
     {
-        for (int i = 1; i < playerResultDatas.Count; i++)
-        {
-            bool swapped;
-            do
-            {
-                swapped = false;
-                if (playerResultDatas[i - 1].Scores > playerResultDatas[i].Scores)
-                {
-                    PlayerResultData temp = playerResultDatas[i - 1];
-                    playerResultDatas[i - 1] = playerResultDatas[i];
-                    playerResultDatas[i] = temp;
-                    swapped = true;
-                }
-            } while (swapped);
-        }
+        //for (int i = 1; i < playerResultDatas.Count; i++)
+        //{
+        //    bool swapped;
+        //    do
+        //    {
+        //        swapped = false;
+        //        if (playerResultDatas[i - 1].Scores > playerResultDatas[i].Scores)
+        //        {
+        //            PlayerResultData temp = playerResultDatas[i - 1];
+        //            playerResultDatas[i - 1] = playerResultDatas[i];
+        //            playerResultDatas[i] = temp;
+        //            swapped = true;
+        //        }
+        //    } while (swapped);
+        //}
         for (int i = 0; i < players.Length; i++)
         {
             players[i].Set(playerResultDatas[i]);

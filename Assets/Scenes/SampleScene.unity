@@ -2193,15 +2193,15 @@ PrefabInstance:
     - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: chowClip
       value: 
-      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+      objectReference: {fileID: 8300000, guid: b660512b1e37e8844bea586747f52010, type: 3}
     - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: kongClip
       value: 
-      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+      objectReference: {fileID: 8300000, guid: 0de2ce4f95cbdf74f8be985c891277d4, type: 3}
     - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: pongClip
       value: 
-      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+      objectReference: {fileID: 8300000, guid: ad617b01ac966ab459c597be00e52588, type: 3}
     - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: bgmSource
       value: 
@@ -2217,7 +2217,7 @@ PrefabInstance:
     - target: {fileID: -315760958693831658, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: groundingFlowerClip
       value: 
-      objectReference: {fileID: 8300000, guid: 62a6e5cd506f1634aacb85ba1ae07464, type: 3}
+      objectReference: {fileID: 8300000, guid: 95298059cec596649a3b3c0f8fe4b8e6, type: 3}
     - target: {fileID: 2296638117945630328, guid: 53c2bb87fe5009f45b8e231933a2adde, type: 3}
       propertyPath: m_RootOrder
       value: 3

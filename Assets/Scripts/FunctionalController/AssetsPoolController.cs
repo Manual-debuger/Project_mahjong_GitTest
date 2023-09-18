@@ -63,7 +63,9 @@ public class  AssetsPoolController:MonoBehaviour
             {
                 { EffectID.Chow,Instantiate(_effectsPrefabs[0]) },
                 { EffectID.Pong,Instantiate(_effectsPrefabs[1])},
-                { EffectID.Kong, Instantiate(_effectsPrefabs[2]) }
+                { EffectID.Kong, Instantiate(_effectsPrefabs[2])},
+                {EffectID.Listen,Instantiate(_effectsPrefabs[3])},
+                {EffectID.Win,Instantiate(_effectsPrefabs[4])},
             };
 
             

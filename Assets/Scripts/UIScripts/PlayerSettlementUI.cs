@@ -60,7 +60,19 @@ public class PlayerSettlementUI : MonoBehaviour
             totalScore += playerResultData.Score.ToString();
         }
         Score.text = totalScore;
+
         Sprite[] sprites = AssetsPoolController.Instance.TileSprites;
+        int TileCount = 3 * playerResultData.DoorTile.Count + playerResultData.Tile.Count;
+
+        if (TileCount == 17)
+        {
+            Tiles[16].gameObject.SetActive(true);
+        }
+        else
+        {
+            Tiles[16].gameObject.SetActive(false);
+        }
+
         for (int i = 0; i < playerResultData.DoorTile.Count; i++)
         {
             switch (playerResultData.DoorTile[i].Count)
@@ -82,11 +94,10 @@ public class PlayerSettlementUI : MonoBehaviour
                     break;
             }
         }
-        Debug.Log(playerResultData.Tile.Count);
-        for (int i = 3* playerResultData.DoorTile.Count; i < playerResultData.Tile.Count; i++)
+
+        for (int i = 0; i < playerResultData.Tile.Count; i++)
         {
-            Debug.LogError(playerResultData.Tiles);
-            Tiles[i].sprite = sprites[(int)playerResultData.Tile[i]];
+            Tiles[3 * playerResultData.DoorTile.Count + i].sprite = sprites[(int)playerResultData.Tile[i]];
         }
         //Tiles;
     }

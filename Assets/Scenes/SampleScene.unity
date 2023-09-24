@@ -181,10 +181,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99\n\u6E2C\u8A66\t99"
+  m_text: "\u838A\u5BB6\t99\n\u9023\u838A\u62C9\u838A\t99\n\u5E73\u80E1\t99\n\u4E09\u6697\u523B\t99\n\u5C0D\u5C0D\u80E1\t99\n\u5927\u4E09\u5143\t99\n\u5708\u98A8\u53F0\t99\n\u9580\u98A8\u53F0\t99\n\u5C0F\u56DB\u559C\t99\n\u5927\u56DB\u559C\t99"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c76f19e07ae0fb7458fc4d3fc31e595d, type: 2}
-  m_sharedMaterial: {fileID: 8085140787231369941, guid: c76f19e07ae0fb7458fc4d3fc31e595d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 940c1d39597403b4789c50987e9a539d, type: 2}
+  m_sharedMaterial: {fileID: 673616299181821474, guid: 940c1d39597403b4789c50987e9a539d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535

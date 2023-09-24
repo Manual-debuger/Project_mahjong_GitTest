@@ -95,6 +95,10 @@ public class DiscardTileUI : MonoBehaviour
 
     public void SetListenOptionOff()
     {
+        foreach (GameObject listenTile in ListenOption)
+        {
+            listenTile.SetActive(false);
+        }
         ListenObject.SetActive(false);
     }
     public void buttontest()

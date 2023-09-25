@@ -45,7 +45,7 @@ public class PlayerController : PlayerControllerBase
             //    Debug.Log(i + " : " + tileSuits[i]);
             //}
 
-            Debug.LogWarning($"size ={tileSuits.Count})");
+            //Debug.LogWarning($"size ={tileSuits.Count})");
             _inGameUIController.SetHandTile(tileSuits);
         }
         catch (System.Exception)

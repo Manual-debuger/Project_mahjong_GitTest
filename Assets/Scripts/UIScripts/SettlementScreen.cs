@@ -93,7 +93,7 @@ public class SettlementScreen : MonoBehaviour
     public void setPointType(PointType[] points)
     {
         string str ="";
-        for (int i = 0; i < points.Length - 1; i++)
+        for (int i = 0; i < points.Length ; i++)
         {
             switch (points[i].Describe)
             {
@@ -203,7 +203,7 @@ public class SettlementScreen : MonoBehaviour
                     str = str + "MIGI" + "\t" + points[i].Point;
                     break;
                 case "Dora":
-                    str = str + "懸賞牌" + "\t" + points[i].Point;
+                    str = str + "寶牌" + "\t" + points[i].Point;
                     break;
                 case "HaveFlowerOrWind":
                     str = str + "見花見字" + "\t" + points[i].Point;
@@ -214,7 +214,11 @@ public class SettlementScreen : MonoBehaviour
                 case "PointTypeNoHonorsAndFlowers":
                     str = str + "無字無花" + "\t" + points[i].Point;
                     break;
+                default:
+                    Debug.LogError("PointTypeError:" + points[i].Describe);
+                    break;
             }
+            //Debug.LogError(points[i].Describe);
             if (i != points.Length - 1)
             {
             str += "\n";

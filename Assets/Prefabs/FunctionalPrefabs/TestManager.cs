@@ -6,9 +6,11 @@ public class TestManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private EffectController _effectController;
-    void Start()
+
+    async void Start()
     {
-        
+        var message = (await ChatGPT.CallChatGPT("introduce youself")).choices[0].message.content;
+        Debug.Log(message);
     }
 
     // Update is called once per frame
@@ -19,7 +21,6 @@ public class TestManager : MonoBehaviour
 
     public void PlayEffect(string effectID)
     {
-         _effectController.PlayEffect((EffectID)int.Parse(effectID), 0);
+         //_effectController.PlayEffect((EffectID)int.Parse(effectID), 0);
     }
-    
 }

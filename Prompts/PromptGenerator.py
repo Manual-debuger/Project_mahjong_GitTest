@@ -7,20 +7,20 @@ CharacterDict = {
 }
 moods=["開心","沮喪","興奮","難過","生氣"]
 WinScoresState=["大贏","小贏","平手","小輸","大輸"]
-  
+content_to_write = ""
 
 with open(os.path.join(os.getcwd(),"Example.txt"), "a",encoding="utf-8") as f:
     for i in range(3):
         print(f"Generating {i+1}th Prompt")
-        SelectedKeys = random.choices(list(CharacterDict.keys()), k=2)
-        f.write(f"""
+        SelectedKeys = random.sample(list(CharacterDict.keys()), k=2)
+        content_to_write += (f"""
                 有兩個角色，分別是
                 {SelectedKeys[0]}:
                 {CharacterDict[SelectedKeys[0]]}
                 {SelectedKeys[1]}:
                 {CharacterDict[SelectedKeys[1]]}
 
-                Context: 
+                Context:
                 {SelectedKeys[0]}的心情是{random.choice(moods)}
                 {SelectedKeys[1]}的心情是{random.choice(moods)}
                 現在他們正在打麻將
@@ -31,15 +31,16 @@ with open(os.path.join(os.getcwd(),"Example.txt"), "a",encoding="utf-8") as f:
 
                 1.請將對話控制在 40 個字以內。
                 2.用繁體中文回答對話
-                3.你不能透露自己是AI模型，而是找藉口。                
+                3.你不能透露自己是AI模型，而是找藉口。
                 4.不要用表情符號。
                 5.對話的格式(發話名字):(他講的內容)
                 ------------------------------------------
                 
-                """)                
+                """)
+
+file_path = os.path.join(os.getcwd(), 'Example.txt')
+
+with open(file_path, 'w') as file:
+    file.write(content_to_write)
+
 print(f"Done, Check {os.path.join(os.getcwd(),'Example.txt')}")
-
-        
-
-
-            

@@ -30,20 +30,21 @@ with open(os.path.join(os.getcwd(),"Example.txt"), "a",encoding="utf-8") as f:
                     """
         if IsGeneratingEndingConversation:
             Score= random.sample(range(100, 2000), 1)[0]
-            content_to_write += f"""                    
+            PlayerRanklist = random.sample(range(1, 5), 2)
+            content_to_write += f"""
                     目前的情境是:剛結束一局麻將。
-                    {SelectedKeys[0]}這局的結果是{random.choice(SpeicalWinPoint)}，得分是{Score}，目前名次為第{random.sample(range(1,5),k=1)[0]}名。
-                    {SelectedKeys[1]}這局的結果是輸了{Score}分給{SelectedKeys[0]}，目前名次為第{random.sample(range(1,5),k=1)[0]}名。
+                    {SelectedKeys[0]}這局的結果是{random.choice(SpeicalWinPoint)}，得分是{Score}，目前名次為第{PlayerRanklist[0]}名。
+                    {SelectedKeys[1]}這局的結果是輸了{Score}分給{SelectedKeys[0]}，目前名次為第{PlayerRanklist[1]}名。
                     """
         else:
-            PlayerWindlist=random.choices(Directions,k=2)
+            PlayerWindlist=random.sample(Directions, k=2)
             content_to_write += f"""
                     目前的情境是:
                     {SelectedKeys[0]}的心情是{random.choice(moods)}
                     {SelectedKeys[1]}的心情是{random.choice(moods)}
                     現在他們正在打麻將，目前是東風東局。
-                    {SelectedKeys[0]}是{PlayerWindlist[0]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
-                    {SelectedKeys[1]}是{PlayerWindlist[1]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
+                    {SelectedKeys[0]}是{PlayerWindlist[0]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}
+                    {SelectedKeys[1]}是{PlayerWindlist[1]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}
                     """
         content_to_write += f"""
                     請在遵守以下限制的情況下完成他們之間可能的對話：

@@ -1,7 +1,7 @@
 import os
 import random
 #控制生成的對話是否為結束對話 還是場中對話
-IsGeneratingEndingConversation = True
+IsGeneratingEndingConversation = False
 CharacterDict = {
     "張文琪":"張文琪是一位麻將愛好者，被譽為麻將的大師。她從小就學會了麻將，並且在比賽中從不輸過對手。她精通各種麻將規則和策略，而且能夠輕松地計算牌局中的機會。她的麻將技巧使她在比賽中贏得了眾多獎項，並且經常被邀請參加高水平的麻將比賽。",
     "陳大飛":"陳大飛是一位熱衷於收藏麻將牌的人。他的收藏中包括了來自世界各地的稀有和古老的麻將牌套裝。他不僅熟悉各種不同風格的麻將，還對它們的歷史和文化背景有深入了解。他經常舉辦麻將牌展覽，讓人們欣賞他的珍貴收藏。",
@@ -36,13 +36,14 @@ with open(os.path.join(os.getcwd(),"Example.txt"), "a",encoding="utf-8") as f:
                     {SelectedKeys[1]}這局的結果是輸了{Score}分給{SelectedKeys[0]}，目前名次為第{random.sample(range(1,5),k=1)[0]}名。
                     """
         else:
+            PlayerWindlist=random.choices(Directions,k=2)
             content_to_write += f"""
                     目前的情境是:
                     {SelectedKeys[0]}的心情是{random.choice(moods)}
                     {SelectedKeys[1]}的心情是{random.choice(moods)}
                     現在他們正在打麻將，目前是東風東局。
-                    {SelectedKeys[0]}是{random.sample(list(Directions),k=1)[0]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
-                    {SelectedKeys[1]}是{random.sample(list(Directions),k=1)[0]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
+                    {SelectedKeys[0]}是{PlayerWindlist[0]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
+                    {SelectedKeys[1]}是{PlayerWindlist[1]}風位，現在的得分是{random.sample(range(-200, 200), 1)[0]}                
                     """
         content_to_write += f"""
                     請在遵守以下限制的情況下完成他們之間可能的對話：

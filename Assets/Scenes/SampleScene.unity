@@ -976,7 +976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -4128,7 +4128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -4486,7 +4486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -5025,7 +5025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -5352,7 +5352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -5644,7 +5644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -6428,7 +6428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -7162,7 +7162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -8548,7 +8548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -9917,7 +9917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566756, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296743635505566757, guid: a2c41ac42db001b46983cd556aa0d371, type: 3}
       propertyPath: m_Pivot.x
@@ -11446,7 +11446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7447312166622552579
 GameObject:
   m_ObjectHideFlags: 0

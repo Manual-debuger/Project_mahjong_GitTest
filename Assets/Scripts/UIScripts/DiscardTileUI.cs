@@ -75,8 +75,8 @@ public class DiscardTileUI : MonoBehaviour
             ListenOptionTiles[count].SetTile(AssetsPoolController.Instance.TileSprites[(int)keyValuePair.Key]);
             //ListenOptionRemain[count].GetComponent<GameObject>().SetActive(true);
             //ListenOptionScore[count].GetComponent<GameObject>().SetActive(true);
-            ListenOptionRemain[count].text = "剩餘" + "\n" + keyValuePair.Value;
-            //ListenOptionScore[count];
+            //ListenOptionRemain[count].text = "剩餘" + "\n" + keyValuePair.Value;
+            ListenOptionScore[count].text = "台數" + "\n" + keyValuePair.Value;
 
             count++;
         }

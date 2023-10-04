@@ -354,4 +354,13 @@ public class FloatEventArgs : EventArgs
         f = Float;
     }
 }
+
+public class BoolEventArgs : EventArgs
+{
+    public bool b;
+    public BoolEventArgs(bool Bool)
+    {
+        b = Bool;
+    }
+}
 #endregion

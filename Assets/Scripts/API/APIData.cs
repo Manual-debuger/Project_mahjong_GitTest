@@ -339,14 +339,13 @@ namespace APIDataNamespace
             // Global.gameData.AutoPlaying = !Global.gameData.AutoPlaying;
         }
 
-        public async void HandleClickAction(ActionData actionData, int index)
+        public async void HandleClickAction(ActionData actionData)
         {
             var requestData = new
             {
                 Path = Path.TablePlay,
                 Data = new
                 {
-                    Index = index,
                     Action = actionData.ID,
                     Option = actionData.OptionTiles != null ? DataTransform.ReturnIndexToTile(actionData.OptionTiles[0]) : null
                 }

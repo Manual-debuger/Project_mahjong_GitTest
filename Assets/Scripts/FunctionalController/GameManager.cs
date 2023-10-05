@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     public void OnUIActiveActionEvent(object sender,ActionData actionData)
     {        
-        APIData.instance.HandleClickAction(actionData,this._playerIndex);
+        APIData.instance.HandleClickAction(actionData);
         //throw new System.NotImplementedException();
     }
     #endregion

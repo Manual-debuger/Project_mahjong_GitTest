@@ -155,6 +155,7 @@ namespace DataTransformNamespace
                         case Action.Win:
                         case Action.DrawnFromDeadWall:
                         case Action.SelfDrawnWin:
+                            processedActionData[i].OptionTiles = (actionData1.Options == null) ? new List<List<TileSuits>>() { tiles.ToList() } : MapStringListsToTileSuitsLists(actionData1.Options);
                             break;
                     };
                 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //Duty:處理左邊的社交按鈕
 public class SocialUIButton : MonoBehaviour
@@ -12,7 +13,8 @@ public class SocialUIButton : MonoBehaviour
 	private Vector2 _hidePos;
 	private Vector2 _showPos;
 	private RectTransform _rectTransfrom;
-	[SerializeField] private GameObject chat;
+	[SerializeField] private scrollrect Scrollrect;
+	[SerializeField] private GameObject Chat;
 	[SerializeField] private GameObject AutoPlayButton;
 	[SerializeField] private GameObject SupportButtom;
 	private bool _isShow;
@@ -22,7 +24,7 @@ public class SocialUIButton : MonoBehaviour
 	{
         _rectTransfrom = this.gameObject.GetComponent<RectTransform>();
         _hidePos = _rectTransfrom.anchoredPosition;
-        _showPos = new Vector2(_hidePos.x + chat.GetComponent<RectTransform>().rect.width, _hidePos.y);
+        _showPos = new Vector2(_hidePos.x + Chat.GetComponent<RectTransform>().rect.width, _hidePos.y);
 		 _isShow = false;
 	}
 
@@ -64,6 +66,11 @@ public class SocialUIButton : MonoBehaviour
 		StartCoroutine(Disappear());
 	}
 
+	public void AddChat(List<Tuple<String, String>> text)
+	{
+		Scrollrect.AddChat(text);
+	}
+
 	IEnumerator Disappear()
 	{
 
@@ -80,12 +87,14 @@ public class SocialUIButton : MonoBehaviour
 
 			yield return new WaitForEndOfFrame();
 		}
+		Chat.SetActive(false);
 		AutoPlayButton.SetActive(true);
 		SupportButtom.SetActive(true);
 	}
 
 	IEnumerator Appear()
 	{
+		Chat.SetActive(true);
 		AutoPlayButton.SetActive(false);
 		SupportButtom.SetActive(false);
 

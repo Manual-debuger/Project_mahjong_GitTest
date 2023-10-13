@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using APIDataNamespace;
+using Assets.Scripts;
 
 public class GameManager : MonoBehaviour,IInitiable
 {
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 Debug.Log("CallChatGPT");
                 Result result=await ChatGPTRequester.CallChatGPT("Hello");
                 Debug.Log("CallChatGPT result=" + result.choices[0].message.content);
+                ChatGPTResponseParser.Parsing(result.choices[0].message.content);
             }
         }
     }

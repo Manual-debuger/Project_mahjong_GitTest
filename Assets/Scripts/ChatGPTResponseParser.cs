@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Parser
+    public class ChatGPTResponseParser
     {
 
         // Use this for initialization

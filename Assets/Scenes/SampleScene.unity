@@ -847,7 +847,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1967460404}
         m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
-        m_MethodName: AddChat
+        m_MethodName: test
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

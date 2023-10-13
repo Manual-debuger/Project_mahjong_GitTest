@@ -516,13 +516,17 @@ public class InGameUIController : MonoBehaviour
         _hosting.Disappear();
     }
 
-    public void AddChat()
+    public void test()
     {
         List<Tuple<string, string>> text = new();
         text.Add(new Tuple<string, string>("1", "test"));
         text.Add(new Tuple<string, string>("2", "chat"));
         text.Add(new Tuple<string, string>("3", "test"));
         text.Add(new Tuple<string, string>("4", "chat"));
+        _socialUIButton.AddChat(text);
+    }
+    public void AddChat(List<Tuple<string, string>> text)
+    {
         _socialUIButton.AddChat(text);
     }
     public SettingUIButton SettingUIButton

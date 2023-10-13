@@ -15,13 +15,15 @@ public class GameManager : MonoBehaviour,IInitiable
 
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
-
+    private bool _isGameStart = false;
+    private float _chatGPTTime = 120;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
     [SerializeField] private CentralAreaController _centralAreaController;
     [SerializeField] private List<PlayerControllerBase> _playerControllers;
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private EffectController _effectController;
     [SerializeField] private AudioController _audioController;
+    
 
     public void Awake()
     {
@@ -88,12 +90,26 @@ public class GameManager : MonoBehaviour,IInitiable
     // Start is called before the first frame update
     void Start()
     {       
+
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
-        
+        if(_isGameStart)
+        {
+            if (_chatGPTTime > 0)
+            {
+                _chatGPTTime-=Time.deltaTime;
+            }
+            else
+            {
+                _chatGPTTime = 120;                
+                Debug.Log("CallChatGPT");
+                Result result=await ChatGPTRequester.CallChatGPT("Hello");
+                Debug.Log("CallChatGPT result=" + result.choices[0].message.content);
+            }
+        }
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)
     {
@@ -157,6 +173,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");
+        _isGameStart = true;
         _playerIndex = e.SelfSeatIndex;
         List<string> WindString=new List<string> { "東", "南", "西", "北" };
         try

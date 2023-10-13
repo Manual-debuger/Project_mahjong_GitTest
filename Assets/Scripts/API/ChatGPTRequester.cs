@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ChatGPT : MonoBehaviour
+public class ChatGPTRequester : MonoBehaviour
 {
     public async static Task<Result> CallChatGPT(string msg)
     {

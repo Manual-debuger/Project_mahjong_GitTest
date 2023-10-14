@@ -23,6 +23,7 @@ public class scrollrect : MonoBehaviour
         {
             newcontent += "\n";
             newcontent += text[i].Item1;
+            newcontent += ":";
             newcontent += "\n";
             newcontent += text[i].Item2;
         }

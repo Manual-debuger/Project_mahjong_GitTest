@@ -779,7 +779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &222629461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3778,8 +3778,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchoredPosition: {x: -250, y: 0}
+  m_SizeDelta: {x: 500, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &996117847
 MonoBehaviour:
@@ -4346,8 +4346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 359.23035}
-  m_SizeDelta: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 54.595024}
+  m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1155397811
 MonoBehaviour:
@@ -4383,7 +4383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4E00\n\u4E8C\n\u4E09\n\u56DB\n\u4E94\n\u516D\n\u4E03\n\u516B\n\u4E5D\n\u5341\n\u58F9\n\u8CB3\n\u53C4\n\u8086\n\u4F0D\n\u9678\n\u67D2\n\u634C\n\u7396\n\u62FE"
+  m_text: "\u4E00\u4E8C\u4E09\u56DB\u4E94\u516D\u4E03\u516B\u4E5D\u5341\n\u58F9\u8CB3\u53C4\u8086\u4F0D\u9678\u67D2\u634C\u7396\u62FE\n\u3002\uFF0C\u3001\uFF1B\uFF1A\u300C\u300D\u300E\u300F\uFF08\uFF09\uFF1F\uFF01\u2500\u2026\uFE4F\u300A\u300B\u3008\u3009\uFF3F\uFF0E\u2014\uFF5E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 940c1d39597403b4789c50987e9a539d, type: 2}
   m_sharedMaterial: {fileID: 673616299181821474, guid: 940c1d39597403b4789c50987e9a539d, type: 2}
@@ -7012,8 +7012,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -149.99994, y: 0.000045776374}
-  m_SizeDelta: {x: 300, y: 500}
+  m_AnchoredPosition: {x: -250, y: 0.000045776374}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1678408528
 MonoBehaviour:

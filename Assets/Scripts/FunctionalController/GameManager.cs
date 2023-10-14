@@ -112,15 +112,15 @@ public class GameManager : MonoBehaviour,IInitiable
                 var moodsList = new List<string> { "開心", "平靜" };
                 var directionsList = new List<string> { "東", "南" };
                 var currentScoresList = new List<int> { 1000, 2000 };
-                var promptFactors = new PromptFactors(characterList,moodsList,moodsList,currentScoresList,13);
+                var promptFactors = new PromptFactors(characterList,moodsList,directionsList,currentScoresList,13);
                 Debug.Log("CallChatGPT");
                 Result testresult=await ChatGPTTool.CallChatGPT("Tell me a joke");
-                //Result result=await ChatGPTTool.CallChatGPT(ChatGPTTool.GeneratePrompt(PromptType.TwoManChat,promptFactors));
-                //Debug.Log("CallChatGPT result=" + result.choices[0].message.content);                
-                //_inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
+                Result result=await ChatGPTTool.CallChatGPT(ChatGPTTool.GeneratePrompt(PromptType.TwoManChat,promptFactors));
+                Debug.Log("CallChatGPT result=" + result.choices[0].message.content);                
+                _inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
                 
-                Debug.Log("CallChatGPT testresult=" + testresult.choices[0].message.content);
-                _inGameUIController.AddChat(new List<Tuple<string, string>>() {new Tuple<string,string>("Test", testresult.choices[0].message.content) });
+                //Debug.Log("CallChatGPT testresult=" + testresult.choices[0].message.content);
+                //_inGameUIController.AddChat(new List<Tuple<string, string>>() {new Tuple<string,string>("Test", testresult.choices[0].message.content) });
             }
         }
     }

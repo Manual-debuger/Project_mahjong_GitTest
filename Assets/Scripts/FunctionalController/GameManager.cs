@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour,IInitiable
             }
             else
             {
-                _chatGPTTime = 120;                
+                _chatGPTTime = 30;                
                 var characterList = new List<Tuple<string, string>>();
                 characterList.Add(new Tuple<string, string>("蘇珊娜", "蘇珊娜是一個擁有無限幽默感的女性，她總是能夠找到場合適當的搞笑元素，並擅長以幽默和諷刺的方式吐槽事情。她能夠在社交場合中輕松拉近人與人之間的距離，並讓每個人都感到開心。她的幽默感和機智使她成為派對的焦點，但她也會在必要時提出有趣的反駁和觀點。"));
                 characterList.Add(new Tuple<string, string>("艾利", "艾莉是一個充滿冒險精神的女性，她總是願意嘗試新的事物，探索未知領域，並經歷生活中的刺激瞬間。她經常參加極限運動、旅行冒險、或參與挑戰性的活動，不怕風險，喜歡挑戰自己。她的行為可能會顯得有些冒失，但她的勇氣和樂觀精神讓人難以抗拒。"));

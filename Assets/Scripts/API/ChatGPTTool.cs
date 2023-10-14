@@ -17,12 +17,26 @@ public partial class ChatGPTTool
         client.DefaultRequestHeaders.Add(
             "Authorization", "Bearer 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");
 
-        var JsonString = $@"
+        /*var JsonString = $@"
         {{
             ""model"": ""gpt-3.5-turbo"",
-            ""messages"": [{{""role"": ""user"", ""content"":""{msg}"" }}]
-        }}";
+            ""messages"": [{{""role"": ""user"", ""content"":""{msg}"" }}]      
+        }}";*/
         
+        var JsonString = JsonConvert.SerializeObject(new ChatGPTRequestObject()
+        {
+            model = "gpt-3.5-turbo",
+            messages = new List<Message>()
+            {
+                new Message()
+                {
+                    role = "user",
+                    content = msg
+                }
+            },
+            temperature = 1
+        });
+        Debug.Log($"ChatGPTTool.CallChatGPT: JsonString = {JsonString}");
         var content = new StringContent(JsonString, Encoding.UTF8, "application/json");
         var response = await client.PostAsync(uri, content);
         var JSON = response.Content.ReadAsStringAsync().Result;
@@ -61,4 +75,11 @@ public class Usage
     public int prompt_tokens { get; set; }
     public int completion_tokens { get; set; }
     public int total_tokens { get; set; }
+}
+
+public class ChatGPTRequestObject
+{
+    public string model { get; set; }
+    public List<Message> messages { get; set; }
+    public double temperature { get; set; }
 }

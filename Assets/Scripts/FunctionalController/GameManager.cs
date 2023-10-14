@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour,IInitiable
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
     private bool _isGameStart = false;
-    private float _chatGPTTime = 120;
+    private float _chatGPTTime = 0;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
     [SerializeField] private CentralAreaController _centralAreaController;
     [SerializeField] private List<PlayerControllerBase> _playerControllers;
@@ -106,10 +106,21 @@ public class GameManager : MonoBehaviour,IInitiable
             else
             {
                 _chatGPTTime = 120;                
+                var characterList = new List<Tuple<string, string>>();
+                characterList.Add(new Tuple<string, string>("蘇珊娜", "蘇珊娜是一個擁有無限幽默感的女性，她總是能夠找到場合適當的搞笑元素，並擅長以幽默和諷刺的方式吐槽事情。她能夠在社交場合中輕松拉近人與人之間的距離，並讓每個人都感到開心。她的幽默感和機智使她成為派對的焦點，但她也會在必要時提出有趣的反駁和觀點。"));
+                characterList.Add(new Tuple<string, string>("艾利", "艾莉是一個充滿冒險精神的女性，她總是願意嘗試新的事物，探索未知領域，並經歷生活中的刺激瞬間。她經常參加極限運動、旅行冒險、或參與挑戰性的活動，不怕風險，喜歡挑戰自己。她的行為可能會顯得有些冒失，但她的勇氣和樂觀精神讓人難以抗拒。"));
+                var moodsList = new List<string> { "開心", "平靜" };
+                var directionsList = new List<string> { "東", "南" };
+                var currentScoresList = new List<int> { 1000, 2000 };
+                var promptFactors = new PromptFactors(characterList,moodsList,moodsList,currentScoresList,13);
                 Debug.Log("CallChatGPT");
-                Result result=await ChatGPTRequester.CallChatGPT("Hello");
-                Debug.Log("CallChatGPT result=" + result.choices[0].message.content);
-                ChatGPTResponseParser.Parsing(result.choices[0].message.content);
+                Result testresult=await ChatGPTTool.CallChatGPT("Tell me a joke");
+                //Result result=await ChatGPTTool.CallChatGPT(ChatGPTTool.GeneratePrompt(PromptType.TwoManChat,promptFactors));
+                //Debug.Log("CallChatGPT result=" + result.choices[0].message.content);                
+                //_inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
+                
+                Debug.Log("CallChatGPT testresult=" + testresult.choices[0].message.content);
+                _inGameUIController.AddChat(new List<Tuple<string, string>>() {new Tuple<string,string>("Test", testresult.choices[0].message.content) });
             }
         }
     }

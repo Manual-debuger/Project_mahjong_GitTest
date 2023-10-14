@@ -9,7 +9,7 @@ public class TestManager : MonoBehaviour
 
     async void Start()
     {
-        var message = (await ChatGPTRequester.CallChatGPT("introduce youself")).choices[0].message.content;
+        var message = (await ChatGPTTool.CallChatGPT("introduce youself")).choices[0].message.content;
         Debug.Log(message);
     }
 

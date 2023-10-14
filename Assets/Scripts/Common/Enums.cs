@@ -113,3 +113,10 @@ public enum HighlightBarState
     Default=0,
     Highlight=1
 }
+
+public enum  PromptType
+{
+    TwoManChat,
+    TwoManEndingChat,
+    FourManChat
+}

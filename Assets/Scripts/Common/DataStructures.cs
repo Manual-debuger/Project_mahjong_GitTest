@@ -3,6 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class PromptFactors
+{   
+    public List<Tuple<string, string>> CharacterList;
+    public List<string> MoodsList;
+    public List<string> DirectionsList;
+    public List<int> CurrentScoresList;
+    public string SpecialWinPoint;
+    public int WinScore;
+    public PromptFactors(List<Tuple<string,string>> characterList, List<string> moodsList=null,List<string> directionsList=null,List<int> currentScoresList=null,int winScore=-1)
+    {
+        this.MoodsList = moodsList;
+        this.CharacterList = characterList; 
+        this.DirectionsList = directionsList;
+        this.CurrentScoresList = currentScoresList;
+        this.WinScore = winScore;
+    }
+ 
+}
 #region Event Args
 public class DiscardTileEventArgs:EventArgs
 {

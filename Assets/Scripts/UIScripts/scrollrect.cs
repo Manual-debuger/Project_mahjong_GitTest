@@ -22,7 +22,9 @@ public class scrollrect : MonoBehaviour
         for (int i = text.Count - 1; i >= 0; i--)
         {
             newcontent += "\n";
+            newcontent += "<color=#FFFFFF>";
             newcontent += text[i].Item1;
+            newcontent += "</color>";
             newcontent += ":";
             newcontent += "\n";
             newcontent += text[i].Item2;

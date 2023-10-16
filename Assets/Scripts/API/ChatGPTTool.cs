@@ -16,12 +16,6 @@ public partial class ChatGPTTool
         // Request headers.
         client.DefaultRequestHeaders.Add(
             "Authorization", "Bearer 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");
-
-        /*var JsonString = $@"
-        {{
-            ""model"": ""gpt-3.5-turbo"",
-            ""messages"": [{{""role"": ""user"", ""content"":""{msg}"" }}]      
-        }}";*/
         
         var JsonString = JsonConvert.SerializeObject(new ChatGPTRequestObject()
         {
@@ -44,7 +38,6 @@ public partial class ChatGPTTool
     }
 }
 
-//[System.Serializable]
 public class Choice
 {
     public int index { get; set; }
@@ -52,14 +45,12 @@ public class Choice
     public string finish_reason { get; set; }
 }
 
-//[System.Serializable]
 public class Message
 {
     public string role { get; set; }
     public string content { get; set; }
 }
 
-//[System.Serializable]
 public class Result
 {
     public string id { get; set; }
@@ -69,7 +60,6 @@ public class Result
     public Usage usage { get; set; }
 }
 
-//[System.Serializable]
 public class Usage
 {
     public int prompt_tokens { get; set; }

@@ -26,7 +26,7 @@ public class API : MonoBehaviour
         else if(Instance == null)
             Instance = this;
 
-        uri = new Uri("ws://localhost:80/api/v1/games/mahjong16");
+        uri = new Uri("wss://willime.live/api/v1/games/mahjong16");
     }
 
     private async void Start()
@@ -43,7 +43,8 @@ public class API : MonoBehaviour
         {
             await socket.ConnectAsync(uri, cancellationTokenSource.Token);
             Debug.Log("WebSocket connected.");
-            await Login();
+            TXResponse TXResponse = await Lobby.Instance.GetToken();
+            await Login(TXResponse.Token);
             await StartListening();
         }
         catch (Exception ex)

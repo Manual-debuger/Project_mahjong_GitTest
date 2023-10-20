@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour,IInitiable
             //UIActiveActionEvent=UI需要傳給伺服器的事件 ex.吃碰槓
             _inGameUIController.UIActiveActionEvent+=OnUIActiveActionEvent;
 
+            APIData.WaitingEvent += OnWaitingEvent;
             APIData.RandomSeatEvent += OnRandomSeatEvent;
             APIData.DecideBankerEvent += OnDecideBankerEvent;
             APIData.OpenDoorEvent += OnOpenDoorEvent;
@@ -183,6 +184,11 @@ public class GameManager : MonoBehaviour,IInitiable
     #endregion
 
     #region API handle
+    private void OnWaitingEvent(object sender, WaitingEventArgs e)
+    {
+        Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
+    }
+    
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");

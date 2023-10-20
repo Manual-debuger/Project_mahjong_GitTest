@@ -16,6 +16,7 @@ namespace APIDataNamespace
         public static string NowState = "";
         public static string NextState = "";
 
+        public static event EventHandler<WaitingEventArgs> WaitingEvent;
         public static event EventHandler<RandomSeatEventArgs> RandomSeatEvent;
         public static event EventHandler<DecideBankerEventArgs> DecideBankerEvent;
         public static event EventHandler<OpenDoorEventArgs> OpenDoorEvent;
@@ -54,7 +55,15 @@ namespace APIDataNamespace
         {
             try
             {
+                List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                int tableID = eventData.TableID;
+                long? nextStateTime = eventData.NextStateTime;
+                int round = eventData.Round;
+                int ante = eventData.Ante;
+                int scorePerPoint = eventData.ScorePerPoint;
+                WaitingEventArgs waitingEventArgs = new(processedSeats, tableID, nextStateTime, round, ante, scorePerPoint);
                 NowState = eventData.State;
+                WaitingEvent?.Invoke(instance, waitingEventArgs);
             }
             catch
             {
@@ -74,7 +83,7 @@ namespace APIDataNamespace
                     RandomSeatEvent?.Invoke(instance, randomSeatEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -92,7 +101,7 @@ namespace APIDataNamespace
                     DecideBankerEvent?.Invoke(instance, decideBankerEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -113,7 +122,7 @@ namespace APIDataNamespace
                     OpenDoorEvent?.Invoke(instance, openDoorEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -134,7 +143,7 @@ namespace APIDataNamespace
                     GroundingFlowerEvent?.Invoke(instance, groundingFlowerEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -157,7 +166,7 @@ namespace APIDataNamespace
                     PlayingEvent?.Invoke(instance, playingEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -181,7 +190,7 @@ namespace APIDataNamespace
                     WaitingActionEvent?.Invoke(instance, waitingActionEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -201,7 +210,7 @@ namespace APIDataNamespace
                     HandEndEvent?.Invoke(instance, handEndEventArgs);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -217,7 +226,7 @@ namespace APIDataNamespace
 
                 GameEndEvent?.Invoke(instance, gameEndEventArgs);
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -233,7 +242,7 @@ namespace APIDataNamespace
                 ClosingEvent?.Invoke(instance, closingEventArgs);
                 API.Instance.CloseConnection();
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }

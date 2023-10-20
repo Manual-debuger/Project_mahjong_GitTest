@@ -99,6 +99,25 @@ public class TileSuitEventArgs : EventArgs
 }
 
 #region State Event
+public class WaitingEventArgs : EventArgs
+{
+    public List<SeatInfo> Seats;
+    public int TableID;
+    public long? NextStateTime;
+    public int Round;
+    public int Ante;
+    public int ScorePerPoint;
+    public WaitingEventArgs(List<SeatInfo> seats, int tableID, long? nextStateTime, int round, int ante, int scorePerPoint)
+    {
+        Seats = seats;
+        TableID = tableID;
+        NextStateTime = nextStateTime;
+        Round = round;
+        Ante = ante;
+        ScorePerPoint = scorePerPoint;
+    }
+}
+
 public class RandomSeatEventArgs : EventArgs
 {
     public int SelfSeatIndex;

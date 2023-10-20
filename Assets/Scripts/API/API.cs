@@ -178,13 +178,14 @@ public class API : MonoBehaviour
     {
         try
         {
-            Debug.Log("TableEvent: " + eventData.State);
+            // Debug.Log("TableEvent: " + eventData.State);
 
             APIData.Time = eventData.Time;
             switch (eventData.State)
             {
                 case "Waiting":
                     APIData.NowState = eventData.State;
+                    APIData.HandleWaitingState(eventData);
                     break;
                 case "RandomSeat":
                     APIData.HandleRandomSeatState(eventData);

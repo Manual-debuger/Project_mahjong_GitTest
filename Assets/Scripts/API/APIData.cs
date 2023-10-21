@@ -56,12 +56,13 @@ namespace APIDataNamespace
             try
             {
                 List<SeatInfo> processedSeats = DataTransform.MapAllSeats(eventData.Seats);
+                long time = eventData.Time;
                 int tableID = eventData.TableID;
                 long? nextStateTime = eventData.NextStateTime;
                 int round = eventData.Round;
                 int ante = eventData.Ante;
                 int scorePerPoint = eventData.ScorePerPoint;
-                WaitingEventArgs waitingEventArgs = new(processedSeats, tableID, nextStateTime, round, ante, scorePerPoint);
+                WaitingEventArgs waitingEventArgs = new(processedSeats, time, tableID, nextStateTime, round, ante, scorePerPoint);
                 NowState = eventData.State;
                 WaitingEvent?.Invoke(instance, waitingEventArgs);
             }

@@ -102,14 +102,16 @@ public class TileSuitEventArgs : EventArgs
 public class WaitingEventArgs : EventArgs
 {
     public List<SeatInfo> Seats;
+    public long Time;
     public int TableID;
     public long? NextStateTime;
     public int Round;
     public int Ante;
     public int ScorePerPoint;
-    public WaitingEventArgs(List<SeatInfo> seats, int tableID, long? nextStateTime, int round, int ante, int scorePerPoint)
+    public WaitingEventArgs(List<SeatInfo> seats, long time, int tableID, long? nextStateTime, int round, int ante, int scorePerPoint)
     {
         Seats = seats;
+        Time = time;
         TableID = tableID;
         NextStateTime = nextStateTime;
         Round = round;

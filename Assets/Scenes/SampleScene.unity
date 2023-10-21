@@ -635,6 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204075856}
+  - component: {fileID: 204075857}
   m_Layer: 5
   m_Name: WaitingUI
   m_TagString: Untagged
@@ -664,6 +665,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &204075857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204075855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d75338376a5b441a89366856654a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName:
+  - {fileID: 548474231}
+  - {fileID: 990340296}
+  - {fileID: 1589888076}
+  - {fileID: 1774253875}
+  playerHeadSet:
+  - {fileID: 1700602807}
+  - {fileID: 1541722658}
+  - {fileID: 1964936303}
+  - {fileID: 848999954}
+  roomSet:
+  - {fileID: 1978681213}
+  - {fileID: 388868773}
+  - {fileID: 708747302}
+  roomId: {fileID: 1883832905}
+  TimeText: {fileID: 296833922}
 --- !u!1 &209282881
 GameObject:
   m_ObjectHideFlags: 0
@@ -7211,7 +7240,6 @@ GameObject:
   - component: {fileID: 1370546066}
   - component: {fileID: 1370546065}
   - component: {fileID: 1370546067}
-  - component: {fileID: 1370546068}
   m_Layer: 0
   m_Name: LocalAPI
   m_TagString: Untagged
@@ -7256,18 +7284,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3520df40c7938c43b8920cb7d117bfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1370546068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370546064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 220650b86b22edf4f84a98b31c065b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1413617558
@@ -10622,8 +10638,10 @@ MonoBehaviour:
   _settlementScreen: {fileID: 1981678797}
   _cancelHosting: {fileID: 1764026234}
   _hosting: {fileID: 1978957958}
+  _waitingUI: {fileID: 204075857}
   InGameUI: {fileID: 1678656623}
   SettlementUI: {fileID: 1981678792}
+  WaitingUIObject: {fileID: 204075855}
   IsListenState: 0
   IsDiscardState: 0
   isDraw: 1

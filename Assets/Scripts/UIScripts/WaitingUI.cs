@@ -54,7 +54,7 @@ public class WaitingUI : MonoBehaviour
         roomSet[2].text = "¥XµP®É¶¡" + '\t' + "6"+ "¬í";//waitingEventArgs.Round.ToString()
         roomId.text = waitingEventArgs.TableID.ToString();
 
-        if (waitingEventArgs.NextStateTime!=null)
+        if (waitingEventArgs.NextStateTime != null)
         {
             isCount = true;
             CountTime = (long)waitingEventArgs.NextStateTime - waitingEventArgs.Time;
@@ -63,6 +63,10 @@ public class WaitingUI : MonoBehaviour
             {
                 CloseWaitingEvent?.Invoke(this, new EventArgs());
             }
+        }
+        else
+        {
+            TimeText.text = "0";
         }
     }
 }

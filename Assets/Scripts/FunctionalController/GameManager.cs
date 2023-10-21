@@ -114,8 +114,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 var directionsList = new List<string> { "ªF", "«n" };
                 var currentScoresList = new List<int> { 1000, 2000 };
                 var promptFactors = new PromptFactors(characterList,moodsList,directionsList,currentScoresList,13);
-                Debug.Log("CallChatGPT");
-                Result testresult=await ChatGPTTool.CallChatGPT("Tell me a joke");
+                Debug.Log("CallChatGPT");                
                 Result result=await ChatGPTTool.CallChatGPT(ChatGPTTool.GeneratePrompt(PromptType.TwoManChat,promptFactors));
                 Debug.Log("CallChatGPT result=" + result.choices[0].message.content);                
                 _inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
@@ -187,6 +186,8 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
+        _inGameUIController.setWaiting(e);
+        
     }
     
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)

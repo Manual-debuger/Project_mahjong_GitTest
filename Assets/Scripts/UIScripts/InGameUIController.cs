@@ -23,9 +23,11 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private SettlementScreen _settlementScreen;
     [SerializeField] private CancelHosting _cancelHosting;
     [SerializeField] private Hosting _hosting;
+    [SerializeField] private WaitingUI _waitingUI;
 
     [SerializeField] private GameObject InGameUI;
     [SerializeField] private GameObject SettlementUI;
+    [SerializeField] private GameObject WaitingUIObject;
     public event EventHandler<DiscardTileEventArgs> DiscardTileEvent;
     public event EventHandler<TileSuitEventArgs> OnTileBeHoldingEvent;
     public event EventHandler<TileSuitEventArgs> LeaveTileBeHoldingEvent;
@@ -75,6 +77,7 @@ public class InGameUIController : MonoBehaviour
         _handTilesUIViewer.OnPointerUpEvent += LeaveDiscardTileSuggestEvent;
         _settingUIButton.SetMusicEvent += SetMusic;
         _settingUIButton.SetSoundEvent += SetSound;
+        _waitingUI.CloseWaitingEvent += CloseWaiting;
         isDraw = true;
     }
     // Start is called before the first frame update
@@ -529,6 +532,17 @@ public class InGameUIController : MonoBehaviour
     {
         _socialUIButton.AddChat(text);
     }
+
+    public void setWaiting(WaitingEventArgs waitingEventArgs)
+    {
+        _waitingUI.SetWaiting(waitingEventArgs);
+    }
+
+    private void CloseWaiting(object sender, EventArgs e)
+    {
+        WaitingUIObject.SetActive(false);
+    }
+
     public SettingUIButton SettingUIButton
     {
         get => default;

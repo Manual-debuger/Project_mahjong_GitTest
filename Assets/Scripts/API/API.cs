@@ -43,7 +43,7 @@ public class API : MonoBehaviour
         {
             await socket.ConnectAsync(uri, cancellationTokenSource.Token);
             Debug.Log("WebSocket connected.");
-            TXResponse TXResponse = await Lobby.Instance.GetToken();
+            TXResponse TXResponse = JsonConvert.DeserializeObject<TXResponse>(PlayerPrefs.GetString("TXResponseData"));
             await Login(TXResponse.Token);
             await StartListening();
         }

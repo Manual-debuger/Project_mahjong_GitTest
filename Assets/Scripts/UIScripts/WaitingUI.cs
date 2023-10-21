@@ -58,6 +58,7 @@ public class WaitingUI : MonoBehaviour
         {
             isCount = true;
             CountTime = (long)waitingEventArgs.NextStateTime - waitingEventArgs.Time;
+            Debug.Log(CountTime);
             UpdateCountdownText();
             if (CountTime < 0)
             {
@@ -67,6 +68,7 @@ public class WaitingUI : MonoBehaviour
         else
         {
             TimeText.text = "0";
+            Debug.Log("NextStateTime is null");
         }
     }
 }

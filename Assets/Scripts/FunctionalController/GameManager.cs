@@ -192,6 +192,7 @@ public class GameManager : MonoBehaviour,IInitiable
     
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
+        _inGameUIController.CloseWait();
         Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");
         _isGameStart = true;
         _playerIndex = e.SelfSeatIndex;

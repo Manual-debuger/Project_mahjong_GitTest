@@ -543,6 +543,11 @@ public class InGameUIController : MonoBehaviour
         WaitingUIObject.SetActive(false);
     }
 
+    public void CloseWait()
+    {
+        WaitingUIObject.SetActive(false);
+    }
+
     public SettingUIButton SettingUIButton
     {
         get => default;

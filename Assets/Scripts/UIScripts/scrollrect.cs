@@ -33,7 +33,7 @@ public class scrollrect : MonoBehaviour
     }
     public void AddChat(List<Tuple<String, String>> text)
     {
-        for (int i = 0; i < text.Count; i++)
+        for (int i = text.Count - 1; i >= 0; i--)
         {
             linesToDisplay.Add(text[i]);
         }

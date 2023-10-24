@@ -15,6 +15,8 @@ public class Login : MonoBehaviour
     public GameObject PlayerID;
     public GameObject TableID;
     public GameObject Balance;
+    public GameObject Tips;
+    public GameObject LoginBtn;
 
     private void Awake()
     {
@@ -71,7 +73,9 @@ public class Login : MonoBehaviour
 
             if (txResponse != null)
             {
-                Balance.GetComponent<TextMeshProUGUI>().text = txResponse.Balance.ToString();
+                LoginBtn.SetActive(false);
+                Balance.GetComponent<TextMeshProUGUI>().text = "Balance:" + txResponse.Balance.ToString();
+                Tips.GetComponent<TextMeshProUGUI>().text = "You are logined!!";
 
                 PlayerPrefs.SetString("TXResponseData", JsonConvert.SerializeObject(txResponse));
                 PlayerPrefs.Save();

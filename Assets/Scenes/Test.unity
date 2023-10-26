@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectController: {fileID: 3010249921055979711}
-  _textMeshPro: {fileID: 0}
+  _textMeshPro: {fileID: 1587681786}
 --- !u!4 &242019435
 Transform:
   m_ObjectHideFlags: 0
@@ -2795,7 +2795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2132813632
 MonoBehaviour:
   m_ObjectHideFlags: 0

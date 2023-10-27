@@ -32,9 +32,9 @@ public class Login : MonoBehaviour
         // Debug.Log("before:" + jsonContent);
         
         string tableID = TableID.GetComponent<TMP_InputField>().text;
-        if (tableID != "") jsonContent = jsonContent.Replace("\"TableID\":null", $"\"TableID\":\"{tableID}\"");
+        if (tableID != "") jsonContent = jsonContent.Replace("\"TableID\":null", $"\"TableID\":{tableID}");
 
-        // Debug.Log("after:" + jsonContent);
+        Debug.Log("after:" + jsonContent);
 
         return jsonContent;
     }

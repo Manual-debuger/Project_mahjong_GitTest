@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class TestManager : MonoBehaviour
     {
         //var message = (await ChatGPTTool.CallChatGPT("introduce youself")).choices[0].message.content;
         //Debug.Log(message);
+
         var stream = new HttpClient().GetStreamAsync("https://localhost:7195/api/Test/SSE").Result;
         using (var reader=new StreamReader(stream))
         {
@@ -24,12 +26,13 @@ public class TestManager : MonoBehaviour
                 var line = reader.ReadLine();
                 Debug.Log(line + "\n");
             }
-        }
+        }               
     }
+
+    
 
     private void EventSource_EventCommandExecuted(object sender, EventCommandEventArgs e)
     {
-        _textMeshPro.text = e.Arguments.Keys.ToString();
     }
 
     // Update is called once per frame

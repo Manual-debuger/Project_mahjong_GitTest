@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class VitsResponse
+{
+    public string message = "";
+    public string base64voice = "";
+}
 public class PromptFactors
 {   
     public List<Tuple<string, string>> CharacterList;

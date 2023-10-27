@@ -7,6 +7,7 @@ using UnityEngine;
 
 public partial class ChatGPTTool
 {
+    
     public static List<Tuple<string, string>> Parsing(string target)
     {
         Regex regex = new Regex(@"([^\n]+)[：:]([^\n]+)");

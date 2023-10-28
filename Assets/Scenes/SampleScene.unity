@@ -642,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &204075856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2766,6 +2766,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4423334240372237174, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
   m_PrefabInstance: {fileID: 8145787245382771823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &591868899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 591868900}
+  - component: {fileID: 591868901}
+  m_Layer: 0
+  m_Name: ChatGPTHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &591868900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591868899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 591035072}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &591868901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591868899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d993363aec3c1944d9fd55dc34338b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &656835184 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4771057830056256272, guid: 13e21a55b5352304fba99d4caa878da6, type: 3}
@@ -7303,6 +7347,8 @@ MonoBehaviour:
   PlayerID: {fileID: 0}
   TableID: {fileID: 0}
   Balance: {fileID: 0}
+  Tips: {fileID: 0}
+  LoginBtn: {fileID: 0}
 --- !u!1001 &1413617558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16880,6 +16926,10 @@ PrefabInstance:
       propertyPath: _api
       value: 
       objectReference: {fileID: 1370546065}
+    - target: {fileID: 4357352035240040254, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: _chatGPTHandler
+      value: 
+      objectReference: {fileID: 591868901}
     - target: {fileID: 4357352035240040254, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _audioController
       value: 

@@ -19,14 +19,20 @@ public class GameManager : MonoBehaviour,IInitiable
 
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
-    private bool _isGameStart = false;    
-    private StreamReader _chatGPTStreamReader;
+    private bool _isGameStart = false;
+    #nullable enable
+    private int? _characterIndex = null;
+    private List<int>? _characterIndexList = null;
+    private StreamReader? _chatGPTStreamReader=null;
+#nullable disable
+    [SerializeField] private int _tableID;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
     [SerializeField] private CentralAreaController _centralAreaController;
     [SerializeField] private List<PlayerControllerBase> _playerControllers;
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private EffectController _effectController;
     [SerializeField] private AudioController _audioController;
+    [SerializeField] private ChatGPTHandler _chatGPTHandler;
     
     
 
@@ -100,32 +106,11 @@ public class GameManager : MonoBehaviour,IInitiable
     }
 
     // Update is called once per frame
-    async void Update()
+    void Update()
     {
         if(_isGameStart)
         {
-            if (_chatGPTStreamReader != null && !_chatGPTStreamReader.EndOfStream)
-            {
-                string context = "";
-                while (!_chatGPTStreamReader.EndOfStream)
-                {
-                    context += _chatGPTStreamReader.ReadLine();
-                }
-                Debug.LogWarning(context);
-                if (context.Contains("message"))
-                {
-                    var vitsResponse=JsonConvert.DeserializeObject<VitsResponse>(context);
-                    try
-                    {
-                        var result = ChatGPTTool.Parsing(vitsResponse.message);
-                        _inGameUIController.AddChat(result);                    
-                    }
-                    catch
-                    {
-                        Debug.LogWarning("ChatGPTTool.Parsing failed");
-                    }
-                }
-            }
+           
             //_inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
                 
             //Debug.Log("CallChatGPT testresult=" + testresult.choices[0].message.content);
@@ -190,33 +175,38 @@ public class GameManager : MonoBehaviour,IInitiable
         //throw new System.NotImplementedException();
     }
     #endregion
+    #region ChatGPT API handle
+    
+
+    private void OnMessageReceived(object sender, List<Tuple<string, string>> e)
+    {
+        _inGameUIController.AddChat(e);
+    }
+    #endregion
 
     #region API handle
     private void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
+        HttpClient client = new HttpClient();
+        _tableID = e.TableID;
+        if(_characterIndex==null)
+        {
+            _chatGPTHandler.enabled = true;
+            //_characterIndex=_chatGPTHandler.GetCharacterIndex(new Uri($"https://localhost:7195/api/Test/CharacterIndex?tableID={_tableID}"));
+            //_characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"https://localhost:7195/api/Test/TableInfo?tableID={_tableID}"));
+            // _chatGPTHandler.uri = new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}");
+        }
         _inGameUIController.setWaiting(e);
-        
+        _chatGPTHandler.OnMessageReceived += OnMessageReceived;
+
     }
-    
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
         _inGameUIController.CloseWait();
-        //Connect ChatGPT SSE
-        if(_chatGPTStreamReader == null)
-        {
-            try
-            {
-                var stream = new HttpClient().GetStreamAsync("https://localhost:7195/api/Test/SSE").Result;
-                _chatGPTStreamReader = new StreamReader(stream);
-            }
-            catch
-            {
-                throw new Exception("Connect ChatGPT SSE failed");
-            }
-        }
+        
 
-        Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");
+        Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
         _isGameStart = true;
         _playerIndex = e.SelfSeatIndex;
         List<string> WindString=new List<string> { "東", "南", "西", "北" };

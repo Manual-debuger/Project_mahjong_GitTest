@@ -69,23 +69,28 @@ public class Login : MonoBehaviour
         string playerID = PlayerID.GetComponent<TMP_InputField>().text;
         if (playerID != null)
         {
+            Tips.GetComponent<TextMeshProUGUI>().text = "Logging in...";
             TXResponse txResponse = await GetToken(playerID);
 
             if (txResponse != null)
             {
                 LoginBtn.SetActive(false);
                 Balance.GetComponent<TextMeshProUGUI>().text = "Balance:" + txResponse.Balance.ToString();
-                Tips.GetComponent<TextMeshProUGUI>().text = "You are logined!!";
+                Tips.GetComponent<TextMeshProUGUI>().text = "Logged in successfully";
 
                 PlayerPrefs.SetString("TXResponseData", JsonConvert.SerializeObject(txResponse));
                 PlayerPrefs.Save();
+
+                // Delay 3 secs
+                for (int countdown = 3; countdown > 0; countdown--)
+                {
+                    Tips.GetComponent<TextMeshProUGUI>().text = "Logged in successfully\nLoading in " + countdown + "...";
+                    await Task.Delay(1000); 
+                }
+
+                SceneManager.LoadScene("SampleScene");
             }
         }
-    }
-
-    public void Play()
-    {
-        SceneManager.LoadScene("SampleScene");
     }
 }
 

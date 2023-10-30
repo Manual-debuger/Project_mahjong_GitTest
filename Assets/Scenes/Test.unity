@@ -2808,12 +2808,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c12ad46863047344878835dc3ab306d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tableID: 0
   _abandonedTilesAreaController: {fileID: 0}
   _centralAreaController: {fileID: 0}
   _playerControllers: []
   _inGameUIController: {fileID: 0}
   _effectController: {fileID: 0}
   _audioController: {fileID: 0}
+  _chatGPTHandler: {fileID: 0}
 --- !u!4 &2132813633
 Transform:
   m_ObjectHideFlags: 0

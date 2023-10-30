@@ -6,17 +6,19 @@ using System.IO;
 using System.Net.Http;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using LaunchDarkly;
+using LaunchDarkly.EventSource;
 
 public class ChatGPTHandler : MonoBehaviour
 {
-    #nullable enable
-    public Uri? uri=null;
+    #nullable enable    
     #nullable disable
     public EventHandler<List<Tuple<string,string>>> OnMessageReceived;
     //public EventHandler<AudioClip> OnAudioClipReceived;
     
     private HttpClient _httpClient;  
     private StreamReader _streamReader;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,35 +27,19 @@ public class ChatGPTHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(uri!=null)
-        {
-            _httpClient = new HttpClient();
-            
-            string context = "";
-            using (_streamReader = new StreamReader(_httpClient.GetStreamAsync(uri).Result))
-            {
-                while (!_streamReader.EndOfStream)
-                {
-                    var line = _streamReader.ReadLine();
-                    context+= line + "\n";
-                }
-                if (context.Contains("message"))
-                {
-                    var vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(context);
-                    try
-                    {
-                        var result = ChatGPTTool.Parsing(vitsResponse.message);
-                        OnMessageReceived?.Invoke(this, result);
-                        //_inGameUIController.AddChat(result);
-                    }
-                    catch
-                    {
-                        Debug.LogWarning("ChatGPTTool.Parsing failed");
-                    }
-                }
-            }            
-        }
+      
     }      
+    public void StartChatGPT(Uri uri)
+    {
+        EventSource eventSource = new EventSource(uri);
+        eventSource.MessageReceived += EventSource_MessageReceived;
+    }
+
+    private void EventSource_MessageReceived(object sender, MessageReceivedEventArgs e)
+    {
+                
+    }
+
     public int GetCharacterIndex(Uri uri)
     {
         var httpClient = new HttpClient();

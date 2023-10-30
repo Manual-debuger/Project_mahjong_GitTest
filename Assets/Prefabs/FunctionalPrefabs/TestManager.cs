@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
+//using System.Diagnostics.Tracing;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using TMPro;
 using UnityEngine;
+using LaunchDarkly.EventSource;
+
 
 public class TestManager : MonoBehaviour
 {
@@ -18,22 +20,18 @@ public class TestManager : MonoBehaviour
         //var message = (await ChatGPTTool.CallChatGPT("introduce youself")).choices[0].message.content;
         //Debug.Log(message);
 
-        var stream = new HttpClient().GetStreamAsync("https://localhost:7195/api/Test/SSE").Result;
-        using (var reader=new StreamReader(stream))
-        {
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                Debug.Log(line + "\n");
-            }
-        }               
+        EventSource eventSource = new EventSource(new Uri("http://localhost:5000/"));
+        eventSource.MessageReceived += EventSource_MessageReceived;
     }
 
-    
-
-    private void EventSource_EventCommandExecuted(object sender, EventCommandEventArgs e)
+    private void EventSource_MessageReceived(object sender, MessageReceivedEventArgs e)
     {
+        Debug.LogWarning(e.Message);
     }
+
+
+
+
 
     // Update is called once per frame
     void Update()

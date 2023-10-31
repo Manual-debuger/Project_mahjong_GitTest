@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour,IInitiable
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
     private bool _isGameStart = false;
-    private bool _isTestingChatGPT = false;
     #nullable enable
     private int? _characterIndex = null;
     private List<int>? _characterIndexList = null;
     private StreamReader? _chatGPTStreamReader=null;
 #nullable disable
     private Queue<List<Tuple<string, string>>> _messageQueue = new Queue<List<Tuple<string, string>>>();
+    [SerializeField] private bool _isTestingChatGPT = false;
     [SerializeField] private int _tableID;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
     [SerializeField] private CentralAreaController _centralAreaController;

@@ -15,6 +15,7 @@ public class Login : MonoBehaviour
     public GameObject PlayerID;
     public GameObject TableID;
     public GameObject Balance;
+    public GameObject TextBG;
     public GameObject Tips;
     public GameObject LoginBtn;
 
@@ -69,6 +70,7 @@ public class Login : MonoBehaviour
         string playerID = PlayerID.GetComponent<TMP_InputField>().text;
         if (playerID != null)
         {
+            TextBG.SetActive(true);
             Tips.GetComponent<TextMeshProUGUI>().text = "Logging in...";
             TXResponse txResponse = await GetToken(playerID);
 

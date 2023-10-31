@@ -181,9 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Logged in successfully
-
-    Loading in 1...'
+  m_text: Logged in successfully
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -643,7 +641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Balance: 1000'
+  m_text: 'Balance: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1138,6 +1136,7 @@ MonoBehaviour:
   PlayerID: {fileID: 1480004197}
   TableID: {fileID: 1658704263}
   Balance: {fileID: 704735271}
+  TextBG: {fileID: 1259567796}
   Tips: {fileID: 165260815}
   LoginBtn: {fileID: 1607431037}
 --- !u!1 &1156493491
@@ -1292,7 +1291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1259567797
 RectTransform:
   m_ObjectHideFlags: 0

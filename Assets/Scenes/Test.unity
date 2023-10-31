@@ -1211,7 +1211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.616699, y: 0}
+  m_AnchoredPosition: {x: -128, y: 0}
   m_SizeDelta: {x: 340.0575, y: 519}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761178266
@@ -1257,7 +1257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 761178267}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 242019434}
+        m_TargetAssemblyTypeName: TestManager, Assembly-CSharp
+        m_MethodName: StartSSE
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &761178267
 MonoBehaviour:
   m_ObjectHideFlags: 0

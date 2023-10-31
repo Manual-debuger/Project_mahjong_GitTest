@@ -8,16 +8,17 @@ using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using LaunchDarkly;
 using LaunchDarkly.EventSource;
+using System.Threading.Tasks;
 
 public class ChatGPTHandler : MonoBehaviour
 {
     #nullable enable    
     #nullable disable
-    public EventHandler<List<Tuple<string,string>>> OnMessageReceived;
+    //public EventHandler<List<Tuple<string,string>>> OnMessageReceived;
+    private EventSource _eventSource;
+    public Queue<List<Tuple<string, string>>> _messageQueue = null;
     //public EventHandler<AudioClip> OnAudioClipReceived;
-    
-    private HttpClient _httpClient;  
-    private StreamReader _streamReader;
+      
 
     // Start is called before the first frame update
     void Start()
@@ -28,18 +29,7 @@ public class ChatGPTHandler : MonoBehaviour
     void Update()
     {
       
-    }      
-    public void StartChatGPT(Uri uri)
-    {
-        EventSource eventSource = new EventSource(uri);
-        eventSource.MessageReceived += EventSource_MessageReceived;
-    }
-
-    private void EventSource_MessageReceived(object sender, MessageReceivedEventArgs e)
-    {
-                
-    }
-
+    } 
     public int GetCharacterIndex(Uri uri)
     {
         var httpClient = new HttpClient();
@@ -48,6 +38,7 @@ public class ChatGPTHandler : MonoBehaviour
         var content = response.Content.ReadAsStringAsync();
         return int.Parse(content.Result);
     }
+
     public List<int> GetCharacterIndexList(Uri uri)
     {
         var httpClient = new HttpClient();
@@ -55,5 +46,38 @@ public class ChatGPTHandler : MonoBehaviour
         response.EnsureSuccessStatusCode();
         var content = response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<List<int>>(content.Result);
+    }
+    public async Task StartChatGPT(Uri uri,Queue<List<Tuple<string,string>>> tuples)
+    {
+        _messageQueue = tuples;
+        _eventSource = new EventSource(uri);
+        _eventSource.Opened += (sender, e) =>
+        {
+            Debug.Log("Connection opened.");
+        };
+        _eventSource.MessageReceived += (sender, e) =>
+        {
+            Debug.Log($"{e.EventName}:{e.Message.Data}");
+            VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(e.Message.Data);
+            var ParsedResponse= ChatGPTTool.Parsing(vitsResponse.message);
+            lock(_messageQueue)
+            {
+                _messageQueue.Enqueue(ParsedResponse);
+            }
+            //_messageQueue.Enqueue(message);            
+        };
+        _eventSource.Error += (sender, e) =>
+        {
+            Debug.LogWarning("Connection errored. Message: " + e.Exception.Message);
+        };
+        _eventSource.Closed += (sender, e) =>
+        {
+            Debug.LogWarning("Connection closed.");
+        };
+        await _eventSource.StartAsync();
+    }
+    private void OnDestroy()
+    {
+        _eventSource?.Dispose();
     }
 }

@@ -14,24 +14,41 @@ public class TestManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private EffectController _effectController;
-    [SerializeField] private TextMeshProUGUI _textMeshPro;
+    [SerializeField] private TextMeshProUGUI _textMeshPro;    
+#nullable enable    
+#nullable disable
     void Start()
     {
         //var message = (await ChatGPTTool.CallChatGPT("introduce youself")).choices[0].message.content;
         //Debug.Log(message);
 
-        EventSource eventSource = new EventSource(new Uri("http://localhost:5000/"));
-        eventSource.MessageReceived += EventSource_MessageReceived;
+        //_eventSource = new EventSource(new Uri("https://localhost:7195/api/Test/ChatGPT?tableID=321"));
+        
+
     }
 
-    private void EventSource_MessageReceived(object sender, MessageReceivedEventArgs e)
+    public async void StartSSE()
     {
-        Debug.LogWarning(e.Message);
+        EventSource _eventSource;
+        _eventSource = new EventSource(new Uri("https://localhost:7195/api/Test/SSE"));
+        _eventSource.Opened += (sender, e) =>
+        {
+            Debug.Log("Connection opened.");
+        };
+        _eventSource.MessageReceived += (sender, e) => {
+            Debug.Log($"{e.EventName}:{e.Message.Data}");
+           // _textMeshPro.text = e.Message.Data.ToString();
+        };
+        _eventSource.Error += (sender, e) =>
+        {
+            Debug.LogWarning("My Connection errored. Message: " + e.Exception.Message);
+        };
+        _eventSource.Closed += (sender, e) => {
+            Debug.LogWarning("My Connection closed. Status: ");
+        };
+        await _eventSource.StartAsync();
     }
-
-
-
-
+    
 
     // Update is called once per frame
     void Update()

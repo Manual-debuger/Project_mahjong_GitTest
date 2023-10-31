@@ -20,11 +20,13 @@ public class GameManager : MonoBehaviour,IInitiable
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
     private bool _isGameStart = false;
+    private bool _isTestingChatGPT = false;
     #nullable enable
     private int? _characterIndex = null;
     private List<int>? _characterIndexList = null;
     private StreamReader? _chatGPTStreamReader=null;
 #nullable disable
+    private Queue<List<Tuple<string, string>>> _messageQueue = new Queue<List<Tuple<string, string>>>();
     [SerializeField] private int _tableID;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
     [SerializeField] private CentralAreaController _centralAreaController;
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private EffectController _effectController;
     [SerializeField] private AudioController _audioController;
-    [SerializeField] private ChatGPTHandler _chatGPTHandler;
+    [SerializeField] private ChatGPTHandler _chatGPTHandler;    
     
     
 
@@ -108,14 +110,14 @@ public class GameManager : MonoBehaviour,IInitiable
     // Update is called once per frame
     void Update()
     {
-        if(_isGameStart)
+        if(_messageQueue.Count>0)//_isGameStart
         {
-           
-            //_inGameUIController.AddChat(ChatGPTTool.Parsing(result.choices[0].message.content));                
-                
-            //Debug.Log("CallChatGPT testresult=" + testresult.choices[0].message.content);
-            //_inGameUIController.AddChat(new List<Tuple<string, string>>() {new Tuple<string,string>("Test", testresult.choices[0].message.content) });
-            
+            List<Tuple<string,string>> message;
+            lock(_messageQueue)
+            {
+                message = _messageQueue.Dequeue();
+            }
+            _inGameUIController.AddChat(message);
         }
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)
@@ -185,27 +187,27 @@ public class GameManager : MonoBehaviour,IInitiable
     #endregion
 
     #region API handle
-    private void OnWaitingEvent(object sender, WaitingEventArgs e)
+    private async void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
         Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
         HttpClient client = new HttpClient();
         _tableID = e.TableID;
-        if(_characterIndex==null)
+        if (_characterIndex == null)
         {
             _chatGPTHandler.enabled = true;
-            //_characterIndex=_chatGPTHandler.GetCharacterIndex(new Uri($"https://localhost:7195/api/Test/CharacterIndex?tableID={_tableID}"));
-            //_characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"https://localhost:7195/api/Test/TableInfo?tableID={_tableID}"));
-            // _chatGPTHandler.uri = new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}");
+            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"https://localhost:7195/api/Test/CharacterIndex?tableID={_tableID}"));
+            _characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"https://localhost:7195/api/Test/TableInfo?tableID={_tableID}"));
+            if(_isTestingChatGPT)
+                await _chatGPTHandler.StartChatGPT(new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}"), _messageQueue);
         }
-        _inGameUIController.setWaiting(e);
-        _chatGPTHandler.OnMessageReceived += OnMessageReceived;
+        _inGameUIController.setWaiting(e);        
 
     }
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
         _inGameUIController.CloseWait();
         
-
+        
         Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
         _isGameStart = true;
         _playerIndex = e.SelfSeatIndex;

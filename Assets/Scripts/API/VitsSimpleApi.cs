@@ -1,27 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Net.Http;
 using System.Net;
+using System.IO;
 
 public class VitsSimpleApi : MonoBehaviour
 {
-    private async void Start()
+    public AudioSource audioSource;
+    private void Start()
+    {
+        
+    }
+
+    public async void OnClick()
     {
         string baseUrl = "http://140.118.216.251:23456/voice/vits";
-        string text = "�A�n";
+        string text = "你好,こんにちは";
         int id = 0; //0 ~ 803
         string format = "mp3";
+        float length = 2f;
         float noise = 0.33f;
         float noisew = 0.4f;
         int max = 50;
 
-        //string savePath = System.IO.Path.Combine(Application.persistentDataPath, "output.mp3");
+        string savePath = System.IO.Path.Combine(Application.persistentDataPath, "output.mp3");
 
         var builder = new UriBuilder(baseUrl);
-        builder.Query = string.Format("text={0}&id={1}&format={2}&noise={3}&noisew={4}&max={5}",
-            WebUtility.UrlEncode(text), id, format, noise, noisew, max);
+        builder.Query = string.Format("text={0}&id={1}&format={2}&length={3}&noise={4}&noisew={5}&max={6}",
+            WebUtility.UrlEncode(text), id, format, length, noise, noisew, max);
 
         try
         {
@@ -35,12 +41,23 @@ public class VitsSimpleApi : MonoBehaviour
                 if (response.IsSuccessStatusCode)
                 {
                     byte[] mp3Data = await response.Content.ReadAsByteArrayAsync();
-                    //File.WriteAllBytes(savePath, mp3Data);
+                    File.WriteAllBytes(savePath, mp3Data);
 
                     string base64String = Convert.ToBase64String(mp3Data);
 
-                    Debug.Log("MP3 download successful and converted to Base64 string.");
-                    //Debug.Log(base64String);
+                    // Convert the downloaded base64 string to byte array
+                    byte[] decodedBytes = Convert.FromBase64String(base64String);
+
+                    // Create an AudioClip from the mp3 data
+                    AudioClip audioClip = MP3Transform.MP3ToAudioClip(mp3Data);
+
+                    // Assign the AudioClip to the AudioSource
+                    audioSource.clip = audioClip;
+
+                    // Play the audio
+                    audioSource.Play();
+
+                    Debug.Log("MP3 download successful and played through AudioSource.");
                 }
                 else
                 {

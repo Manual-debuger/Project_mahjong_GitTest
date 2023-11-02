@@ -63,7 +63,7 @@ public class InGameUIController : MonoBehaviour
     };
 
     private long CountTime;
-    [SerializeField] private GameObject StateName;
+    [SerializeField] private Image StateImage;
     [SerializeField] private TMP_Text StateText;
     private void Awake()
     {
@@ -317,10 +317,37 @@ public class InGameUIController : MonoBehaviour
     }
     public async void ShowState(string State, long time)
     {
-        this.StateName.SetActive(true);
         this.StateText.text = State;
-        await Task.Delay((int)time);
-        this.StateName.SetActive(false);
+        StartCoroutine(StateAppear());
+        await Task.Delay(1500);
+        StartCoroutine(StateDisappear());
+
+        //this.StateName.SetActive(true);
+        //await Task.Delay((int)time);
+        //this.StateName.SetActive(false);
+    }
+
+    IEnumerator StateAppear()
+    {
+        StateText.color = new Color(StateText.color.r, StateText.color.g, StateText.color.b, 0); 
+        StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, 0);
+        while (StateText.color.a < 1.0f)
+        {
+            StateText.color = new Color(StateText.color.r, StateText.color.g, StateText.color.b, StateText.color.a + (Time.deltaTime *3));
+            StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, StateImage.color.a + (Time.deltaTime *3));
+            yield return null;
+        }
+    }
+    IEnumerator StateDisappear()
+    {
+        StateText.color = new Color(StateText.color.r, StateText.color.g, StateText.color.b, 1);
+        StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, 1);
+        while (StateText.color.a > 0.0f)
+        {
+            StateText.color = new Color(StateText.color.r, StateText.color.g, StateText.color.b, StateText.color.a - (Time.deltaTime * 3));
+            StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, StateImage.color.a - (Time.deltaTime * 3));
+            yield return null;
+        }
     }
     public void Pass()
     {
@@ -526,7 +553,14 @@ public class InGameUIController : MonoBehaviour
         text.Add(new Tuple<string, string>("2", "chat"));
         text.Add(new Tuple<string, string>("3", "test"));
         text.Add(new Tuple<string, string>("4", "chat"));
-        _socialUIButton.AddChat(text);
+        List<int> index = new();
+        index.Add(0);
+        index.Add(0);
+        index.Add(1);
+        index.Add(2);
+        _waitingUI.SetPlayerHead(index);
+        ShowState("ด๚ธี", 1000);
+        //_socialUIButton.AddChat(text);
     }
     public void AddChat(List<Tuple<string, string>> text)
     {

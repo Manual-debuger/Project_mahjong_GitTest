@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour,IInitiable
                     }
                 }
             }
-            _inGameUIController.ShowState("RandomSeat", 500);
+            _inGameUIController.ShowState("抓位", 500);
         }
         catch (Exception ex)
         {
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
         _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
-        _inGameUIController.ShowState("DecideBanker", 500);
+        _inGameUIController.ShowState("擲莊", 500);
 
         for (int i = 0; i < 4; i++)
         {
@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 }
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
-            _inGameUIController.ShowState("OpenDoor", 500);
+            _inGameUIController.ShowState("開門", 500);
         }
         catch (Exception)
         {
@@ -322,7 +322,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 }
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
-            _inGameUIController.ShowState("GroundingFlower", 500);
+            _inGameUIController.ShowState("補花", 500);
         }
         catch (Exception)
         {

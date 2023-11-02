@@ -16,6 +16,12 @@ public class  AssetsPoolController:MonoBehaviour
         get { return _instance._tileSprites; }
     }
 
+    [SerializeField] private Sprite[] _playerHeadset = null;
+    public Sprite[] PlayerHeadset
+    {
+        get { return _instance._playerHeadset; }
+    }
+
     [SerializeField] private Material _defaultTileMaterial;
     [SerializeField] private Material _highLightedTileMaterial;
     [SerializeField] private GameObject[] _effectsPrefabs;

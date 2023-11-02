@@ -71,4 +71,47 @@ public class WaitingUI : MonoBehaviour
             Debug.Log("NextStateTime is null");
         }
     }
+
+    public void SetWaiting(WaitingEventArgs waitingEventArgs,List<int> playerHeadIndex)
+    {
+        for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+        {
+            playerName[i].text = waitingEventArgs.Seats[i].Nickname;
+        }
+        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
+        for (int i = 0; i < playerHeadIndex.Count; i++)
+        {
+            playerHeadSet[i].sprite= PlayerHeadset[playerHeadIndex[i]];
+        }
+        roomSet[0].text = "底牌" + '\t' + waitingEventArgs.Ante.ToString() + '/' + waitingEventArgs.ScorePerPoint;
+        roomSet[1].text = "圈數" + '\t' + waitingEventArgs.Round.ToString() + "圈";
+        roomSet[2].text = "出牌時間" + '\t' + "6" + "秒";//waitingEventArgs.Round.ToString()
+        roomId.text = waitingEventArgs.TableID.ToString();
+
+        if (waitingEventArgs.NextStateTime != null)
+        {
+            isCount = true;
+            CountTime = (long)waitingEventArgs.NextStateTime - waitingEventArgs.Time;
+            Debug.Log(CountTime);
+            UpdateCountdownText();
+            if (CountTime < 0)
+            {
+                CloseWaitingEvent?.Invoke(this, new EventArgs());
+            }
+        }
+        else
+        {
+            TimeText.text = "0";
+            Debug.Log("NextStateTime is null");
+        }
+    }
+
+    public void SetPlayerHead(List<int> playerHeadIndex)
+    {
+        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
+        for (int i = 0; i < playerHeadIndex.Count; i++)
+        {
+            playerHeadSet[i].sprite = PlayerHeadset[playerHeadIndex[i]];
+        }
+    }
 }

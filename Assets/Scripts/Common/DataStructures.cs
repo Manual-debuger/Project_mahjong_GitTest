@@ -8,6 +8,19 @@ public class VitsResponse
     public string message = "";
     public string base64voice = "";
 }
+public class ParsedVitsResponse
+{    
+    public AudioClip voice ;
+    public List<Tuple<string, string>> message;
+    public ParsedVitsResponse(VitsResponse vitsResponse)
+    {
+        message = ChatGPTTool.Parsing(vitsResponse.message);
+        // Convert the downloaded base64 string to byte array
+        byte[] decodedBytes=Convert.FromBase64String(vitsResponse.base64voice);
+        // Create an AudioClip from the mp3 data
+        voice = MP3Transform.MP3ToAudioClip(decodedBytes);
+    }
+}
 public class PromptFactors
 {   
     public List<Tuple<string, string>> CharacterList;
@@ -407,4 +420,5 @@ public class BoolEventArgs : EventArgs
         b = Bool;
     }
 }
+
 #endregion

@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour,IInitiable
             _inGameUIController.AddChat(parsedVitsResponse.message);
 
             //use parsedVitsResponse.voice Play speech
-
+            Instance._audioController.PlayVitsSpeech(parsedVitsResponse.voice);
         }
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)

@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private List<int>? _characterIndexList = null;
     private StreamReader? _chatGPTStreamReader=null;
 #nullable disable
-    private Queue<ParsedVitsResponse> _ParsedVitsResponseQueue = new Queue<ParsedVitsResponse>();
+    private Queue<string> _messageQueue = new Queue<string>();
     [SerializeField] private bool _isTestingChatGPT = false;
     [SerializeField] private int _tableID;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
@@ -110,14 +110,15 @@ public class GameManager : MonoBehaviour,IInitiable
     // Update is called once per frame
     void Update()
     {
-        if(_ParsedVitsResponseQueue.Count>0)//_isGameStart
+        if(_messageQueue.Count>0)//_isGameStart
         {
-            ParsedVitsResponse parsedVitsResponse;
-            lock(_ParsedVitsResponseQueue)
+            string message;
+            lock(_messageQueue)
             {
-                parsedVitsResponse = _ParsedVitsResponseQueue.Dequeue();
+                message = _messageQueue.Dequeue();
             }
-            
+            VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(message);
+            ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             _inGameUIController.AddChat(parsedVitsResponse.message);
 
             //use parsedVitsResponse.voice Play speech
@@ -202,7 +203,7 @@ public class GameManager : MonoBehaviour,IInitiable
             _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"https://localhost:7195/api/Test/CharacterIndex?tableID={_tableID}"));
             _characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"https://localhost:7195/api/Test/TableInfo?tableID={_tableID}"));
             if(_isTestingChatGPT)
-                await _chatGPTHandler.StartChatGPT(new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}"), _ParsedVitsResponseQueue);
+                await _chatGPTHandler.StartChatGPT(new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}"), _messageQueue);
         }
         _inGameUIController.setWaiting(e);        
 

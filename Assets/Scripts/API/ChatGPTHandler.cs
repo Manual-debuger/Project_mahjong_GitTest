@@ -18,6 +18,7 @@ public class ChatGPTHandler : MonoBehaviour
     private EventSource _eventSource;
     public Queue<string> _messageQueue = null;
     public Queue<string> _voiceQueue = null;
+    private string _lastMessage = "";
     //public EventHandler<AudioClip> OnAudioClipReceived;
       
 
@@ -59,16 +60,19 @@ public class ChatGPTHandler : MonoBehaviour
         _eventSource.MessageReceived += (sender, e) =>
         {
             Debug.Log($"{e.EventName}:{e.Message.Data}");
-            
-            lock(_messageQueue)
+            if(e.EventName == "message" && e.Message.Data!=null&& e.Message.Data !="null"&& !e.Message.Data.Contains(":HEART BEAT, ignore this")&&e.Message.Data!=_lastMessage)
             {
-                _messageQueue.Enqueue(e.Message.Data);
-            }            
+                _lastMessage=e.Message.Data;
+                lock (_messageQueue)
+                {
+                    _messageQueue.Enqueue(e.Message.Data);
+                }            
+            }
             
         };
         _eventSource.Error += (sender, e) =>
         {
-            Debug.LogWarning("Connection errored. Message: " + e.Exception.Message);
+            Debug.LogWarning($"Connection errored. Message: {e.Exception.Message}, Source: {e.Exception.Source}, Data:{e.Exception.Data}");
         };
         _eventSource.Closed += (sender, e) =>
         {

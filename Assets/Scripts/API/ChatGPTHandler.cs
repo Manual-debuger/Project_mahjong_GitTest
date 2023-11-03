@@ -17,6 +17,7 @@ public class ChatGPTHandler : MonoBehaviour
     //public EventHandler<List<Tuple<string,string>>> OnMessageReceived;
     private EventSource _eventSource;
     public Queue<string> _messageQueue = null;
+    public Queue<string> _voiceQueue = null;
     //public EventHandler<AudioClip> OnAudioClipReceived;
       
 
@@ -47,9 +48,9 @@ public class ChatGPTHandler : MonoBehaviour
         var content = response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<List<int>>(content.Result);
     }
-    public async Task StartChatGPT(Uri uri,Queue<string> tuples)
+    public async Task StartChatGPT(Uri uri,Queue<string> messageQueue)
     {
-        _messageQueue = tuples;
+        _messageQueue = messageQueue;        
         _eventSource = new EventSource(uri);
         _eventSource.Opened += (sender, e) =>
         {
@@ -63,6 +64,7 @@ public class ChatGPTHandler : MonoBehaviour
             {
                 _messageQueue.Enqueue(e.Message.Data);
             }            
+            
         };
         _eventSource.Error += (sender, e) =>
         {

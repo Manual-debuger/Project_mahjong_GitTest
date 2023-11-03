@@ -15,10 +15,13 @@ public class ParsedVitsResponse
     public ParsedVitsResponse(VitsResponse vitsResponse)
     {
         message = ChatGPTTool.Parsing(vitsResponse.message);
-        // Convert the downloaded base64 string to byte array
-        byte[] decodedBytes=Convert.FromBase64String(vitsResponse.base64voice);
-        // Create an AudioClip from the mp3 data
-        voice = MP3Transform.MP3ToAudioClip(decodedBytes);
+        if(vitsResponse.base64voice!=null &&vitsResponse.base64voice!="")
+        {
+            // Convert the downloaded base64 string to byte array
+            byte[] decodedBytes=Convert.FromBase64String(vitsResponse.base64voice);
+            // Create an AudioClip from the mp3 data
+            voice = MP3Transform.MP3ToAudioClip(decodedBytes);
+        }
     }
 }
 public class PromptFactors

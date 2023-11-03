@@ -63,6 +63,7 @@ public class InGameUIController : MonoBehaviour
     };
 
     private long CountTime;
+    [SerializeField] private GameObject State;
     [SerializeField] private Image StateImage;
     [SerializeField] private TMP_Text StateText;
     private void Awake()
@@ -329,6 +330,7 @@ public class InGameUIController : MonoBehaviour
 
     IEnumerator StateAppear()
     {
+        State.SetActive(true);
         StateText.color = new Color(StateText.color.r, StateText.color.g, StateText.color.b, 0); 
         StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, 0);
         while (StateText.color.a < 1.0f)
@@ -348,6 +350,7 @@ public class InGameUIController : MonoBehaviour
             StateImage.color = new Color(StateImage.color.r, StateImage.color.g, StateImage.color.b, StateImage.color.a - (Time.deltaTime * 3));
             yield return null;
         }
+        State.SetActive(false);
     }
     public void Pass()
     {
@@ -570,6 +573,10 @@ public class InGameUIController : MonoBehaviour
     public void setWaiting(WaitingEventArgs waitingEventArgs)
     {
         _waitingUI.SetWaiting(waitingEventArgs);
+    }
+    public void setWaiting(WaitingEventArgs waitingEventArgs,List<int> index)
+    {
+        _waitingUI.SetWaiting(waitingEventArgs,index);
     }
 
     private void CloseWaiting(object sender, EventArgs e)

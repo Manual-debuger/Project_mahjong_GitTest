@@ -10711,6 +10711,7 @@ MonoBehaviour:
   isDraw: 1
   CanDiscardList: 0000000000000000000000000000000000
   HandTileSuits: 2a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a0000002a000000
+  State: {fileID: 2042669021}
   StateImage: {fileID: 2042669023}
   StateText: {fileID: 1508088543}
 --- !u!1 &1973912098
@@ -11623,7 +11624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2042669022
 RectTransform:
   m_ObjectHideFlags: 0

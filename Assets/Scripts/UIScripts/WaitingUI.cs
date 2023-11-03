@@ -74,14 +74,15 @@ public class WaitingUI : MonoBehaviour
 
     public void SetWaiting(WaitingEventArgs waitingEventArgs,List<int> playerHeadIndex)
     {
+        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
         for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
         {
             playerName[i].text = waitingEventArgs.Seats[i].Nickname;
-        }
-        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
-        for (int i = 0; i < playerHeadIndex.Count; i++)
-        {
             playerHeadSet[i].sprite= PlayerHeadset[playerHeadIndex[i]];
+        }
+        for (int i = waitingEventArgs.Seats.Count; i < PlayerHeadset.Length; i++)
+        {
+            playerHeadSet[i].sprite = PlayerHeadset[0];
         }
         roomSet[0].text = "©³µP" + '\t' + waitingEventArgs.Ante.ToString() + '/' + waitingEventArgs.ScorePerPoint;
         roomSet[1].text = "°é¼Æ" + '\t' + waitingEventArgs.Round.ToString() + "°é";

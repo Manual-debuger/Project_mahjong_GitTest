@@ -563,7 +563,7 @@ public class InGameUIController : MonoBehaviour
         index.Add(2);
         _waitingUI.SetPlayerHead(index);
         ShowState("ด๚ธี", 1000);
-        //_socialUIButton.AddChat(text);
+        _socialUIButton.AddChat(text);
     }
     public void AddChat(List<Tuple<string, string>> text)
     {

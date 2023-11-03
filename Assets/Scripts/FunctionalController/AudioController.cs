@@ -12,7 +12,9 @@ public class AudioController : MonoBehaviour
     public AudioClip groundingFlowerClip;
 
     public AudioSource bgmSource;
-    public AudioSource audioSource;
+    public AudioSource effectSource;
+
+    public AudioSource vitsSource;
 
     public AudioMixer audioMixer;
 
@@ -63,19 +65,29 @@ public class AudioController : MonoBehaviour
         switch(action)
         {
             case AudioType.Chow:
-                audioSource.clip = chowClip;
+                effectSource.clip = chowClip;
                 break;
             case AudioType.Pong:
-                audioSource.clip = pongClip;
+                effectSource.clip = pongClip;
                 break;
             case AudioType.Kong:
-                audioSource.clip = kongClip;
+                effectSource.clip = kongClip;
                 break;
             case AudioType.GroundingFlower:
-                audioSource.clip = groundingFlowerClip;
+                effectSource.clip = groundingFlowerClip;
                 break;
         }
-        audioSource.loop = false;
-        audioSource.Play();
+        effectSource.loop = false;
+        effectSource.Play();
+    }
+
+    public void PlayVitsSpeech(AudioClip speechChip)
+    {
+        while (speechChip != null)
+        {
+            vitsSource.clip = speechChip;
+        }
+        vitsSource.loop = false;
+        vitsSource.Play();
     }
 }

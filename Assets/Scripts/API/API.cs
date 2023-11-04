@@ -92,7 +92,7 @@ public class API : MonoBehaviour
     {
         LoginObject requestData = new LoginObject
         {
-            Path = Path.Login,
+            Path = APIPath.Login,
             Data = new LoginData
             {
                 IsGuest = true,
@@ -109,7 +109,7 @@ public class API : MonoBehaviour
     {
         TableEnterObject requestData = new TableEnterObject
         {
-            Path = Path.TableEnter,
+            Path = APIPath.TableEnter,
             Data = config
         };
 
@@ -129,25 +129,25 @@ public class API : MonoBehaviour
         // Switch based on the Path to handle different message types
         switch (message.Path)
         {
-            case Path.Ack:
+            case APIPath.Ack:
                 HandleAck();
                 break;
-            case Path.Login:
+            case APIPath.Login:
                 HandleLogin();
                 break;
-            case Path.TableEnter:
+            case APIPath.TableEnter:
                 HandleTableEnter();
                 break;
-            case Path.TableEvent:
+            case APIPath.TableEvent:
                 HandleTableEvent(message.Data);
                 break;
-            case Path.TablePlay:
+            case APIPath.TablePlay:
                 HandleTablePlay(message.Data);
                 break;
-            case Path.TableResult:
+            case APIPath.TableResult:
                 HandleTableResult(message.Data);
                 break;
-            case Path.TableAutoPlay:
+            case APIPath.TableAutoPlay:
                 APIData.HandleAutoPlay();
                 break;
             default:

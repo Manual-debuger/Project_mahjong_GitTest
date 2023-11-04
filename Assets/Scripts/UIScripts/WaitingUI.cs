@@ -80,10 +80,6 @@ public class WaitingUI : MonoBehaviour
             playerName[i].text = waitingEventArgs.Seats[i].Nickname;
             playerHeadSet[i].sprite= PlayerHeadset[playerHeadIndex[i]];
         }
-        for (int i = waitingEventArgs.Seats.Count; i < PlayerHeadset.Length; i++)
-        {
-            playerHeadSet[i].sprite = PlayerHeadset[0];
-        }
         roomSet[0].text = "底牌" + '\t' + waitingEventArgs.Ante.ToString() + '/' + waitingEventArgs.ScorePerPoint;
         roomSet[1].text = "圈數" + '\t' + waitingEventArgs.Round.ToString() + "圈";
         roomSet[2].text = "出牌時間" + '\t' + "6" + "秒";//waitingEventArgs.Round.ToString()

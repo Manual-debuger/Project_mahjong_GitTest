@@ -253,7 +253,7 @@ public class PlayerGameResultData
     public bool? InsufficientBalance;
 }
 
-public static class Path
+public static class APIPath
 {
     public const string Ack = "auth.ack";
     public const string Login = "auth.login";

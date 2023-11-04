@@ -49,7 +49,7 @@ public class VitsSimpleApi : MonoBehaviour
                     byte[] decodedBytes = Convert.FromBase64String(base64String);
 
                     // Create an AudioClip from the mp3 data
-                    AudioClip audioClip = MP3Transform.MP3ToAudioClip(mp3Data);
+                    AudioClip audioClip = NAudioPlayer.FromMp3Data(decodedBytes);
 
                     // Assign the AudioClip to the AudioSource
                     audioSource.clip = audioClip;

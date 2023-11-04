@@ -10,7 +10,7 @@ public class VitsResponse
 }
 public class ParsedVitsResponse
 {    
-    public AudioClip voice;
+    public AudioClip voice ;
     public List<Tuple<string, string>> message;
     public ParsedVitsResponse(VitsResponse vitsResponse)
     {
@@ -20,7 +20,7 @@ public class ParsedVitsResponse
             // Convert the downloaded base64 string to byte array
             byte[] decodedBytes=Convert.FromBase64String(vitsResponse.base64voice);
             // Create an AudioClip from the mp3 data
-            voice = NAudioPlayer.FromMp3Data(decodedBytes);
+            voice = MP3Transform.MP3ToAudioClip(decodedBytes);
         }
     }
 }

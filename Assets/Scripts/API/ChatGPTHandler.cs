@@ -68,6 +68,7 @@ public class ChatGPTHandler : MonoBehaviour
                     _messageQueue.Enqueue(e.Message.Data);
                 }            
             }
+            
         };
         _eventSource.Error += (sender, e) =>
         {

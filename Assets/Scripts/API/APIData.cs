@@ -353,7 +353,7 @@ namespace APIDataNamespace
         {
             var requestData = new
             {
-                Path = APIPath.TablePlay,
+                Path = Path.TablePlay,
                 Data = new
                 {
                     Action = actionData.ID,
@@ -369,7 +369,7 @@ namespace APIDataNamespace
         {
             var requestData = new
             {
-                Path = APIPath.TableAutoPlay
+                Path = Path.TableAutoPlay
             };
             string jsonData = JsonConvert.SerializeObject(requestData);
             await API.Instance.SendData(jsonData);

@@ -83,7 +83,7 @@ public class AudioController : MonoBehaviour
 
     public void PlayVitsSpeech(AudioClip speechChip)
     {
-        if (speechChip != null)
+        while (speechChip != null)
         {
             vitsSource.clip = speechChip;
         }

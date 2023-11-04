@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour,IInitiable
             if(_isTestingChatGPT)
                 await _chatGPTHandler.StartChatGPT(new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}"), _messageQueue);
         }
-        _inGameUIController.setWaiting(e);        
+        _inGameUIController.setWaiting(e,_characterIndexList);        
 
     }
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)

@@ -60,7 +60,7 @@ public class ChatGPTHandler : MonoBehaviour
         _eventSource.MessageReceived += (sender, e) =>
         {
             Debug.Log($"{e.EventName}:{e.Message.Data}");
-            if(e.EventName == "message" && e.Message.Data!=null&& e.Message.Data !="null"&& !e.Message.Data.Contains(":HEART BEAT, ignore this")&&e.Message.Data!=_lastMessage)
+            if(e.EventName=="message" && e.Message.Data!=null && e.Message.Data!="null" && e.Message.Data.Length>50 && !e.Message.Data.Contains(":HEART BEAT, ignore this")&&e.Message.Data!=_lastMessage)
             {
                 _lastMessage=e.Message.Data;
                 lock (_messageQueue)

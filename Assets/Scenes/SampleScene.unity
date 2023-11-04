@@ -19564,7 +19564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7099277055637303272, guid: 59994137a08f94f4db76db713b1d27b4, type: 3}
       propertyPath: m_MinValue
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 7099277055637303272, guid: 59994137a08f94f4db76db713b1d27b4, type: 3}
       propertyPath: m_WholeNumbers

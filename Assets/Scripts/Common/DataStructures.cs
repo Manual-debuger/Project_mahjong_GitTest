@@ -5,22 +5,25 @@ using UnityEngine;
 
 public class VitsResponse
 {
-    public string message = "";
-    public string base64voice = "";
+    public List<Tuple<string, string>> messageList = new List<Tuple<string, string>>();
+    public List<string> base64voiceList = new List<string>();
 }
 public class ParsedVitsResponse
 {    
-    public AudioClip voice;
+    public List<AudioClip> voiceList;
     public List<Tuple<string, string>> message;
     public ParsedVitsResponse(VitsResponse vitsResponse)
     {
-        message = ChatGPTTool.Parsing(vitsResponse.message);
-        if(vitsResponse.base64voice!=null &&vitsResponse.base64voice!="")
+        message = vitsResponse.messageList;
+        if(vitsResponse.base64voiceList != null &&vitsResponse.base64voiceList.Count !=0)
         {
-            // Convert the downloaded base64 string to byte array
-            byte[] decodedBytes=Convert.FromBase64String(vitsResponse.base64voice);
-            // Create an AudioClip from the mp3 data
-            voice = NAudioPlayer.FromMp3Data(decodedBytes);
+            for(int i=0;i<vitsResponse.base64voiceList.Count;i++)
+            {
+                byte[] decodedBytes = Convert.FromBase64String(vitsResponse.base64voiceList[i]);
+                // Create an AudioClip from the mp3 data
+                voiceList[i]= NAudioPlayer.FromMp3Data(decodedBytes);                
+            }
+            
         }
     }
 }

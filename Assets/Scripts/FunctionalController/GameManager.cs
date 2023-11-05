@@ -121,13 +121,15 @@ public class GameManager : MonoBehaviour,IInitiable
             VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             _inGameUIController.AddChat(parsedVitsResponse.message);
-
+            
+            /* Need to Modify
             // Save voice
             string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
             SavWav.Save(filepath, parsedVitsResponse.voice);
 
             //use parsedVitsResponse.voice Play speech
             Instance._audioController.PlayVitsSpeech(parsedVitsResponse.voice);
+            */
         }
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)

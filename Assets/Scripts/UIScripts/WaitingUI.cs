@@ -99,7 +99,7 @@ public class WaitingUI : MonoBehaviour
         else
         {
             TimeText.text = "0";
-            Debug.Log("NextStateTime is null");
+            //Debug.Log("NextStateTime is null");
         }
     }
 

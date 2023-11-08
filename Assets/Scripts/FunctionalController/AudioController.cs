@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.Audio;
 //Duty: 處理音樂音效相關的控制
 public class AudioController : MonoBehaviour
@@ -81,7 +82,7 @@ public class AudioController : MonoBehaviour
         effectSource.Play();
     }
 
-    public void PlayVitsSpeech(AudioClip speechChip)
+    public async Task PlayVitsSpeech(AudioClip speechChip)
     {
         if (speechChip != null)
         {
@@ -89,5 +90,8 @@ public class AudioController : MonoBehaviour
         }
         vitsSource.loop = false;
         vitsSource.Play();
+
+        // make delay until speech finish 
+        await Task.Delay((int)speechChip.length * 1000 + 2000);
     }
 }

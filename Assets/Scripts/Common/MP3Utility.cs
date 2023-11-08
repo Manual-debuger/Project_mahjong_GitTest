@@ -116,37 +116,3 @@ public static class NAudioPlayer
         }
     }
 }
-/*
-public static class MP3Transform
-{
-    public static AudioClip MP3ToAudioClip(byte[] mp3Data)
-    {
-        using (MP3Stream mp3Stream = new MP3Stream(new System.IO.MemoryStream(mp3Data)))
-        {
-            List<float> samplesList = new List<float>();
-
-            byte[] buffer = new byte[4096];
-            int bytesRead = 0;
-
-            while ((bytesRead = mp3Stream.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                for (int i = 0; i < bytesRead / 2; i += 2)
-                {
-                    short sample = (short)((buffer[i + 1] << 8) | buffer[i]);
-                    float floatSample = sample / 32768.0f;
-                    samplesList.Add(floatSample);
-                }
-            }
-
-            float[] samples = samplesList.ToArray();
-
-            int channels = 1;
-            int sampleRate = 44100; // mp3Stream.Frequency * 2
-
-            AudioClip audioClip = AudioClip.Create("AudioClip", samples.Length, channels, sampleRate, false);
-            audioClip.SetData(samples, 0);
-
-            return audioClip;
-        }
-    }
-}*/

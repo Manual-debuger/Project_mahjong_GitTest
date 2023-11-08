@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour,IInitiable
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
         if(_messageQueue.Count>0)//_isGameStart
         {
@@ -122,14 +122,15 @@ public class GameManager : MonoBehaviour,IInitiable
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             _inGameUIController.AddChat(parsedVitsResponse.message);
             
-            /* Need to Modify
             // Save voice
-            string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
-            SavWav.Save(filepath, parsedVitsResponse.voice);
+            foreach(var voice in parsedVitsResponse.voiceList)
+            {
+                string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
+                SavWav.Save(filepath, voice);
 
-            //use parsedVitsResponse.voice Play speech
-            Instance._audioController.PlayVitsSpeech(parsedVitsResponse.voice);
-            */
+                // Play speech
+                await Instance._audioController.PlayVitsSpeech(voice);
+            }
         }
     }
     public int CastAPIIndexToLocalIndex(int seatIndex)
@@ -201,7 +202,7 @@ public class GameManager : MonoBehaviour,IInitiable
     #region API handle
     private async void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
+        //Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
         HttpClient client = new HttpClient();
         _tableID = e.TableID;
         if (_characterIndex == null)
@@ -220,7 +221,7 @@ public class GameManager : MonoBehaviour,IInitiable
         _inGameUIController.CloseWait();
         
         
-        Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
+        //Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
         _isGameStart = true;
         _playerIndex = e.SelfSeatIndex;
         List<string> WindString=new List<string> { "東", "南", "西", "北" };
@@ -257,7 +258,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     private void OnDecideBankerEvent(object sender, DecideBankerEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
+        //Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
         _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
         _inGameUIController.ShowState("擲莊", 500);
 
@@ -280,7 +281,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     private void OnOpenDoorEvent(object sender, OpenDoorEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnOpenDoorEvent!!!!!!!!!!!!");
+        //Debug.Log("!!!!!!!!!!!!OnOpenDoorEvent!!!!!!!!!!!!");
         try
         {
             _centralAreaController.SetWallCount(e.WallCount);
@@ -314,7 +315,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnGroundingFlowerEvent!!!!!!!!!!!!"); ;
+            //Debug.Log("!!!!!!!!!!!!OnGroundingFlowerEvent!!!!!!!!!!!!"); ;
             _centralAreaController.SetWallCount(e.WallCount);
             for (int i = 0; i < e.Seats.Count; i++)
             {
@@ -347,7 +348,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     private void OnPlayingEvent(object sender, PlayingEventArgs e)
     {
-        Debug.Log("!!!!!!!!!!!!OnPlayingEvent!!!!!!!!!!!!");
+        //Debug.Log("!!!!!!!!!!!!OnPlayingEvent!!!!!!!!!!!!");
 
         string debugMessage = "PlayingDeadline = " + e.PlayingTimeLeft;
 
@@ -401,7 +402,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     private void OnWaitingActionEvent(object sender, WaitingActionEventArgs e)
     {
-        Debug.LogWarning("!!!!!!!!!!!!OnWaitingActionEvent!!!!!!!!!!!!");
+        //Debug.LogWarning("!!!!!!!!!!!!OnWaitingActionEvent!!!!!!!!!!!!");
         Debug.LogWarning($"OnWaitingActionEvent e.Seats.Count={e.Seats.Count}");
 
         string debugMessage = "PlayingDeadline = " + e.PlayingTimeLeft;
@@ -460,7 +461,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
+            //Debug.Log("!!!!!!!!!!!!OnHandEndEvent!!!!!!!!!!!!");
             //_inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
             _inGameUIController.SettlementSetCloseTime(e.PlayingTimeLeft);
             Init();
@@ -477,7 +478,7 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!OnGameEndEvent!!!!!!!!!!!!"); ;
+            //Debug.Log("!!!!!!!!!!!!OnGameEndEvent!!!!!!!!!!!!"); ;
             //_inGameUIController.Settlement(e.Seats, e.PlayingTimeLeft);
             _inGameUIController.SettlementSetCloseTime(e.PlayingTimeLeft);
         }

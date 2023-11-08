@@ -10,20 +10,20 @@ public class VitsResponse
 }
 public class ParsedVitsResponse
 {    
-    public List<AudioClip> voiceList;
+    public List<AudioClip> voiceList = new ();
     public List<Tuple<string, string>> message;
     public ParsedVitsResponse(VitsResponse vitsResponse)
     {
         message = vitsResponse.messageList;
-        if(vitsResponse.base64voiceList != null &&vitsResponse.base64voiceList.Count !=0)
+        if(vitsResponse.base64voiceList != null && vitsResponse.base64voiceList.Count != 0)
         {
-            for(int i=0;i<vitsResponse.base64voiceList.Count;i++)
+            for(int i = 0; i < vitsResponse.base64voiceList.Count; i++)
             {
                 byte[] decodedBytes = Convert.FromBase64String(vitsResponse.base64voiceList[i]);
                 // Create an AudioClip from the mp3 data
-                voiceList[i]= NAudioPlayer.FromMp3Data(decodedBytes);                
+                voiceList.Add(NAudioPlayer.FromMp3Data(decodedBytes));
+                Debug.Log("voice" + i + "is created");
             }
-            
         }
     }
 }

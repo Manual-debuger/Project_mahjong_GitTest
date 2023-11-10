@@ -11,7 +11,7 @@ public class scrollrect : MonoBehaviour
     private TMP_Text textView;
     [SerializeField]
     private ScrollRect scrollControl;
-    public List<Tuple<String, String>> linesToDisplay = new();
+    public List<Tuple<string, string>> linesToDisplay = new();
     public float displayDuration = 2.0f;
     private bool isDisplaying = false;
 
@@ -31,7 +31,7 @@ public class scrollrect : MonoBehaviour
         }
         isDisplaying = false;
     }
-    public void AddChat(List<Tuple<String, String>> text)
+    public void AddChat(List<Tuple<string, string>> text)
     {
         for (int i = 0; i < text.Count; i++)
         {
@@ -43,7 +43,7 @@ public class scrollrect : MonoBehaviour
         }
     }
 
-    public void AddChatToText(Tuple<String, String> text)
+    public void AddChatToText(Tuple<string, string> text)
     {
         string newcontent = "";
         newcontent += "<color=#2491aa>";

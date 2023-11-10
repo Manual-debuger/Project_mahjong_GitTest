@@ -92,6 +92,6 @@ public class AudioController : MonoBehaviour
         vitsSource.Play();
 
         // make delay until speech finish 
-        await Task.Delay((int)speechChip.length * 1000 + 2000);
+        await Task.Delay((int)speechChip.length * 1000 + 1000);
     }
 }

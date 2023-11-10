@@ -117,8 +117,8 @@ public class GameManager : MonoBehaviour,IInitiable
             {
                 message = _messageQueue.Dequeue();
             }
-            //VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(message);
-            VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
+            VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(message);
+            //VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             _inGameUIController.AddChat(parsedVitsResponse.message);
             

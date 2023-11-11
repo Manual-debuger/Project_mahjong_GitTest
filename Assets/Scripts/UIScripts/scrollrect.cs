@@ -12,6 +12,8 @@ public class scrollrect : MonoBehaviour
     [SerializeField]
     private ScrollRect scrollControl;
     public List<Tuple<string, string>> linesToDisplay = new();
+    public string PlayerName;
+    public List<char> TextToDisplay = new();
     public float displayDuration = 2.0f;
     private bool isDisplaying = false;
 
@@ -23,12 +25,34 @@ public class scrollrect : MonoBehaviour
     {
         isDisplaying = true;
 
-        while (linesToDisplay.Count!=0)
+        while (linesToDisplay.Count != 0)
         {
             AddChatToText(linesToDisplay[0]);
             linesToDisplay.RemoveAt(0);
             yield return new WaitForSeconds(displayDuration);
         }
+        isDisplaying = false;
+    }
+
+    IEnumerator DisplayTextbyCharCoroutine(float time)
+    {
+        isDisplaying = true;
+        string newcontent = "";
+        newcontent += "<color=#2491aa>";
+        newcontent += PlayerName;
+        newcontent += "</color>";
+        newcontent += ":";
+        newcontent += "\n";
+        textView.text += newcontent;
+
+        while (TextToDisplay.Count != 0)
+        {
+            textView.text = textView.text + TextToDisplay[0];
+            TextToDisplay.RemoveAt(0);
+            yield return new WaitForSeconds(time);
+        }
+        textView.text = textView.text + "\n";
+        //StartCoroutine("ScrollToBottom");
         isDisplaying = false;
     }
     public void AddChat(List<Tuple<string, string>> text)
@@ -40,6 +64,16 @@ public class scrollrect : MonoBehaviour
         if (!isDisplaying)
         {
             StartCoroutine(DisplayTextCoroutine());
+        }
+    }
+
+    public void AddChat(Tuple<string, string> text, float time)
+    {
+        PlayerName = text.Item1;
+        TextToDisplay.AddRange(text.Item2.ToCharArray());
+        if (!isDisplaying)
+        {
+            StartCoroutine(DisplayTextbyCharCoroutine(time));
         }
     }
 

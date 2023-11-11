@@ -71,6 +71,10 @@ public class SocialUIButton : MonoBehaviour
 		Scrollrect.AddChat(text);
 	}
 
+	public void AddChat(Tuple<String, String> text, float time)
+	{
+		Scrollrect.AddChat(text, time);
+	}
 	IEnumerator Disappear()
 	{
 

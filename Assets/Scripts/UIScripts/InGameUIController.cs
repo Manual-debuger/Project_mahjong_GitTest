@@ -551,11 +551,7 @@ public class InGameUIController : MonoBehaviour
 
     public void test()
     {
-        List<Tuple<string, string>> text = new();
-        text.Add(new Tuple<string, string>("1", "test"));
-        text.Add(new Tuple<string, string>("2", "chat"));
-        text.Add(new Tuple<string, string>("3", "test"));
-        text.Add(new Tuple<string, string>("4", "chat"));
+        var text = Tuple.Create("原", "你說的對，但《原神》是由米哈遊自主研發的全新開放世界冒險遊戲。 遊戲發生在一個被稱作「提瓦特」的幻想世界，在這裡，被神選中的人將被授予「神之眼」，導引元素之力。 你將扮演一位名為「旅行者」的神秘角色，在自由的旅行中邂逅性格各異、能力獨特的同伴們，和他們一起擊敗強敵，找回失散的親人——同時，逐步發掘「原神」的真相。");
         List<int> index = new();
         index.Add(1);
         index.Add(2);
@@ -563,11 +559,16 @@ public class InGameUIController : MonoBehaviour
         index.Add(4);
         _waitingUI.SetPlayerHead(index);
         ShowState("測試", 1000);
-        _socialUIButton.AddChat(text);
+        _socialUIButton.AddChat(text,(float)(1.0));
     }
     public void AddChat(List<Tuple<string, string>> text)
     {
         _socialUIButton.AddChat(text);
+    }
+
+    public void AddChat(Tuple<string, string> text, float time)
+    {
+        _socialUIButton.AddChat(text, time);
     }
 
     public void setWaiting(WaitingEventArgs waitingEventArgs)

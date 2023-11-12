@@ -91,14 +91,12 @@ public class SocialUIButton : MonoBehaviour
 
 			yield return new WaitForEndOfFrame();
 		}
-		Chat.SetActive(false);
 		AutoPlayButton.SetActive(true);
 		SupportButtom.SetActive(true);
 	}
 
 	IEnumerator Appear()
 	{
-		Chat.SetActive(true);
 		AutoPlayButton.SetActive(false);
 		SupportButtom.SetActive(false);
 

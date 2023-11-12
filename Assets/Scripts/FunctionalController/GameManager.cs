@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour,IInitiable
             VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(message);
             //VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
-            _inGameUIController.AddChat(parsedVitsResponse.message);
+            //_inGameUIController.AddChat(parsedVitsResponse.message);
 
             // Save voice
             for (int i=0;i<parsedVitsResponse.message.Count;i++)//var voice in parsedVitsResponse.voiceList

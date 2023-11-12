@@ -14,7 +14,7 @@ public class scrollrect : MonoBehaviour
     public List<Tuple<string, string>> linesToDisplay = new();
     public string PlayerName;
     public List<char> TextToDisplay = new();
-    public float displayDuration = 2.0f;
+    public float timeFactor = 0.9f;
     private bool isDisplaying = false;
 
     private void Start()
@@ -29,7 +29,7 @@ public class scrollrect : MonoBehaviour
         {
             AddChatToText(linesToDisplay[0]);
             linesToDisplay.RemoveAt(0);
-            yield return new WaitForSeconds(displayDuration);
+            yield return new WaitForSeconds(2);
         }
         isDisplaying = false;
     }
@@ -71,9 +71,10 @@ public class scrollrect : MonoBehaviour
     {
         PlayerName = text.Item1;
         TextToDisplay.AddRange(text.Item2.ToCharArray());
+
         if (!isDisplaying)
         {
-            StartCoroutine(DisplayTextbyCharCoroutine(time));
+            StartCoroutine(DisplayTextbyCharCoroutine(time*timeFactor/TextToDisplay.Count));
         }
     }
 

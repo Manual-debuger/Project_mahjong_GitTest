@@ -121,14 +121,18 @@ public class GameManager : MonoBehaviour,IInitiable
             //VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             _inGameUIController.AddChat(parsedVitsResponse.message);
-            
+
             // Save voice
-            foreach(var voice in parsedVitsResponse.voiceList)
+            for (int i=0;i<parsedVitsResponse.message.Count;i++)//var voice in parsedVitsResponse.voiceList
             {
+                var voice = parsedVitsResponse.voiceList[i];
+                var dialog = parsedVitsResponse.message[i];
+
                 string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
                 SavWav.Save(filepath, voice);
 
                 // Play speech
+                Instance._inGameUIController.AddChat(dialog,voice.length);
                 await Instance._audioController.PlayVitsSpeech(voice);
             }
         }
@@ -189,15 +193,7 @@ public class GameManager : MonoBehaviour,IInitiable
         APIData.instance.HandleClickAction(actionData);
         //throw new System.NotImplementedException();
     }
-    #endregion
-    #region ChatGPT API handle
-    
-
-    private void OnMessageReceived(object sender, List<Tuple<string, string>> e)
-    {
-        _inGameUIController.AddChat(e);
-    }
-    #endregion
+    #endregion   
 
     #region API handle
     private async void OnWaitingEvent(object sender, WaitingEventArgs e)

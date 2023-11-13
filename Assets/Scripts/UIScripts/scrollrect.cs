@@ -52,7 +52,7 @@ public class scrollrect : MonoBehaviour
             yield return new WaitForSeconds(time);
         }
         textView.text = textView.text + "\n";
-        //StartCoroutine("ScrollToBottom");
+        StartCoroutine("ScrollToBottom");
         isDisplaying = false;
     }
     public void AddChat(List<Tuple<string, string>> text)

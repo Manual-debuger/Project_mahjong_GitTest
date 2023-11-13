@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
-    private bool _isGameStart = false;
+    private bool _isGameStart = false;    
     #nullable enable
     private int? _characterIndex = null;
     private List<int>? _characterIndexList = null;
@@ -521,7 +521,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Instance._effectController.PlayEffect(EffectID.Chow, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.Chow);
+        Instance._audioController.PlayAudioEffect(AudioType.Chow, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     

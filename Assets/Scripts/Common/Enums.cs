@@ -99,6 +99,10 @@ public enum EffectID
 
 public enum AudioType
 {
+    RandomSeat,
+    DecideBanker,
+    OpenDoor,
+    //GroundingFlower
     Chow,
     Pong,
     Kong,

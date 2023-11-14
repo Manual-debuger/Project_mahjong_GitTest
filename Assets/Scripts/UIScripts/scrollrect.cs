@@ -50,9 +50,9 @@ public class scrollrect : MonoBehaviour
             textView.text = textView.text + TextToDisplay[0];
             TextToDisplay.RemoveAt(0);
             yield return new WaitForSeconds(time);
+            StartCoroutine("ScrollToBottom");
         }
         textView.text = textView.text + "\n";
-        StartCoroutine("ScrollToBottom");
         isDisplaying = false;
     }
     public void AddChat(List<Tuple<string, string>> text)

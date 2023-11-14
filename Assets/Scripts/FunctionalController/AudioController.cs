@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
 //Duty: 處理音樂音效相關的控制
@@ -7,10 +9,19 @@ public class AudioController : MonoBehaviour
     private bool isPlayingReadyHand = false;
 
     public AudioClip bgmClip;
-    public AudioClip chowClip;
-    public AudioClip pongClip;
-    public AudioClip kongClip;
+    public AudioClip randomSeatClip;
+    public AudioClip decideBankerClip;
+    public AudioClip openDoorClip;
     public AudioClip groundingFlowerClip;
+
+
+    public List<AudioClip> chowClips = new List<AudioClip>();
+    public List<AudioClip> pongClips = new List<AudioClip>();
+    public List<AudioClip> kongClips = new List<AudioClip>();
+    public List<AudioClip> readyHandClips = new List<AudioClip>();
+    public List<AudioClip> winClips = new List<AudioClip>();
+    public List<AudioClip> selfDrawnClips = new List<AudioClip>();
+    public List<AudioClip> groundingFlowerClips = new List<AudioClip>();
 
     public AudioSource bgmSource;
     public AudioSource effectSource;
@@ -21,7 +32,6 @@ public class AudioController : MonoBehaviour
 
     private void Awake()
     {
-        
     }
 
     // Start is called before the first frame update
@@ -61,21 +71,53 @@ public class AudioController : MonoBehaviour
         bgmSource.Play();
     }
 
-    public void PlayAudioEffect(AudioType action)
+    public void PlayStateAudio(AudioType action)
     {
-        switch(action)
+        switch (action)
         {
-            case AudioType.Chow:
-                effectSource.clip = chowClip;
+            case AudioType.RandomSeat:
+                effectSource.clip = randomSeatClip;
                 break;
-            case AudioType.Pong:
-                effectSource.clip = pongClip;
+            case AudioType.DecideBanker:
+                effectSource.clip = decideBankerClip;
                 break;
-            case AudioType.Kong:
-                effectSource.clip = kongClip;
+            case AudioType.OpenDoor:
+                effectSource.clip = openDoorClip;
                 break;
             case AudioType.GroundingFlower:
                 effectSource.clip = groundingFlowerClip;
+                break;
+        }
+        effectSource.loop = false;
+        effectSource.Play();
+    }
+
+    public void PlayAudioEffect(AudioType action, int characterID)
+    {
+        int index = characterID - 1;
+
+        switch (action)
+        {
+            case AudioType.Chow:
+                effectSource.clip = chowClips[index];
+                break;
+            case AudioType.Pong:
+                effectSource.clip = pongClips[index];
+                break;
+            case AudioType.Kong:
+                effectSource.clip = kongClips[index];
+                break;
+            case AudioType.ReadyHand:
+                effectSource.clip = readyHandClips[index];
+                break;
+            case AudioType.Win:
+                effectSource.clip = winClips[index];
+                break;
+            case AudioType.SelfDrawn:
+                effectSource.clip = selfDrawnClips[index];
+                break;
+            case AudioType.GroundingFlower:
+                effectSource.clip = groundingFlowerClips[index];
                 break;
         }
         effectSource.loop = false;

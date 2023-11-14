@@ -128,8 +128,8 @@ public class GameManager : MonoBehaviour,IInitiable
                 var voice = parsedVitsResponse.voiceList[i];
                 var dialog = parsedVitsResponse.message[i];
 
-                string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
-                SavWav.Save(filepath, voice);
+                //string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
+                //SavWav.Save(filepath, voice);
 
                 // Play speech
                 Instance._inGameUIController.AddChat(dialog,voice.length);
@@ -214,15 +214,14 @@ public class GameManager : MonoBehaviour,IInitiable
     }
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
     {
-        _inGameUIController.CloseWait();
-        
-        
-        //Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
-        _isGameStart = true;
-        _playerIndex = e.SelfSeatIndex;
-        List<string> WindString=new List<string> { "東", "南", "西", "北" };
         try
         {
+            _inGameUIController.CloseWait();
+            //Debug.Log("!!!!!!!!!!!!OnRandomSeatEvent!!!!!!!!!!!!");        
+            _isGameStart = true;
+            _playerIndex = e.SelfSeatIndex;
+            List<string> WindString=new List<string> { "東", "南", "西", "北" };
+        
             for(int i = 0;i < e.Seats.Count; i++)
             {
                 //e.Seats[i].DoorWind = WindString[i];
@@ -242,13 +241,15 @@ public class GameManager : MonoBehaviour,IInitiable
                 }
             }
             _inGameUIController.ShowState("抓位", 500);
+
+            //Audio
+            Instance._audioController.PlayStateAudio(AudioType.ReadyHand);
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
             throw;
         }
-        
         //throw new System.NotImplementedException();
     }
 
@@ -256,8 +257,6 @@ public class GameManager : MonoBehaviour,IInitiable
     {
         //Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
         _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
-        _inGameUIController.ShowState("擲莊", 500);
-
         for (int i = 0; i < 4; i++)
         {
             if (i == _playerIndex)
@@ -272,7 +271,10 @@ public class GameManager : MonoBehaviour,IInitiable
                 }
             }
         }
-        //throw new System.NotImplementedException();
+        _inGameUIController.ShowState("擲莊", 500);
+
+        //Audio
+        Instance._audioController.PlayStateAudio(AudioType.DecideBanker);
     }
 
     private void OnOpenDoorEvent(object sender, OpenDoorEventArgs e)
@@ -298,10 +300,13 @@ public class GameManager : MonoBehaviour,IInitiable
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             _inGameUIController.ShowState("開門", 500);
-        }
-        catch (Exception)
-        {
 
+            //Audio
+            Instance._audioController.PlayStateAudio(AudioType.OpenDoor);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
             throw;
         }
         //throw new System.NotImplementedException();
@@ -332,22 +337,23 @@ public class GameManager : MonoBehaviour,IInitiable
             }
             _playerControllers[CastAPIIndexToLocalIndex(this._playerIndex)].SetHandTiles(e.Tiles);
             _inGameUIController.ShowState("補花", 500);
-        }
-        catch (Exception)
-        {
 
+            //Audio
+            Instance._audioController.PlayStateAudio(AudioType.GroundingFlower);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
             throw;
         }
-        
+
         //throw new System.NotImplementedException();
     }
 
     private void OnPlayingEvent(object sender, PlayingEventArgs e)
     {
         //Debug.Log("!!!!!!!!!!!!OnPlayingEvent!!!!!!!!!!!!");
-
         string debugMessage = "PlayingDeadline = " + e.PlayingTimeLeft;
-
         try
         {
             //CentralArea
@@ -532,7 +538,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Instance._effectController.PlayEffect(EffectID.Pong, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.Pong);
+        Instance._audioController.PlayAudioEffect(AudioType.Pong, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     
@@ -543,7 +549,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Instance._effectController.PlayEffect(EffectID.Kong, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.Kong);
+        Instance._audioController.PlayAudioEffect(AudioType.Kong, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     
@@ -554,7 +560,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Instance._effectController.PlayEffect(EffectID.Listen, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.ReadyHand);
+        Instance._audioController.PlayAudioEffect(AudioType.ReadyHand, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     
@@ -565,7 +571,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Instance._effectController.PlayEffect(EffectID.Win, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.Win);
+        Instance._audioController.PlayAudioEffect(AudioType.Win, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     
@@ -580,7 +586,7 @@ public class GameManager : MonoBehaviour,IInitiable
         Debug.Log("!!!!!!!!!!!!OnGroundingFlowerActionEvent!!!!!!!!!!!!");
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.GroundingFlower);
+        Instance._audioController.PlayAudioEffect(AudioType.GroundingFlower, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
     
@@ -604,7 +610,7 @@ public class GameManager : MonoBehaviour,IInitiable
         //Instance._effectController.PlayEffect(EffectID.SelfDrawn, CastAPIIndexToLocalIndex(e.Index));
 
         //Audio
-        Instance._audioController.PlayAudioEffect(AudioType.SelfDrawn);
+        Instance._audioController.PlayAudioEffect(AudioType.SelfDrawn, _characterIndexList[e.Index]);
         //throw new System.NotImplementedException();
     }
 

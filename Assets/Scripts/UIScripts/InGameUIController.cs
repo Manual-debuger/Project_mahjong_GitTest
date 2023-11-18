@@ -24,6 +24,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private CancelHosting _cancelHosting;
     [SerializeField] private Hosting _hosting;
     [SerializeField] private WaitingUI _waitingUI;
+    [SerializeField] private HintUI _hintUI;
 
     [SerializeField] private GameObject InGameUI;
     [SerializeField] private GameObject SettlementUI;
@@ -551,15 +552,19 @@ public class InGameUIController : MonoBehaviour
 
     public void test()
     {
-        var text = Tuple.Create("原", "你說的對，但《原神》是由米哈遊自主研發的全新開放世界冒險遊戲。 遊戲發生在一個被稱作「提瓦特」的幻想世界，在這裡，被神選中的人將被授予「神之眼」，導引元素之力。 你將扮演一位名為「旅行者」的神秘角色，在自由的旅行中邂逅性格各異、能力獨特的同伴們，和他們一起擊敗強敵，找回失散的親人——同時，逐步發掘「原神」的真相。");
-        List<int> index = new();
-        index.Add(1);
-        index.Add(2);
-        index.Add(3);
-        index.Add(4);
-        _waitingUI.SetPlayerHead(index);
-        ShowState("測試", 1000);
-        _socialUIButton.AddChat(text,40);
+        //var text = Tuple.Create("原", "你說的對，但《原神》是由米哈遊自主研發的全新開放世界冒險遊戲。 遊戲發生在一個被稱作「提瓦特」的幻想世界，在這裡，被神選中的人將被授予「神之眼」，導引元素之力。 你將扮演一位名為「旅行者」的神秘角色，在自由的旅行中邂逅性格各異、能力獨特的同伴們，和他們一起擊敗強敵，找回失散的親人——同時，逐步發掘「原神」的真相。");
+        //List<int> index = new();
+        //index.Add(1);
+        //index.Add(2);
+        //index.Add(3);
+        //index.Add(4);
+        //_waitingUI.SetPlayerHead(index);
+        //ShowState("測試", 1000);
+        //_socialUIButton.AddChat(text,40);
+        _hintUI.showActionHint(0, "原");
+        _hintUI.showActionHint(1, "吃");
+        _hintUI.showActionHint(2, "碰");
+        _hintUI.showActionHint(3, "槓");
     }
     //public void AddChat(List<Tuple<string, string>> text)
     //{

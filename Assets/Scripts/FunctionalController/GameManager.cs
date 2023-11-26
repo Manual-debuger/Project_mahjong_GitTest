@@ -12,6 +12,7 @@ using Assets.Scripts;
 using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour,IInitiable
 {
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private StreamReader? _chatGPTStreamReader=null;
 #nullable disable
     private Queue<string> _messageQueue = new Queue<string>();
+    private ConfigManager _configManager;
     [SerializeField] private bool _isTestingChatGPT = false;
     [SerializeField] private int _tableID;
     [SerializeField] private AbandonedTilesAreaController _abandonedTilesAreaController;
@@ -34,7 +36,8 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private InGameUIController _inGameUIController;
     [SerializeField] private EffectController _effectController;
     [SerializeField] private AudioController _audioController;
-    [SerializeField] private ChatGPTHandler _chatGPTHandler;    
+    [SerializeField] private ChatGPTHandler _chatGPTHandler;
+    [SerializeField] private ConfigData _configData=new ConfigData("Default");
     
     
 
@@ -56,6 +59,20 @@ public class GameManager : MonoBehaviour,IInitiable
                 GameObject.Find("Player_Tiles N").GetComponent<CompetitorController>(),
                 GameObject.Find("Player_Tiles E").GetComponent<CompetitorController>()
             };
+            _configManager = new ConfigManager();
+            try
+            {
+                _configData = _configManager.LoadConfig();
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Error Loading Config: {e.Message}\n Using Default config");
+                ConfigManager.Config = _configData;
+                throw;
+            }
+
+            Debug.Log($"Config.NetBackendUri={_configData.NetBackendUrl}");
 
             _inGameUIController.DiscardTileEvent += OnDiscardTileEvent;
             _inGameUIController.OnTileBeHoldingEvent += OnTileBeHoldingEvent;
@@ -85,9 +102,14 @@ public class GameManager : MonoBehaviour,IInitiable
             APIData.DrawnFromDeadWallActionEvent += OnDrawnFromDeadWallActionEvent;
             APIData.SelfDrawnWinActionEvent += OnSelfDrawnWinActionEvent;
             APIData.ResultEvent += OnResultEvent;
+            
+            
         }
     }
-
+    public void OnDestroy()
+    {
+        _configManager.SaveConfig();
+    }
 
     public void Init()
     {
@@ -204,10 +226,10 @@ public class GameManager : MonoBehaviour,IInitiable
         if (_characterIndex == null)
         {
             _chatGPTHandler.enabled = true;
-            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"https://localhost:7195/api/Test/CharacterIndex?tableID={_tableID}"));
-            _characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"https://localhost:7195/api/Test/TableInfo?tableID={_tableID}"));
+            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}?tableID={_tableID}"));
+            _characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}?tableID={_tableID}"));
             if(_isTestingChatGPT)
-                await _chatGPTHandler.StartChatGPT(new Uri($"https://localhost:7195/api/Test/ChatGPT?tableID={_tableID}"), _messageQueue);
+                await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl} ?tableID={_tableID}"), _messageQueue);
         }
         _inGameUIController.setWaiting(e,_characterIndexList);
 

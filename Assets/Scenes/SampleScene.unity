@@ -24932,6 +24932,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1370546065}
     - target: {fileID: 4357352035240040254, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: _configData
+      value: 
+      objectReference: {fileID: 11400000, guid: 128b300ee7db5ab4a89a81245893fb32, type: 2}
+    - target: {fileID: 4357352035240040254, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _chatGPTHandler
       value: 
       objectReference: {fileID: 591868901}

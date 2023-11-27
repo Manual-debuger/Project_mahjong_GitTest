@@ -299,7 +299,8 @@ public class InGameUIController : MonoBehaviour
     {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
-        _settlementScreen.SetSettlement(playerResultDatas);
+        if (playerResultDatas != null)
+            _settlementScreen.SetSettlement(playerResultDatas);
     }
 
     public async void SettlementSetCloseTime(long time)
@@ -561,10 +562,11 @@ public class InGameUIController : MonoBehaviour
         //_waitingUI.SetPlayerHead(index);
         //ShowState("測試", 1000);
         //_socialUIButton.AddChat(text,40);
-        _hintUI.showActionHint(0, "原");
-        _hintUI.showActionHint(1, "吃");
-        _hintUI.showActionHint(2, "碰");
-        _hintUI.showActionHint(3, "槓");
+        //_hintUI.showActionHint(0, "原");
+        //_hintUI.showActionHint(1, "吃");
+        //_hintUI.showActionHint(2, "碰");
+        //_hintUI.showActionHint(3, "槓");
+        Settlement(new List<PlayerResultData>());
     }
     //public void AddChat(List<Tuple<string, string>> text)
     //{

@@ -35,28 +35,28 @@ public class SettlementScreen : MonoBehaviour
         }
     }
 
-    public void SetSettlement(List<SeatInfo> seatInfos, long time)
-    {
-        for (int i = 1; i < seatInfos.Count; i++)
-        {
-            bool swapped;
-            do
-            {
-                swapped = false;
-                if (seatInfos[i - 1].Scores > seatInfos[i].Scores)
-                {
-                    SeatInfo temp = seatInfos[i - 1];
-                    seatInfos[i - 1] = seatInfos[i];
-                    seatInfos[i] = temp;
-                }
-            } while (swapped);
-        }
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].Set(seatInfos[i]);
-        }
-        CountTime = time;
-    }
+    //public void SetSettlement(List<SeatInfo> seatInfos, long time)
+    //{
+    //    for (int i = 1; i < seatInfos.Count; i++)
+    //    {
+    //        bool swapped;
+    //        do
+    //        {
+    //            swapped = false;
+    //            if (seatInfos[i - 1].Scores > seatInfos[i].Scores)
+    //            {
+    //                SeatInfo temp = seatInfos[i - 1];
+    //                seatInfos[i - 1] = seatInfos[i];
+    //                seatInfos[i] = temp;
+    //            }
+    //        } while (swapped);
+    //    }
+    //    for (int i = 0; i < players.Length; i++)
+    //    {
+    //        players[i].Set(seatInfos[i]);
+    //    }
+    //    CountTime = time;
+    //}
     public void SetSettlement(List<PlayerResultData> playerResultDatas)
     {
         //for (int i = 1; i < playerResultDatas.Count; i++)

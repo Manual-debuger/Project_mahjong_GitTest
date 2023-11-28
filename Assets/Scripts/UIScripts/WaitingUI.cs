@@ -102,13 +102,4 @@ public class WaitingUI : MonoBehaviour
             //Debug.Log("NextStateTime is null");
         }
     }
-
-    public void SetPlayerHead(List<int> playerHeadIndex)
-    {
-        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
-        for (int i = 0; i < playerHeadIndex.Count; i++)
-        {
-            playerHeadSet[i].sprite = PlayerHeadset[playerHeadIndex[i]];
-        }
-    }
 }

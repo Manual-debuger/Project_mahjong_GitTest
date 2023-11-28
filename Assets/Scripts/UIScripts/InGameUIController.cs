@@ -36,6 +36,8 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
     public event EventHandler<ActionData> UIActiveActionEvent;
 
+    public List<string> PlayerName;
+    public List<int> AvatarIndex;
     public bool IsListenState = false;
     public bool IsDiscardState = false;
     public bool isDraw = true;
@@ -300,7 +302,7 @@ public class InGameUIController : MonoBehaviour
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         if (playerResultDatas != null)
-            _settlementScreen.SetSettlement(playerResultDatas);
+            _settlementScreen.SetSettlement(playerResultDatas,PlayerName,AvatarIndex);
     }
 
     public async void SettlementSetCloseTime(long time)
@@ -581,10 +583,27 @@ public class InGameUIController : MonoBehaviour
     public void setWaiting(WaitingEventArgs waitingEventArgs)
     {
         _waitingUI.SetWaiting(waitingEventArgs);
+
+        PlayerName.Clear();
+        for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+        {
+            PlayerName.Add(waitingEventArgs.Seats[i].Name);
+        }
     }
     public void setWaiting(WaitingEventArgs waitingEventArgs,List<int> index)
     {
         _waitingUI.SetWaiting(waitingEventArgs,index);
+        AvatarIndex.Clear();
+        for (int i = 0; i < index.Count; i++)
+        {
+            AvatarIndex.Add(index[i]);
+        }
+
+        PlayerName.Clear();
+        for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+        {
+            PlayerName.Add(waitingEventArgs.Seats[i].Name);
+        }
     }
 
     private void CloseWaiting(object sender, EventArgs e)

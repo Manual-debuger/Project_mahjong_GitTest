@@ -616,6 +616,11 @@ public class InGameUIController : MonoBehaviour
         WaitingUIObject.SetActive(false);
     }
 
+    public void ShowActionHint(int index,string actionName)
+    {
+        _hintUI.showActionHint(index, actionName);
+    }
+
     public SettingUIButton SettingUIButton
     {
         get => default;

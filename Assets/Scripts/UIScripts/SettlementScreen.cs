@@ -7,14 +7,24 @@ using TMPro;
 
 public class SettlementScreen : MonoBehaviour
 {
-    [SerializeField] private PlayerSettlementUI[] players;
+    [SerializeField] private Image Avatar;
+    [SerializeField] private TMP_Text Name;
+    [SerializeField] private TMP_Text Wind;
+    [SerializeField] private TMP_Text Score;
+    [SerializeField] private Image[] Tiles;
+    [SerializeField] private GameObject[] PointType;
+    [SerializeField] private TMP_Text[] PointTypeText;
+    [SerializeField] private TMP_Text[] PointTypeScore;
+    [SerializeField] private TMP_Text TimeText;
+
     private long CountTime;
-    [SerializeField]
-    private TMP_Text tMP_Text;
-    [SerializeField]
-    private GameObject PointType;
-    [SerializeField]
-    private TMP_Text PointType_Text;
+    //[SerializeField] private PlayerSettlementUI[] players;
+    //[SerializeField]
+    //private TMP_Text tMP_Text;
+    //[SerializeField]
+    //private GameObject PointType;
+    //[SerializeField]
+    //private TMP_Text PointType_Text;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +37,11 @@ public class SettlementScreen : MonoBehaviour
         CountTime -= (long)(Time.deltaTime * 1000);
         if (CountTime < 0)
         {
-            tMP_Text.text = "0";
+            TimeText.text = "0";
         }
         else
         {
-            tMP_Text.text = ((int)CountTime/1000).ToString();
+            TimeText.text = ((int)CountTime/1000).ToString();
         }
     }
 
@@ -59,7 +69,7 @@ public class SettlementScreen : MonoBehaviour
     //}
     public void SetSettlement(List<PlayerResultData> playerResultDatas)
     {
-        //for (int i = 1; i < playerResultDatas.Count; i++)
+        /*//for (int i = 1; i < playerResultDatas.Count; i++)
         //{
         //    bool swapped;
         //    do
@@ -73,16 +83,61 @@ public class SettlementScreen : MonoBehaviour
         //            swapped = true;
         //        }
         //    } while (swapped);
-        //}
+        //}*/
+        int winner = -1;
         PointTypeReset();
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < playerResultDatas.Count; i++)
         {
-            players[i].Set(playerResultDatas[i]);
-            if (playerResultDatas[i].PointList != null && playerResultDatas[i].PointList.Length != 0)
+            //players[i].Set(playerResultDatas[i]);
+            if (playerResultDatas[i].Winner == true)
             {
-                setPointType(playerResultDatas[i].PointList);
+                winner = i;
             }
         }
+        if (winner != -1)
+        {
+            setPointType(playerResultDatas[winner].PointList);
+            Name.text = playerResultDatas[winner].Name;
+            Wind.text = playerResultDatas[winner].DoorWind;
+            Score.text = playerResultDatas[winner].Scores.ToString() + " + " + playerResultDatas[winner].Score.ToString();
+
+            Sprite[] sprites = AssetsPoolController.Instance.TileSprites; for (int i = 0; i < playerResultDatas[winner].DoorTile.Count; i++)
+            {
+                switch (playerResultDatas[winner].DoorTile[i].Count)
+                {
+                    case 1:
+                        Tiles[3 * i].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][0]];
+                        Tiles[3 * i + 1].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][0]];
+                        Tiles[3 * i + 2].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][0]];
+                        break;
+                    case 2:
+                        Tiles[3 * i].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][1]];
+                        Tiles[3 * i + 1].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][1]];
+                        Tiles[3 * i + 2].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][1]];
+                        break;
+                    case 3:
+                        Tiles[3 * i].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][0]];
+                        Tiles[3 * i + 1].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][1]];
+                        Tiles[3 * i + 2].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][2]];
+                        break;
+                }
+            }
+
+            for (int i = 0; i < playerResultDatas[winner].Tile.Count; i++)
+            {
+                Tiles[3 * playerResultDatas[winner].DoorTile.Count + i].sprite = sprites[(int)playerResultDatas[winner].Tile[i]];
+            }
+        }
+        else 
+        {
+            
+        }
+    }
+
+    public void SetAvatar(int index)
+    {
+        Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
+        Avatar.sprite = PlayerHeadset[index];
     }
 
     public void SetTime(long time)
@@ -92,143 +147,142 @@ public class SettlementScreen : MonoBehaviour
 
     public void setPointType(PointType[] points)
     {
-        string str ="";
         for (int i = 0; i < points.Length ; i++)
         {
+            PointType[i].SetActive(true);
             switch (points[i].Describe)
             {
                 case "Banker":
-                    str = str + "莊家" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "莊家";
                     break;
                 case "RemainingBanker":
-                    str = str + "連莊拉莊" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "連莊拉莊";
                     break;
                 case "NoTriplet":
-                    str = str + "平胡" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "平胡";
                     break;
                 case "ThreeConcealedTriplet":
-                    str = str + "三暗刻" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "三暗刻";
                     break;
                 case "FourConcealedTriplet":
-                    str = str + "四暗刻" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "四暗刻";
                     break;
                 case "FiveConcealedTriplet":
-                    str = str + "五暗刻" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "五暗刻";
                     break;
                 case "PongPong":
-                    str = str + "對對胡" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "對對胡";
                     break;
                 case "TripletDragon":
-                    str = str + "三元台" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "三元台";
                     break;
                 case "LittleThreeDragon":
-                    str = str + "小三元" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "小三元";
                     break;
                 case "BigThreeDragon":
-                    str = str + "大三元" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "大三元";
                     break;
                 case "RoundWind":
-                    str = str + "圈風台" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "圈風台";
                     break;
                 case "DoorWind":
-                    str = str + "門風台" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "門風台";
                     break;
                 case "LittleFourWind":
-                    str = str + "小四喜" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "小四喜";
                     break;
                 case "BigFourWind":
-                    str = str + "大四喜" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "大四喜";
                     break;
                 case "CorrectFlower":
-                    str = str + "正花" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "正花";
                     break;
                 case "FlowerKong":
-                    str = str + "花槓" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "花槓";
                     break;
                 case "SevenRobsOne":
-                    str = str + "七搶一" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "七搶一";
                     break;
                 case "FlowerKing":
-                    str = str + "八仙過海" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "八仙過海";
                     break;
                 case "SingleTile":
-                    str = str + "獨聽" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "獨聽";
                     break;
                 case "DoorClear":
-                    str = str + "門清" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "門清";
                     break;
                 case "SelfDrawn":
-                    str = str + "自摸" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "自摸";
                     break;
                 case "DoorClearAndSelfDrawn":
-                    str = str + "門清自摸" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "門清自摸";
                     break;
                 case "RobbingKong":
-                    str = str + "搶槓胡" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "搶槓胡";
                     break;
                 case "SelfDrawnOnKong":
-                    str = str + "槓上開花" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "槓上開花";
                     break;
                 case "LastTileSelfDrawn":
-                    str = str + "海底撈月" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "海底撈月";
                     break;
                 case "LastTile":
-                    str = str + "海底摸魚" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "海底摸魚";
                     break;
                 case "AllFromOther":
-                    str = str + "全求人" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "全求人";
                     break;
                 case "HeavenlyWin":
-                    str = str + "天胡" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "天胡";
                     break;
                 case "EarthlyWin":
-                    str = str + "地胡" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "地胡";
                     break;
                 case "AllSameColor":
-                    str = str + "清一色" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "清一色";
                     break;
                 case "AllHonors":
-                    str = str + "字一色" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "字一色";
                     break;
                 case "MixOneColor":
-                    str = str + "混一色" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "混一色";
                     break;
                 case "ReadyHand":
-                    str = str + "聽牌" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "聽牌";
                     break;
                 case "HeavenlyReadyHand":
-                    str = str + "MIGI" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "MIGI";
                     break;
                 case "EarthlyReadyHand":
-                    str = str + "MIGI" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "MIGI";
                     break;
                 case "Dora":
-                    str = str + "寶牌" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "寶牌";
                     break;
                 case "HaveFlowerOrWind":
-                    str = str + "見花見字" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "見花見字";
                     break;
                 case "HaveKong":
-                    str = str + "槓牌" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "槓牌";
                     break;
                 case "PointTypeNoHonorsAndFlowers":
-                    str = str + "無字無花" + "\t" + points[i].Point;
+                    PointTypeText[i].text = "無字無花";
                     break;
                 default:
                     Debug.LogError("PointTypeError:" + points[i].Describe);
                     break;
             }
+            PointTypeScore[i].text = points[i].Point.ToString();
             //Debug.LogError(points[i].Describe);
-            if (i != points.Length - 1)
-            {
-            str += "\n";
-            }
         }
-        PointType_Text.text = str;
     }
 
     public void PointTypeReset()
     {
-        PointType_Text.text = "流局";
+        foreach (GameObject pointType in PointType)
+        {
+            pointType.SetActive(false);
+        }
     }
 }

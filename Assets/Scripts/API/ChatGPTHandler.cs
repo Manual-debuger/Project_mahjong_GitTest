@@ -34,6 +34,7 @@ public class ChatGPTHandler : MonoBehaviour
     } 
     public int GetCharacterIndex(Uri uri)
     {
+        Debug.Log($"GetCharacterIndex: uri = {uri}");
         var httpClient = new HttpClient();
         using HttpResponseMessage response = httpClient.GetAsync(uri).Result;
         response.EnsureSuccessStatusCode();
@@ -41,13 +42,15 @@ public class ChatGPTHandler : MonoBehaviour
         return int.Parse(content.Result);
     }
 
-    public List<int> GetCharacterIndexList(Uri uri)
+    public async Task<List<int>> GetCharacterIndexList(Uri uri)
     {
+        Debug.Log($"GetCharacterIndexList: uri = {uri}");
         var httpClient = new HttpClient();
         using HttpResponseMessage response = httpClient.GetAsync(uri).Result;
         response.EnsureSuccessStatusCode();
-        var content = response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<int>>(content.Result);
+        var content = await response.Content.ReadAsStringAsync();        
+        Debug.Log(content);
+        return JsonConvert.DeserializeObject<List<int>>(content);
     }
     public async Task StartChatGPT(Uri uri,Queue<string> messageQueue)
     {

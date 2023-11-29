@@ -229,8 +229,8 @@ public class GameManager : MonoBehaviour,IInitiable
         if (_characterIndex == null)
         {
             _chatGPTHandler.enabled = true;
-            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}?tableID={_tableID}"));
-            _characterIndexList = _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}?tableID={_tableID}"));
+            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
+            _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
             if(_isTestingChatGPT)
                 await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl} ?tableID={_tableID}"), _messageQueue);
         }

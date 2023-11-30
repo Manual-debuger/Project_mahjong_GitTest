@@ -52,13 +52,14 @@ public class GameManager : MonoBehaviour,IInitiable
                 _effectController = GameObject.Find("EffectController").GetComponent<EffectController>();
             if(_audioController==null)
                 _audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
-            _playerControllers = new List<PlayerControllerBase>
-            {
-                GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
-                GameObject.Find("Player_Tiles W").GetComponent<CompetitorController>(),
-                GameObject.Find("Player_Tiles N").GetComponent<CompetitorController>(),
-                GameObject.Find("Player_Tiles E").GetComponent<CompetitorController>()
-            };
+            if(_playerControllers==null || _playerControllers.Count<4)
+                _playerControllers = new List<PlayerControllerBase>
+                {
+                    GameObject.Find("Main_Tiles").GetComponent<PlayerController>(),
+                    GameObject.Find("Player_Tiles E").GetComponent<CompetitorController>(),
+                    GameObject.Find("Player_Tiles N").GetComponent<CompetitorController>(),
+                    GameObject.Find("Player_Tiles W").GetComponent<CompetitorController>()
+                };
             _configManager = new ConfigManager();
             try
             {
@@ -249,7 +250,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 //e.Seats[i].DoorWind = WindString[i];
                 
                 _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
-                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
+                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].WinScores);
                 if(i == _playerIndex)
                 {
                     if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
@@ -399,7 +400,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 foreach (var FlowerTile in e.Seats[i].FlowerTile) { debugMessage += FlowerTile + ", "; }
 
                 _playerControllers[CastAPIIndexToLocalIndex(i)].UpdateSeatInfo(e.Seats[i]);
-                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
+                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].WinScores);
 
                 if (i == _playerIndex)
                 {
@@ -455,7 +456,7 @@ public class GameManager : MonoBehaviour,IInitiable
                     debugMessage += FlowerTile + ", ";
                 }
                 _playerControllers[CastAPIIndexToLocalIndex(i)].UpdateSeatInfo(e.Seats[i]);
-                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].Scores);
+                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].WinScores);
 
                 if (i == _playerIndex)
                 {

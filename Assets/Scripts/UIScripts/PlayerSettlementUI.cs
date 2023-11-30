@@ -29,7 +29,7 @@ public class PlayerSettlementUI : MonoBehaviour
         //HeadSet;
         Wind.text = seatInfo.DoorWind;
         PlayerId.text = seatInfo.Nickname;
-        string totalScore = seatInfo.Scores.ToString();
+        string totalScore = seatInfo.WinScores.ToString();
         if (seatInfo.WinScores > 0)
         {
             totalScore += "+" + seatInfo.WinScores.ToString();

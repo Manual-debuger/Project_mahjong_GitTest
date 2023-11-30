@@ -21,13 +21,6 @@ public class Seat<T>
     public string DoorWind; // 玩家此局風向
     public int WinScores; // 該場遊戲輸贏分
 
-    // never seen
-    public int Scores; // 玩家金錢分數
-    public int Index; // 玩家在陣列中的index
-    public int? WinCount; // 玩家贏的場次
-    public int? LoseCount; // 玩家輸的場次
-    public bool? Ready; // 是否準備
-    public int[] Location; // 玩家座標位置
 }
 
 public class SeatInfo : Seat<List<string[]>>
@@ -52,13 +45,6 @@ public static class SeatExtensions
             SeaTile = seaList,
             DoorWind = seat.DoorWind,
             WinScores = seat.WinScores,
-            Scores = seat.Scores,
-            Index = seat.Index,
-            WinCount = seat.WinCount,
-            LoseCount = seat.LoseCount,
-            Ready = seat.Ready,
-            ReadyHand = seat.ReadyHand,
-            Location = seat.Location,
             AutoPlaying = seat.AutoPlaying
         };
     }

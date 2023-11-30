@@ -27,10 +27,10 @@ public class CameraAspectRatioAdjuster : MonoBehaviour
         {
             Rect rect = camera.rect;
 
-            rect.width = 1.0f; 
-            rect.height = scaleFactor;
             rect.x = 0;
             rect.y = (1.0f - scaleFactor) / 2.0f;
+            rect.width = 1.0f; 
+            rect.height = 1.0f - rect.y;
 
             if (Panel.anchorMin.y > rect.y) // If (1.0f - scaleFactor) / 2.0f < safe aera Min y
             {
@@ -53,10 +53,10 @@ public class CameraAspectRatioAdjuster : MonoBehaviour
 
             Rect rect = camera.rect;
 
-            rect.width = scalewidth;
-            rect.height = 1.0f; 
             rect.x = (1.0f - scalewidth) / 2.0f;
             rect.y = 0;
+            rect.width = 1.0f - rect.x;
+            rect.height = 1.0f;
 
             if (Panel.anchorMin.x > rect.x) // If (1.0f - scaleFactor) / 2.0f < safe aera Min x
             {

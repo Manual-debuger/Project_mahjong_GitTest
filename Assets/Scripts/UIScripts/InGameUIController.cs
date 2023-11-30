@@ -36,6 +36,7 @@ public class InGameUIController : MonoBehaviour
     public event EventHandler<FloatEventArgs> SetSoundEvent;
     public event EventHandler<ActionData> UIActiveActionEvent;
 
+    public int count = 0;
     public List<string> PlayerName;
     public List<int> AvatarIndex;
     public bool IsListenState = false;
@@ -568,7 +569,108 @@ public class InGameUIController : MonoBehaviour
         //_hintUI.showActionHint(1, "吃");
         //_hintUI.showActionHint(2, "碰");
         //_hintUI.showActionHint(3, "槓");
-        Settlement(new List<PlayerResultData>());
+        List<PlayerResultData> testData = new();
+
+        {
+            testData.Add(new());
+            testData.Add(new());
+            testData.Add(new());
+            testData.Add(new());
+
+            AvatarIndex.Clear();
+            PlayerName.Clear();
+
+            for (int i = 0; i < testData.Count; i++)
+            {
+                testData[i].Name = "test" + i.ToString();
+                AvatarIndex.Add(i);
+                PlayerName.Add(testData[i].Name);
+            }
+            testData[0].DoorWind = "東";
+            testData[1].DoorWind = "南";
+            testData[2].DoorWind = "西";
+            testData[3].DoorWind = "北";
+            testData[0].Scores = 1000;
+            testData[1].Scores = 2000;
+            testData[2].Scores = 3000;
+            testData[3].Scores = 4000;
+            testData[0].Score = 100;
+            testData[1].Score = 200;
+            testData[2].Score = 300;
+            testData[3].Score = 400;
+
+            testData[0].PointList = new PointType[0];
+            testData[1].PointList = new PointType[0];
+            testData[2].PointList = new PointType[0];
+            testData[3].PointList = new PointType[0];
+            //testData[0].PointList = new PointType[12];
+            //testData[0].PointList[0].Describe = "Banker";
+            //testData[0].PointList[0].Point = 0;
+            //testData[0].PointList[1].Describe = "RemainingBanker";
+            //testData[0].PointList[1].Point = 1;
+            //testData[0].PointList[2].Describe = "NoTriplet";
+            //testData[0].PointList[2].Point = 2;
+            //testData[0].PointList[3].Describe = "ThreeConcealedTriplet";
+            //testData[0].PointList[3].Point = 3;
+            //testData[0].PointList[4].Describe = "FourConcealedTriplet";
+            //testData[0].PointList[4].Point = 4;
+            //testData[0].PointList[5].Describe = "FiveConcealedTriplet";
+            //testData[0].PointList[5].Point = 5;
+            //testData[0].PointList[6].Describe = "PongPong";
+            //testData[0].PointList[6].Point = 6;
+            //testData[0].PointList[7].Describe = "TripletDragon";
+            //testData[0].PointList[7].Point = 7;
+            //testData[0].PointList[8].Describe = "LittleThreeDragon";
+            //testData[0].PointList[8].Point = 8;
+            //testData[0].PointList[9].Describe = "BigThreeDragon";
+            //testData[0].PointList[9].Point = 9;
+            //testData[0].PointList[10].Describe = "RoundWind";
+            //testData[0].PointList[10].Point = 10;
+            //testData[0].PointList[11].Describe = "DoorWind";
+            //testData[0].PointList[11].Point = 11;
+
+            //testData[1].PointList = new PointType[8];
+            //testData[1].PointList[0].Describe = "LittleFourWind";
+            //testData[1].PointList[0].Point = 0;
+            //testData[1].PointList[1].Describe = "BigFourWind";
+            //testData[1].PointList[1].Point = 1;
+            //testData[1].PointList[2].Describe = "CorrectFlower";
+            //testData[1].PointList[2].Point = 2;
+            //testData[1].PointList[3].Describe = "FlowerKong";
+            //testData[1].PointList[3].Point = 3;
+            //testData[1].PointList[4].Describe = "SevenRobsOne";
+            //testData[1].PointList[4].Point = 4;
+            //testData[1].PointList[5].Describe = "FlowerKing";
+            //testData[1].PointList[5].Point = 5;
+            //testData[1].PointList[6].Describe = "SingleTile";
+            //testData[1].PointList[6].Point = 6;
+            //testData[1].PointList[7].Describe = "DoorClear";
+            //testData[1].PointList[7].Point = 7;
+
+            //testData[2].PointList = new PointType[4];
+            //testData[2].PointList[0].Describe = "SelfDrawn";
+            //testData[2].PointList[0].Point = 0;
+            //testData[2].PointList[1].Describe = "DoorClearAndSelfDrawn";
+            //testData[2].PointList[1].Point = 1;
+            //testData[2].PointList[2].Describe = "RobbingKong";
+            //testData[2].PointList[2].Point = 2;
+            //testData[2].PointList[3].Describe = "SelfDrawnOnKong";
+            //testData[2].PointList[3].Point = 3;
+
+            //testData[3].PointList = new PointType[1];
+            //testData[3].PointList[0].Describe = "LastTileSelfDrawn";
+            //testData[3].PointList[0].Point = 0;
+            if (count < 4)
+            {
+                testData[count].Winner = true;
+                count++;
+            }
+            else
+            {
+                count = 0;
+            }
+        }
+        Settlement(testData);
     }
     //public void AddChat(List<Tuple<string, string>> text)
     //{

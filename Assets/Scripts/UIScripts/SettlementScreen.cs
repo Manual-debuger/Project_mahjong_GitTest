@@ -7,14 +7,14 @@ using TMPro;
 
 public class SettlementScreen : MonoBehaviour
 {
+    [SerializeField] private Image[] Tiles;
+    [SerializeField] private GameObject[] PointTypeObject;
+    [SerializeField] private TMP_Text[] PointTypeText;
+    [SerializeField] private TMP_Text[] PointTypeScore;
     [SerializeField] private Image Avatar;
     [SerializeField] private TMP_Text Name;
     [SerializeField] private TMP_Text Wind;
     [SerializeField] private TMP_Text Score;
-    [SerializeField] private Image[] Tiles;
-    [SerializeField] private GameObject[] PointType;
-    [SerializeField] private TMP_Text[] PointTypeText;
-    [SerializeField] private TMP_Text[] PointTypeScore;
     [SerializeField] private TMP_Text TimeText;
 
     private long CountTime;
@@ -103,15 +103,31 @@ public class SettlementScreen : MonoBehaviour
                     SetAvatar(AvatarIndex[i]);
                 }
             }
-            SetAvatar(winner);
             SetPointType(playerResultDatas[winner].PointList);
             Name.text = playerResultDatas[winner].Name;
-            Wind.text = playerResultDatas[winner].DoorWind;
+            switch (playerResultDatas[winner].DoorWind)
+            {
+                case "East":
+                    Wind.text = "東";
+                    break;
+                case "West":
+                    Wind.text = "西";
+                    break;
+                case "South":
+                    Wind.text = "南";
+                    break;
+                case "North":
+                    Wind.text = "北";
+                    break;
+                default:
+                    break;
+            }
             Score.text = playerResultDatas[winner].Scores.ToString() + " + " + playerResultDatas[winner].Score.ToString();
 
             Tiles[16].gameObject.SetActive(true);
-            Sprite[] sprites = AssetsPoolController.Instance.TileSprites; for (int i = 0; i < playerResultDatas[winner].DoorTile.Count; i++)
-
+            Sprite[] sprites = AssetsPoolController.Instance.TileSprites;
+            for (int i = 0; i < playerResultDatas[winner].DoorTile.Count; i++)
+            {
                 switch (playerResultDatas[winner].DoorTile[i].Count)
                 {
                     case 1:
@@ -130,7 +146,7 @@ public class SettlementScreen : MonoBehaviour
                         Tiles[3 * i + 2].sprite = sprites[(int)playerResultDatas[winner].DoorTile[i][2]];
                         break;
                 }
-
+            }
 
             for (int i = 0; i < playerResultDatas[winner].Tile.Count; i++)
             {
@@ -158,10 +174,29 @@ public class SettlementScreen : MonoBehaviour
             SetPointType(playerResultDatas[index].PointList);
             Name.text = playerResultDatas[index].Name;
             Wind.text = playerResultDatas[index].DoorWind;
+            switch (playerResultDatas[index].DoorWind)
+            {
+                case "East":
+                    Wind.text = "東";
+                    break;
+                case "West":
+                    Wind.text = "西";
+                    break;
+                case "South":
+                    Wind.text = "南";
+                    break;
+                case "North":
+                    Wind.text = "北";
+                    break;
+                default:
+                    break;
+            }
             Score.text = playerResultDatas[index].Scores.ToString() + " + " + playerResultDatas[index].Score.ToString();
 
             Tiles[16].gameObject.SetActive(false);
-            Sprite[] sprites = AssetsPoolController.Instance.TileSprites; for (int i = 0; i < playerResultDatas[index].DoorTile.Count; i++)
+            Sprite[] sprites = AssetsPoolController.Instance.TileSprites;
+            for (int i = 0; i < playerResultDatas[index].DoorTile.Count; i++)
+            {
                 switch (playerResultDatas[index].DoorTile[i].Count)
                 {
                     case 1:
@@ -180,6 +215,8 @@ public class SettlementScreen : MonoBehaviour
                         Tiles[3 * i + 2].sprite = sprites[(int)playerResultDatas[index].DoorTile[i][2]];
                         break;
                 }
+            }
+
             for (int i = 0; i < playerResultDatas[index].Tile.Count; i++)
             {
                 Tiles[3 * playerResultDatas[index].DoorTile.Count + i].sprite = sprites[(int)playerResultDatas[index].Tile[i]];
@@ -200,11 +237,11 @@ public class SettlementScreen : MonoBehaviour
 
     public void SetPointType(PointType[] points)
     {
-        if (points.Length != 0)
+        if (points != null && points.Length != 0)
         {
             for (int i = 0; i < points.Length; i++)
             {
-                PointType[i].SetActive(true);
+                PointTypeObject[i].SetActive(true);
                 switch (points[i].Describe)
                 {
                     case "Banker":
@@ -329,12 +366,11 @@ public class SettlementScreen : MonoBehaviour
                         break;
                 }
                 PointTypeScore[i].text = points[i].Point.ToString();
-                //Debug.LogError(points[i].Describe);
             }
         }
         else
         {
-            PointType[0].SetActive(true); 
+            PointTypeObject[0].SetActive(true);
             PointTypeText[0].text = "流局";
             PointTypeScore[0].text = "";
         }
@@ -342,9 +378,9 @@ public class SettlementScreen : MonoBehaviour
 
     public void PointTypeReset()
     {
-        foreach (GameObject pointType in PointType)
+        foreach (GameObject gameObject in PointTypeObject)
         {
-            pointType.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

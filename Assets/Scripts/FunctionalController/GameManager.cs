@@ -190,13 +190,11 @@ public class GameManager : MonoBehaviour,IInitiable
     public void OnChowTileEvent(object sender, ChowTileEventArgs e)
     {
         _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
-        _inGameUIController.ShowActionHint(e.PlayerIndex, "¦Y");
         //throw new System.NotImplementedException();
     }
     public void OnPongTileEvent(object sender, PongTileEventArgs e)
     {
         _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
-        _inGameUIController.ShowActionHint(e.PlayerIndex, "¸I");
         //throw new System.NotImplementedException();
     }
     public void OnKongTileEvent(object sender, KongTileEventArgs e)
@@ -205,7 +203,6 @@ public class GameManager : MonoBehaviour,IInitiable
             _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
         else
             _playerControllers[e.PlayerIndex].AddMeldTile(e.TileSuitsList);
-        _inGameUIController.ShowActionHint(e.PlayerIndex, "ºb");
         //throw new System.NotImplementedException();
     }
     public void OnWinningSuggestEvent(object sender, WinningSuggestArgs e)
@@ -547,6 +544,7 @@ public class GameManager : MonoBehaviour,IInitiable
     
     private void OnChowActionEvent(object sender, ChowActionEventArgs e)
     {
+        _inGameUIController.ShowActionHint(CastAPIIndexToLocalIndex(e.Index), "¦Y");
         Debug.Log("!!!!!!!!!!!!OnChowActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Chow, CastAPIIndexToLocalIndex(e.Index));
@@ -558,6 +556,7 @@ public class GameManager : MonoBehaviour,IInitiable
     
     private void OnPongActionEvent(object sender, PongActionEventArgs e)
     {
+        _inGameUIController.ShowActionHint(CastAPIIndexToLocalIndex(e.Index), "¸I");
         Debug.Log("!!!!!!!!!!!!OnPongActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Pong, CastAPIIndexToLocalIndex(e.Index));
@@ -569,6 +568,7 @@ public class GameManager : MonoBehaviour,IInitiable
     
     private void OnKongActionEvent(object sender, KongActionEventArgs e)
     {
+        _inGameUIController.ShowActionHint(CastAPIIndexToLocalIndex(e.Index), "ºb");
         Debug.Log("!!!!!!!!!!!!OnKongActionEvent!!!!!!!!!!!!");
         //Effect
         Instance._effectController.PlayEffect(EffectID.Kong, CastAPIIndexToLocalIndex(e.Index));

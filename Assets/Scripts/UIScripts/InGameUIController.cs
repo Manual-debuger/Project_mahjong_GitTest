@@ -70,6 +70,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject State;
     [SerializeField] private Image StateImage;
     [SerializeField] private TMP_Text StateText;
+    [SerializeField] private TMP_Text ErrorText;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -694,18 +695,26 @@ public class InGameUIController : MonoBehaviour
     }
     public void setWaiting(WaitingEventArgs waitingEventArgs,List<int> index)
     {
-        _waitingUI.SetWaiting(waitingEventArgs,index);
-        AvatarIndex.Clear();
-        for (int i = 0; i < index.Count; i++)
+        try
         {
-            AvatarIndex.Add(index[i]);
-        }
+            _waitingUI.SetWaiting(waitingEventArgs, index);
+            AvatarIndex.Clear();
+            for (int i = 0; i < index.Count; i++)
+            {
+                AvatarIndex.Add(index[i]);
+            }
 
-        PlayerName.Clear();
-        for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
-        {
-            PlayerName.Add(waitingEventArgs.Seats[i].Name);
+            PlayerName.Clear();
+            for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+            {
+                PlayerName.Add(waitingEventArgs.Seats[i].Name);
+            }
         }
+        catch (Exception ex)
+        {
+            ShowError(ex.Message);
+        }
+        
     }
 
     private void CloseWaiting(object sender, EventArgs e)
@@ -716,6 +725,11 @@ public class InGameUIController : MonoBehaviour
     public void CloseWait()
     {
         WaitingUIObject.SetActive(false);
+    }
+
+    public void ShowError(string error)
+    {
+        ErrorText.text = error;
     }
 
     public void ShowActionHint(int index,string actionName)

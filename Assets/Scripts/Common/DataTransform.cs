@@ -93,6 +93,7 @@ namespace DataTransformNamespace
             List<SeatInfo> processedSeats = new();
             foreach (SeatInfo seat in seats)
             {
+                if(seat == null) continue;
                 SeatInfo processedSeat = MapSeat(seat);
                 processedSeats.Add(processedSeat);
             }

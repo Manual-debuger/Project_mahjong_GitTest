@@ -713,6 +713,7 @@ public class InGameUIController : MonoBehaviour
         catch (Exception ex)
         {
             ShowError(ex.Message);
+            throw;
         }
         
     }

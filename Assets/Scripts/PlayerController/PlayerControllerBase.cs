@@ -18,7 +18,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
 
     void Awake()
     {
-        Init();
+        
         if(_flowerTileAreaController == null) 
             _flowerTileAreaController=this.GetComponentInChildren<FlowerTileAreaController>();
         if(_seaTilesAreaController == null) 
@@ -30,7 +30,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
     }
 
     // Update is called once per frame

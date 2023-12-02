@@ -26561,19 +26561,19 @@ PrefabInstance:
     - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _playerHeadset.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 260cd08254a00ac4baf1100d0d017ab8, type: 3}
+      objectReference: {fileID: 21300000, guid: 92f9a90b108d0ff49bd9724438ea486d, type: 3}
     - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _playerHeadset.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 517c6068974bdf44990d29d00f08e25e, type: 3}
+      objectReference: {fileID: 21300000, guid: 6fab0be6c36a6b940a7e886d170f377e, type: 3}
     - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _playerHeadset.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: 2cd226c4f935c444b8cb189ce34d3192, type: 3}
+      objectReference: {fileID: 21300000, guid: b189215310a56504d8b44020137ecebc, type: 3}
     - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _playerHeadset.Array.data[4]
       value: 
-      objectReference: {fileID: 21300000, guid: a7544d4c848167545878313039eb9e6b, type: 3}
+      objectReference: {fileID: 21300000, guid: 1690e134fda8df34d95ba07912699de4, type: 3}
     - target: {fileID: 2530934812274710125, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_fontAsset
       value: 

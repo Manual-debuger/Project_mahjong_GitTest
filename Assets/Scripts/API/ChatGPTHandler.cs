@@ -75,6 +75,7 @@ public class ChatGPTHandler : MonoBehaviour
         _eventSource.Error += (sender, e) =>
         {
             Debug.LogWarning($"Connection errored. Message: {e.Exception.Message}, Source: {e.Exception.Source}, Data:{e.Exception.Data}");
+            //InGameUIController.Instance.ShowError($"Connection errored. Message: {e.Exception.Message}, Source: {e.Exception.Source}, Data:{e.Exception.Data}");
         };
         _eventSource.Closed += (sender, e) =>
         {

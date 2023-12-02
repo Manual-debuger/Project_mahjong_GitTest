@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour,IInitiable
     [SerializeField] private EffectController _effectController;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private ChatGPTHandler _chatGPTHandler;
-    [SerializeField] private ConfigData _configData=new ConfigData("Default");
+    [SerializeField] private ConfigData _configData=new ConfigData("https://willime.live/api/Test/");
     
     
 
@@ -64,13 +64,13 @@ public class GameManager : MonoBehaviour,IInitiable
             try
             {
                 _configData = _configManager.LoadConfig();
-
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"Error Loading Config: {e.Message}\n Using Default config");
-                ConfigManager.Config = _configData;
-                throw;
+                //Debug.LogWarning($"Error Loading Config: {e.Message}\n Using Default(https://willime.live/api/Test/) config");
+                //_inGameUIController.ShowError($"Error Loading Config: {e.Message}\n Using Default(https://willime.live/api/Test/) config");
+                _configData= new ConfigData("https://willime.live/api/Test/");
+                ConfigManager.Config = new ConfigData("https://willime.live/api/Test/");                
             }
 
             Debug.Log($"Config.NetBackendUri={_configData.NetBackendUrl}");
@@ -227,6 +227,7 @@ public class GameManager : MonoBehaviour,IInitiable
         if (_characterIndex == null)
         {
             _chatGPTHandler.enabled = true;
+            _inGameUIController.ShowError($"using {_configData.NetBackendUrl} to conncet Backend Server");
             _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
             _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
             for(int i=0;i<4;i++)
@@ -235,6 +236,7 @@ public class GameManager : MonoBehaviour,IInitiable
             }
             if(_isTestingChatGPT)
                 await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl}ChatGPT?tableID={_tableID}"), _messageQueue);
+            
         }
         _inGameUIController.setWaiting(e,_characterIndexList);
 
@@ -275,6 +277,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+            _inGameUIController.ShowError($"RandomSeat Error:{ex.Message}\n{ex.InnerException}");
             throw;
         }
         //throw new System.NotImplementedException();
@@ -283,25 +286,33 @@ public class GameManager : MonoBehaviour,IInitiable
     private void OnDecideBankerEvent(object sender, DecideBankerEventArgs e)
     {
         //Debug.Log("!!!!!!!!!!!!OnDecideBankerEvent!!!!!!!!!!!!");
-        _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
-        for (int i = 0; i < 4; i++)
+        try
         {
-            if (i == _playerIndex)
+            _centralAreaController.SetBanker(CastAPIIndexToLocalIndex(e.BankerIndex),e.RemainingBankerCount??1);
+            for (int i = 0; i < 4; i++)
             {
-                if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                if (i == _playerIndex)
                 {
-                    _inGameUIController.Hosting();
-                }
-                else
-                {
-                    _inGameUIController.CancelHosting();
+                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    {
+                        _inGameUIController.Hosting();
+                    }
+                    else
+                    {
+                        _inGameUIController.CancelHosting();
+                    }
                 }
             }
-        }
-        _inGameUIController.ShowState("ÂY²ø", 500);
+            _inGameUIController.ShowState("ÂY²ø", 500);
 
-        //Audio
-        Instance._audioController.PlayStateAudio(AudioType.DecideBanker);
+            //Audio
+            Instance._audioController.PlayStateAudio(AudioType.DecideBanker);
+        }
+        catch (Exception ex)
+        {
+            _inGameUIController.ShowError($"DecideBanker Error:{ex.Message}\n{ex.InnerException}");
+            throw;
+        }
     }
 
     private void OnOpenDoorEvent(object sender, OpenDoorEventArgs e)
@@ -334,6 +345,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+            _inGameUIController.ShowError($"OpenDoor:{ex.Message}\n{ex.InnerException}");
             throw;
         }
         //throw new System.NotImplementedException();
@@ -371,6 +383,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+            _inGameUIController.ShowError($"GroundingFlower Error:{ex.Message}\n{ex.InnerException}");
             throw;
         }
 
@@ -424,6 +437,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
+            _inGameUIController.ShowError($"Playing Error:{ex.Message}\n{ex.InnerException}");
             throw;
         }
         //throw new System.NotImplementedException();
@@ -479,6 +493,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
+            _inGameUIController.ShowError($"WaitingAction Error:{ex.Message}\n{ex.InnerException}");
             throw;
         }
 

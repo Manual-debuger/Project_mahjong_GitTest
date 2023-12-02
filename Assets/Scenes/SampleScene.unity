@@ -20524,8 +20524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -920, y: 457}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 40.7542, y: 454.542}
+  m_SizeDelta: {x: 2121.508, y: 54.9161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1994493507
 MonoBehaviour:
@@ -20610,7 +20610,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -1059.9849, w: 0}
+  m_margin: {x: 0, y: 0, z: -1.270935, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -26550,30 +26550,6 @@ PrefabInstance:
       propertyPath: _highLightedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 1b2b8a16023b90f4599bb2ee991d7511, type: 2}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300002, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: 92f9a90b108d0ff49bd9724438ea486d, type: 3}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: 6fab0be6c36a6b940a7e886d170f377e, type: 3}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: b189215310a56504d8b44020137ecebc, type: 3}
-    - target: {fileID: 2477485027615914375, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
-      propertyPath: _playerHeadset.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: 1690e134fda8df34d95ba07912699de4, type: 3}
     - target: {fileID: 2530934812274710125, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_fontAsset
       value: 

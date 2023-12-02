@@ -19,7 +19,7 @@ public class CentralAreaController : MonoBehaviour,IInitiable
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Default],
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Highlight]
         };
-        Init();
+        //Init();
     }
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,17 @@ public class CentralAreaController : MonoBehaviour,IInitiable
     }
     public void SetScore(int plyaerIndex, int score)
     {
-        _scoresTextMeshProList[plyaerIndex].text = score.ToString();
+        try
+        {
+            _scoresTextMeshProList[plyaerIndex].text = score.ToString();
+
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError($"SetScore: plyaerIndex = {plyaerIndex}, score = {score}");
+            InGameUIController.Instance.ShowError("SetScore: plyaerIndex = {plyaerIndex}, score = {score}");
+            //throw;
+        }
         //throw new System.NotImplementedException();
     }
     public void SetBanker(int targetIndex,int remainingBankerCount)

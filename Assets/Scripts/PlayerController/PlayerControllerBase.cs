@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,11 +54,61 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
 
     public virtual void SetSeatInfo(SeatInfo seatInfo)
     {       
-        try { _playerInfoPlateController.SetUserName(seatInfo.Nickname); } catch { Debug.LogWarning("SetUserName Wrong"); throw; }
-        try { _playerInfoPlateController.SetWindPosision(seatInfo.DoorWind.ToString()); } catch { Debug.LogWarning("SetWindPosision Wrong"); throw; }
-        try { _seaTilesAreaController.SetTiles(seatInfo.SeaTile); } catch { Debug.LogWarning("SetSeaTiles Wrong");throw;}
-        try { _flowerTileAreaController.SetTiles(seatInfo.FlowerTile); } catch { Debug.LogWarning("SetFlowerTiles Wrong");throw; }     
-        try { _meldsAreaController.SetDoors(seatInfo.DoorTile); } catch { Debug.LogWarning("SetDoors Wrong");throw; }
+        try
+        {
+            if (seatInfo == null)
+            {
+                Debug.LogWarning("SetSeatInfo(seatinfo) seatinfo is null");
+                seatInfo = new SeatInfo();            
+            }
+            try 
+            { _playerInfoPlateController.SetUserName(seatInfo.Nickname); } 
+            catch (Exception ex)
+            {
+                Debug.LogWarning("SetUserName Wrong");
+                InGameUIController.Instance.ShowError($"SetUserName Wrong:{ex.Message}");
+                throw; 
+            }
+            try 
+                { _playerInfoPlateController.SetWindPosision(seatInfo.DoorWind.ToString()); }
+            catch(Exception ex)
+            {
+                Debug.LogWarning("SetWindPosision Wrong");
+                InGameUIController.Instance.ShowError($"SetWindPosision Wrong:{ex.Message}");
+                throw; 
+            }
+            try 
+                { _flowerTileAreaController.SetTiles(seatInfo.FlowerTile); }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("SetTiles Wrong");
+                InGameUIController.Instance.ShowError($"SetTiles Wrong:{ex.Message}");
+                throw;
+            }
+            try 
+                { _seaTilesAreaController.SetTiles(seatInfo.SeaTile); } 
+            catch (Exception ex)
+            {
+                Debug.LogWarning("SetSeaTiles Wrong");
+                InGameUIController.Instance.ShowError($"SetSeaTiles Wrong:{ex.Message}");
+                throw;
+            }
+            try 
+                { _meldsAreaController.SetDoors(seatInfo.DoorTile); }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("SetDoors Wrong");
+                InGameUIController.Instance.ShowError($"SetDoors Wrong:{ex.Message}");
+                throw;
+            }
+        }
+        catch (Exception ex)
+        {
+            InGameUIController.Instance.ShowError($"SetSeatInfo Error {ex.Message}");
+            Time.timeScale = 0;
+            throw;
+        }
+        
     }
     public virtual void UpdateSeatInfo(SeatInfo seatInfo)
     {
@@ -69,22 +120,10 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
         }
         catch (System.Exception)
         {
+            InGameUIController.Instance.ShowError($"UpdateSeatInfo Error");
+            Time.timeScale = 0;
             throw;
-        }
-        //try
-        //{
-        //    List<TileSuits> TestseaTile = new List<TileSuits>();
-        //    TestseaTile.Add(TileSuits.c1);
-        //    TestseaTile.Add(TileSuits.c2);
-        //    Debug.LogWarning($"UpdateSeatInfo(seatinfo) seatinfo.Seatile:{seatInfo.SeaTile}");
-        //    _seaTilesAreaController.UpdateTiles(seatInfo.SeaTile);
-        //    _flowerTileAreaController.UpdateTiles(seatInfo.FlowerTile);
-        //}
-        //catch
-        //{
-        //    Debug.LogError("UpdateSeatInfo Error");
-        //    throw;
-        //}
+        }       
     }   
     public void SetUserAvaterImage(int imageIndex)
     {

@@ -222,23 +222,32 @@ public class GameManager : MonoBehaviour,IInitiable
     private async void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
         //Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
-        HttpClient client = new HttpClient();
-        _tableID = e.TableID;
-        if (_characterIndex == null)
+        try
         {
-            _chatGPTHandler.enabled = true;
-            _inGameUIController.ShowError($"using {_configData.NetBackendUrl} to conncet Backend Server");
-            _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
-            _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
-            for(int i=0;i<4;i++)
+            HttpClient client = new HttpClient();
+            _tableID = e.TableID;
+            if (_characterIndex == null)
             {
-                _playerControllers[i].SetUserAvaterImage(_characterIndexList[i]);
-            }
-            if(_isTestingChatGPT)
-                await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl}ChatGPT?tableID={_tableID}"), _messageQueue);
+                _chatGPTHandler.enabled = true;
+                _inGameUIController.ShowError($"using {_configData.NetBackendUrl} to conncet Backend Server");
+                _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
+                _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
+                for(int i=0;i<4;i++)
+                {
+                    _playerControllers[i].SetUserAvaterImage(_characterIndexList[i]);
+                }
+                if(_isTestingChatGPT)
+                    await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl}ChatGPT?tableID={_tableID}"), _messageQueue);
             
+            }
+            _inGameUIController.setWaiting(e,_characterIndexList);
         }
-        _inGameUIController.setWaiting(e,_characterIndexList);
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            _inGameUIController.ShowError($"Waiting Error:{ex.Message}\n{ex.InnerException}");
+            throw;
+        }
 
     }
     private void OnRandomSeatEvent(object sender, RandomSeatEventArgs e)
@@ -254,19 +263,39 @@ public class GameManager : MonoBehaviour,IInitiable
             for(int i = 0;i < e.Seats.Count; i++)
             {
                 //e.Seats[i].DoorWind = WindString[i];
-                
-                _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
-                _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].WinScores);
-                if(i == _playerIndex)
+                try
                 {
-                    if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                    _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);
+                }
+                catch(Exception ex)
+                {
+                    InGameUIController.Instance.ShowError($"SetSeatInfo outside Error:{ex.Message}\n{ex.InnerException}");                    
+                }
+                try
+                {
+                    _centralAreaController.SetScore(CastAPIIndexToLocalIndex(i), e.Seats[i].WinScores);
+                }
+                catch(Exception ex)
+                {
+                    InGameUIController.Instance.ShowError($"SetScore outside Error:{ex.Message}\n{ex.InnerException}");                   
+                }
+                try
+                {
+                    if(i == _playerIndex)
                     {
-                        _inGameUIController.Hosting();
+                        if (e.Seats[i].AutoPlaying != null && (bool)e.Seats[i].AutoPlaying)
+                        {
+                            _inGameUIController.Hosting();
+                        }
+                        else
+                        {
+                            _inGameUIController.CancelHosting();
+                        }
                     }
-                    else
-                    {
-                        _inGameUIController.CancelHosting();
-                    }
+                }
+                catch(Exception ex)
+                {
+                    InGameUIController.Instance.ShowError($"Hosting error:{ex.Message}");
                 }
             }
             _inGameUIController.ShowState("§ì¦ì", 500);
@@ -277,8 +306,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
-            _inGameUIController.ShowError($"RandomSeat Error:{ex.Message}\n{ex.InnerException}");
-            throw;
+            _inGameUIController.ShowError($"RandomSeat Error:{ex.Message}\n{ex.InnerException}");            
         }
         //throw new System.NotImplementedException();
     }
@@ -310,8 +338,7 @@ public class GameManager : MonoBehaviour,IInitiable
         }
         catch (Exception ex)
         {
-            _inGameUIController.ShowError($"DecideBanker Error:{ex.Message}\n{ex.InnerException}");
-            throw;
+            _inGameUIController.ShowError($"DecideBanker Error:{ex.Message}\n{ex.InnerException}");            
         }
     }
 
@@ -383,8 +410,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
-            _inGameUIController.ShowError($"GroundingFlower Error:{ex.Message}\n{ex.InnerException}");
-            throw;
+            _inGameUIController.ShowError($"GroundingFlower Error:{ex.Message}\n{ex.InnerException}");            
         }
 
         //throw new System.NotImplementedException();
@@ -437,8 +463,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
-            _inGameUIController.ShowError($"Playing Error:{ex.Message}\n{ex.InnerException}");
-            throw;
+            _inGameUIController.ShowError($"Playing Error:{ex.Message}\n{ex.InnerException}");            
         }
         //throw new System.NotImplementedException();
     }
@@ -493,8 +518,7 @@ public class GameManager : MonoBehaviour,IInitiable
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
-            _inGameUIController.ShowError($"WaitingAction Error:{ex.Message}\n{ex.InnerException}");
-            throw;
+            _inGameUIController.ShowError($"WaitingAction Error:{ex.Message}\n{ex.InnerException}");            
         }
 
         //throw new System.NotImplementedException();

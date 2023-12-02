@@ -84,7 +84,7 @@ MonoBehaviour:
   _flowerTileAreaController: {fileID: 5218835398202408315}
   _meldsAreaController: {fileID: 8879898204979968279}
   _playerInfoPlateController: {fileID: 262278697472133456}
-  _seaTilesAreaController: {fileID: 0}
+  _seaTilesAreaController: {fileID: 3263956132262537885}
   _handTilesAreaController: {fileID: 1654579903769630076}
   _drawedTileAreaController: {fileID: 2253166241610846881}
 --- !u!1001 &875145362332278713
@@ -290,6 +290,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ada0c8304d99115438ca24c56fa21782, type: 3}
+--- !u!114 &3263956132262537885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9077346107691460742, guid: ada0c8304d99115438ca24c56fa21782, type: 3}
+  m_PrefabInstance: {fileID: 5814939865976799771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574fde1e8618e554797cba3802a0e58c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5045138635682672333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1635156464382831830, guid: ada0c8304d99115438ca24c56fa21782, type: 3}

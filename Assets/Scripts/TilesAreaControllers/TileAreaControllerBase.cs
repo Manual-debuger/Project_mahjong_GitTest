@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -61,6 +62,8 @@ public class TileAreaControllerBase : MonoBehaviour,IInitiable,IReturnTileSuitsA
         Init();
         foreach(var tileSuit in tileSuits)
         {
+            if (tileSuit == TileSuits.NULL)
+                InGameUIController.Instance.ShowError($"SetTiles Error: input tile is null");
             AddTile(tileSuit);
         }
     }

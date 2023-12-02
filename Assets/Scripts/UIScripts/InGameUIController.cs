@@ -730,7 +730,7 @@ public class InGameUIController : MonoBehaviour
 
     public void ShowError(string error)
     {
-        ErrorText.text = error;
+        ErrorText.text += error+"\n";
     }
 
     public void ShowActionHint(int index,string actionName)

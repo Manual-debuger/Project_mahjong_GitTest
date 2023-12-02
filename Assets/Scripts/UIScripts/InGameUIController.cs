@@ -301,10 +301,18 @@ public class InGameUIController : MonoBehaviour
     //}
     public void Settlement(List<PlayerResultData> playerResultDatas)
     {
+        try
+        {
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         if (playerResultDatas != null)
             _settlementScreen.SetSettlement(playerResultDatas,PlayerName,AvatarIndex);
+        }
+        catch (Exception ex)
+        {
+            ShowError(ex.Message);
+            throw;
+        }
     }
 
     public async void SettlementSetCloseTime(long time)
@@ -583,8 +591,8 @@ public class InGameUIController : MonoBehaviour
 
             for (int i = 0; i < testData.Count; i++)
             {
-                testData[i].Name = "test" + i.ToString();
-                AvatarIndex.Add(i);
+                testData[i].Name = "test" + (i+1).ToString();
+                AvatarIndex.Add(i+1);
                 PlayerName.Add(testData[i].Name);
             }
             testData[0].DoorWind = "ªF";
@@ -661,15 +669,16 @@ public class InGameUIController : MonoBehaviour
             //testData[3].PointList = new PointType[1];
             //testData[3].PointList[0].Describe = "LastTileSelfDrawn";
             //testData[3].PointList[0].Point = 0;
-            if (count < 4)
-            {
-                testData[count].Winner = true;
-                count++;
-            }
-            else
-            {
-                count = 0;
-            }
+            //if (count < 4)
+            //{
+            //    testData[count].Winner = true;
+            //    count++;
+            //}
+            //else
+            //{
+            //    count = 0;
+            //}
+            testData[2].Winner = true;
         }
         Settlement(testData);
     }
@@ -685,12 +694,20 @@ public class InGameUIController : MonoBehaviour
 
     public void setWaiting(WaitingEventArgs waitingEventArgs)
     {
-        _waitingUI.SetWaiting(waitingEventArgs);
-
-        PlayerName.Clear();
-        for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+        try
         {
-            PlayerName.Add(waitingEventArgs.Seats[i].Name);
+            _waitingUI.SetWaiting(waitingEventArgs);
+
+            PlayerName.Clear();
+            for (int i = 0; i < waitingEventArgs.Seats.Count; i++)
+            {
+                PlayerName.Add(waitingEventArgs.Seats[i].Name);
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowError(ex.Message);
+            throw;
         }
     }
     public void setWaiting(WaitingEventArgs waitingEventArgs,List<int> index)

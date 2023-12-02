@@ -96,13 +96,15 @@ public class SettlementScreen : MonoBehaviour
         }
         if (winner != -1)
         {
+            int avatarIndex = -1;
             for (int i = 0; i < PlayerName.Count; i++)
             {
                 if (playerResultDatas[winner].Name == PlayerName[i])
                 {
-                    SetAvatar(AvatarIndex[i]);
+                    avatarIndex = AvatarIndex[i];
                 }
             }
+            SetAvatar(avatarIndex);
             SetPointType(playerResultDatas[winner].PointList);
             Name.text = playerResultDatas[winner].Name;
             switch (playerResultDatas[winner].DoorWind)
@@ -163,13 +165,15 @@ public class SettlementScreen : MonoBehaviour
                     index = i;
                 }
             }
+            int avatarIndex = -1;
             for (int i = 0; i < PlayerName.Count; i++)
             {
                 if (playerResultDatas[index].Name == PlayerName[i])
                 {
-                    SetAvatar(AvatarIndex[i]);
+                    avatarIndex = AvatarIndex[i];
                 }
             }
+            SetAvatar(avatarIndex);
 
             SetPointType(playerResultDatas[index].PointList);
             Name.text = playerResultDatas[index].Name;
@@ -227,7 +231,10 @@ public class SettlementScreen : MonoBehaviour
     public void SetAvatar(int index)
     {
         Sprite[] PlayerHeadset = AssetsPoolController.Instance.PlayerHeadset;
-        Avatar.sprite = PlayerHeadset[index];
+        if (index != -1)
+            Avatar.sprite = PlayerHeadset[index];
+        else
+            Avatar.sprite = PlayerHeadset[0];
     }
 
     public void SetTime(long time)

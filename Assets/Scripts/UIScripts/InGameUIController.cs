@@ -303,10 +303,24 @@ public class InGameUIController : MonoBehaviour
     {
         try
         {
+            string temp="";
+            for (int i = 0; i < PlayerName.Count; i++)
+            {
+                temp += PlayerName[i];
+                if (i < AvatarIndex.Count)
+                {
+                    temp += " ";
+                    temp += AvatarIndex[i];
+                }
+                temp += "\n";
+            }
+            ShowError(temp);
+
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
         if (playerResultDatas != null)
             _settlementScreen.SetSettlement(playerResultDatas,PlayerName,AvatarIndex);
+
         }
         catch (Exception ex)
         {

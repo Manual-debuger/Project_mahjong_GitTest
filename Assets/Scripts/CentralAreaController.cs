@@ -19,13 +19,13 @@ public class CentralAreaController : MonoBehaviour,IInitiable
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Default],
             AssetsPoolController.Instance.HighlightBarmaterialList[(int)HighlightBarState.Highlight]
         };
-        //Init();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        Init();
+    }    
 
     // Update is called once per frame
     void Update()

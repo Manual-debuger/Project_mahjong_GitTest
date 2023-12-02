@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class  AssetsPoolController:MonoBehaviour
 {
+    [SerializeField] private Material[] _avaterMaterials;
+    public Material[] AvaterMaterials
+    {
+        get { return _instance._avaterMaterials; }
+    }
     [SerializeField] private Mesh[] _tileMeshs;
     public Mesh[] TileMeshs {
         get { return _instance._tileMeshs; }

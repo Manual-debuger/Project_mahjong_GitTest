@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84b62884b53a27468beb2aa3a7d9240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avaterMaterials:
+  - {fileID: 2100000, guid: f68c2281570cf0348b758675c2be29bc, type: 2}
+  - {fileID: 2100000, guid: e4e2d1c174319c743a405dd377110653, type: 2}
+  - {fileID: 2100000, guid: 67beaec9a07795245a4b3a7c945bdada, type: 2}
+  - {fileID: 2100000, guid: d778167a7375c6343bdc1716fce8bbec, type: 2}
   _tileMeshs:
   - {fileID: 4300208, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
   - {fileID: 4300196, guid: 8b367f923d1e0724bbdfa81ff4af6532, type: 3}
@@ -132,10 +137,10 @@ MonoBehaviour:
   - {fileID: 3218501681317002824, guid: f534331b6e4d9834a8f411e823965a98, type: 3}
   _playerHeadset:
   - {fileID: 21300002, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
-  - {fileID: 21300000, guid: 260cd08254a00ac4baf1100d0d017ab8, type: 3}
-  - {fileID: 21300000, guid: 517c6068974bdf44990d29d00f08e25e, type: 3}
-  - {fileID: 21300000, guid: 2cd226c4f935c444b8cb189ce34d3192, type: 3}
-  - {fileID: 21300000, guid: a7544d4c848167545878313039eb9e6b, type: 3}
+  - {fileID: 21300000, guid: 92f9a90b108d0ff49bd9724438ea486d, type: 3}
+  - {fileID: 21300000, guid: 6fab0be6c36a6b940a7e886d170f377e, type: 3}
+  - {fileID: 21300000, guid: b189215310a56504d8b44020137ecebc, type: 3}
+  - {fileID: 21300000, guid: 1690e134fda8df34d95ba07912699de4, type: 3}
   _defaultTileMaterial: {fileID: 2100000, guid: 44268c0e0ea7ef441a8bea5d89652aa3, type: 2}
   _highLightedTileMaterial: {fileID: 2100000, guid: 1b2b8a16023b90f4599bb2ee991d7511, type: 2}
   _effectsPrefabs:

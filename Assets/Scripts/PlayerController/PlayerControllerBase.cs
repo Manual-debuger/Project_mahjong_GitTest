@@ -11,6 +11,7 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
     [SerializeField] protected SeaTilesAreaController _seaTilesAreaController;    
 
 
+
     public TileSuits[] FlowerTileSuits { get { return _flowerTileAreaController.GetTileSuits(); } }
     //public TileSuit[] MeldTilesuits { get { return _meldsAreaController.TilesSuits; } }
 
@@ -85,6 +86,10 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
         //    throw;
         //}
     }   
+    public void SetUserAvaterImage(int imageIndex)
+    {
+        _playerInfoPlateController.SetUserAvaterPhoto(AssetsPoolController.Instance.AvaterMaterials[imageIndex-1]);//imageIndex-1 because the index of image is start from 1
+    }
     public virtual void SetHandTiles(List<TileSuits> tileSuits)
     {
         Debug.LogWarning("Must override this function SetHandTiles, Do NOT Use this base function");

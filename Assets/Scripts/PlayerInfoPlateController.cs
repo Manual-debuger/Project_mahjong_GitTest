@@ -29,6 +29,7 @@ public class PlayerInfoPlateController : MonoBehaviour
     }
     public void SetUserAvaterPhoto(Material material)
     {
+        _userAvatarMeshRenderer.material = material;
         _userAvatarMeshRenderer.materials[0] = material;
     }
 }

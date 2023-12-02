@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour,IInitiable
 
     public static GameManager Instance { get { return _instance; } }
     private int _playerIndex;
+    private bool _isinSettlement = false;
     private bool _isGameStart = false;    
     #nullable enable
     private int? _characterIndex = null;
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour,IInitiable
     // Update is called once per frame
     async void Update()
     {
-        if(_messageQueue.Count>0)//_isGameStart
+        if(_messageQueue.Count>0&&!_isinSettlement)//_isGameStart
         {
             string message;
             lock(_messageQueue)
@@ -222,6 +223,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private async void OnWaitingEvent(object sender, WaitingEventArgs e)
     {
         //Debug.Log("!!!!!!!!!!!!OnWaitingEvent!!!!!!!!!!!!");
+        _isinSettlement = true;
         try
         {
             HttpClient client = new HttpClient();
@@ -247,6 +249,10 @@ public class GameManager : MonoBehaviour,IInitiable
             Debug.LogError(ex.Message);
             _inGameUIController.ShowError($"Waiting Error:{ex.Message}\n{ex.InnerException}");
             throw;
+        }
+        finally
+        {
+            _isinSettlement = false;
         }
 
     }

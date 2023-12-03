@@ -27625,7 +27625,7 @@ PrefabInstance:
     - target: {fileID: 5027659827708227958, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _highlightBarMeshRenderList.Array.data[1]
       value: 
-      objectReference: {fileID: 8145787245382771831}
+      objectReference: {fileID: 8145787245382771832}
     - target: {fileID: 5027659827708227958, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _highlightBarMeshRenderList.Array.data[2]
       value: 
@@ -27633,7 +27633,7 @@ PrefabInstance:
     - target: {fileID: 5027659827708227958, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: _highlightBarMeshRenderList.Array.data[3]
       value: 
-      objectReference: {fileID: 8145787245382771832}
+      objectReference: {fileID: 8145787245382771831}
     - target: {fileID: 5051981828266498363, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -28494,6 +28494,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7047368716456254868, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: m_Name
+      value: scoreW
+      objectReference: {fileID: 0}
     - target: {fileID: 7051729836037140379, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -29353,6 +29357,10 @@ PrefabInstance:
     - target: {fileID: 9164211166815058557, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219427303701600946, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
+      propertyPath: m_Name
+      value: scoreE
       objectReference: {fileID: 0}
     - target: {fileID: 9219602332744691276, guid: 233a65ac4c00e0e4994d6ecdb5293833, type: 3}
       propertyPath: m_LocalRotation.w

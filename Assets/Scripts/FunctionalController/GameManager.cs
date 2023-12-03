@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour,IInitiable
     private int _playerIndex;
     private bool _isinSettlement = false;
     private bool _isGameStart = false;    
+    private Dictionary<string,int> _nameImageIndexDict;
     #nullable enable
     private int? _characterIndex = null;
     private List<int>? _characterIndexList = null;
@@ -172,6 +173,16 @@ public class GameManager : MonoBehaviour,IInitiable
         return (seatIndex - _playerIndex + 4) % 4;
     }
 
+    private Dictionary<string,int>GetNameImageIndexDict(List<SeatInfo>seatInfos,List<int>imageIndexs)
+    {
+        var result = new Dictionary<string, int>();
+        for (int i = 0; i <seatInfos.Count; i++)
+        {
+            result[seatInfos[i].Name] = imageIndexs[i];
+        }
+        return result;
+    }
+
     #region UI Event handle
     private void OnTileBeHoldingEvent(object sender, TileSuitEventArgs e)
     {
@@ -234,14 +245,16 @@ public class GameManager : MonoBehaviour,IInitiable
                 _inGameUIController.ShowError($"using {_configData.NetBackendUrl} to conncet Backend Server");
                 _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
                 _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
-                for(int i=0;i<4;i++)
-                {
-                    _playerControllers[CastAPIIndexToLocalIndex(i)].SetUserAvaterImage(_characterIndexList[i]);
-                }
+                //Old Version of Set user avater image
+                //for(int i=0;i<4;i++)
+                //{
+                //    _playerControllers[CastAPIIndexToLocalIndex(i)].SetUserAvaterImage(_characterIndexList[i]);
+                //}
                 if(_isTestingChatGPT)
                     await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl}ChatGPT?tableID={_tableID}"), _messageQueue);
             
             }
+            _nameImageIndexDict = GetNameImageIndexDict(e.Seats, _characterIndexList);
             _inGameUIController.setWaiting(e,_characterIndexList);
         }
         catch (Exception ex)
@@ -268,7 +281,8 @@ public class GameManager : MonoBehaviour,IInitiable
         
             for(int i = 0;i < e.Seats.Count; i++)
             {
-                //e.Seats[i].DoorWind = WindString[i];
+                        
+                _playerControllers[CastAPIIndexToLocalIndex(i)].SetUserAvaterImage(_nameImageIndexDict[e.Seats[i].Name]);                
                 try
                 {
                     _playerControllers[CastAPIIndexToLocalIndex(i)].SetSeatInfo(e.Seats[i]);

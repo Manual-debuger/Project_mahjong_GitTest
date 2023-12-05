@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour,IInitiable
         if(_messageQueue.Count>0&&!_isinSettlement)//_isGameStart
         {
             string message;
+            _inGameUIController.ShowError($"_messageQueue.Count={_messageQueue.Count}");
             lock(_messageQueue)
             {
                 message = _messageQueue.Dequeue();
@@ -146,7 +147,7 @@ public class GameManager : MonoBehaviour,IInitiable
             //VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
             ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
             //_inGameUIController.AddChat(parsedVitsResponse.message);
-
+            _inGameUIController.ShowError($"Vits process completed.");
             // Save voice
             for (int i=0;i<parsedVitsResponse.message.Count;i++)//var voice in parsedVitsResponse.voiceList
             {
@@ -244,12 +245,7 @@ public class GameManager : MonoBehaviour,IInitiable
                 _chatGPTHandler.enabled = true;
                 _inGameUIController.ShowError($"using {_configData.NetBackendUrl} to conncet Backend Server");
                 _characterIndex = _chatGPTHandler.GetCharacterIndex(new Uri($"{_configData.NetBackendUrl}CharacterIndex?tableID={_tableID}"));
-                _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));
-                //Old Version of Set user avater image
-                //for(int i=0;i<4;i++)
-                //{
-                //    _playerControllers[CastAPIIndexToLocalIndex(i)].SetUserAvaterImage(_characterIndexList[i]);
-                //}
+                _characterIndexList = await _chatGPTHandler.GetCharacterIndexList(new Uri($"{_configData.NetBackendUrl}TableInfo?tableID={_tableID}"));                
                 if(_isTestingChatGPT)
                     await _chatGPTHandler.StartChatGPT(new Uri($"{_configData.NetBackendUrl}ChatGPT?tableID={_tableID}"), _messageQueue);
             

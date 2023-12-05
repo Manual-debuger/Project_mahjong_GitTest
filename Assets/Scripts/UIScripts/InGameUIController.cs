@@ -303,18 +303,18 @@ public class InGameUIController : MonoBehaviour
     {
         try
         {
-            string temp="";
-            for (int i = 0; i < PlayerName.Count; i++)
-            {
-                temp += PlayerName[i];
-                if (i < AvatarIndex.Count)
-                {
-                    temp += " ";
-                    temp += AvatarIndex[i];
-                }
-                temp += "\n";
-            }
-            ShowError(temp);
+            //string temp="";
+            //for (int i = 0; i < PlayerName.Count; i++)
+            //{
+            //    temp += PlayerName[i];
+            //    if (i < AvatarIndex.Count)
+            //    {
+            //        temp += " ";
+            //        temp += AvatarIndex[i];
+            //    }
+            //    temp += "\n";
+            //}
+            //ShowError(temp);
 
         InGameUI.SetActive(false);
         SettlementUI.SetActive(true);
@@ -324,7 +324,7 @@ public class InGameUIController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            ShowError(ex.Message);
+            ShowError("SetSettlement Error" + " " + ex.Message);
             throw;
         }
     }
@@ -720,7 +720,7 @@ public class InGameUIController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            ShowError(ex.Message);
+            ShowError("setWaiting(without index) Error" + " " + ex.Message);
             throw;
         }
     }
@@ -743,7 +743,7 @@ public class InGameUIController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            ShowError(ex.Message);
+            ShowError("setWaiting Error" + " " + ex.Message);
             throw;
         }
         

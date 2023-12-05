@@ -1,7 +1,11 @@
-﻿using System;
+﻿using APIDataNamespace;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.IO;
+using System.Threading.Tasks;
 
 public class VitsResponse
 {
@@ -10,23 +14,52 @@ public class VitsResponse
 }
 public class ParsedVitsResponse
 {    
-    public List<AudioClip> voiceList = new ();
+    public List<Tuple<string, AudioClip>> voiceList = new ();
     public List<Tuple<string, string>> message;
-    public ParsedVitsResponse(VitsResponse vitsResponse)
+
+    public async Task LoadAudioClipAsync(string savePath)
+    {
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + savePath, UnityEngine.AudioType.MPEG))
+        {
+            var asyncOperation = www.SendWebRequest();
+
+            while (!asyncOperation.isDone)
+            {
+                await Task.Yield();
+            }
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                AudioClip audioClip = DownloadHandlerAudioClip.GetContent(www);
+                voiceList.Add(new Tuple<string, AudioClip>(savePath, audioClip));
+            }
+            else
+            {
+                Debug.LogError("Failed to load MP3: " + www.error);
+            }
+        }
+    }
+
+    public async Task InitializeAsync(VitsResponse vitsResponse)
     {
         message = vitsResponse.messageList;
-        if(vitsResponse.base64voiceList != null && vitsResponse.base64voiceList.Count != 0)
+        string savePath = string.Format("{0}/{1}.{2}", Application.persistentDataPath, DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
+
+        if (vitsResponse.base64voiceList != null && vitsResponse.base64voiceList.Count != 0)
         {
-            for(int i = 0; i < vitsResponse.base64voiceList.Count; i++)
+            for (int i = 0; i < vitsResponse.base64voiceList.Count; i++)
             {
                 byte[] decodedBytes = Convert.FromBase64String(vitsResponse.base64voiceList[i]);
-                // Create an AudioClip from the mp3 data
-                voiceList.Add(NAudioPlayer.FromMp3Data(decodedBytes));
-                Debug.Log("voice" + i + "is created");
+                File.WriteAllBytes(savePath, decodedBytes);
+
+                // Use async/await to load the AudioClip
+                await LoadAudioClipAsync(savePath);
             }
         }
     }
 }
+
+
 public class PromptFactors
 {   
     public List<Tuple<string, string>> CharacterList;

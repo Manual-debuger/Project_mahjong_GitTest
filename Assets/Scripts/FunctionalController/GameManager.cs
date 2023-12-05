@@ -145,21 +145,23 @@ public class GameManager : MonoBehaviour,IInitiable
             }
             VitsResponse vitsResponse = JsonConvert.DeserializeObject<VitsResponse>(message);
             //VitsResponse vitsResponse = JsonUtility.FromJson<VitsResponse>(message);
-            ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse(vitsResponse);
+            ParsedVitsResponse parsedVitsResponse = new ParsedVitsResponse();
+            await parsedVitsResponse.InitializeAsync(vitsResponse);
+
             //_inGameUIController.AddChat(parsedVitsResponse.message);
             _inGameUIController.ShowError($"Vits process completed.");
             // Save voice
             for (int i=0;i<parsedVitsResponse.message.Count;i++)//var voice in parsedVitsResponse.voiceList
             {
-                var voice = parsedVitsResponse.voiceList[i];
+                var voiceList = parsedVitsResponse.voiceList[i];
                 var dialog = parsedVitsResponse.message[i];
 
                 //string filepath = string.Format("{0}/{1}/{2}.{3}", Application.streamingAssetsPath, "Audio", DateTime.UtcNow.ToString("yyMMdd-HHmmss-fff"), "wav");
                 //SavWav.Save(filepath, voice);
 
                 // Play speech
-                Instance._inGameUIController.AddChat(dialog,voice.length);
-                await Instance._audioController.PlayVitsSpeech(voice);
+                Instance._inGameUIController.AddChat(dialog, voiceList.Item2.length);
+                await Instance._audioController.PlayVitsSpeech(voiceList);
             }
         }
     }

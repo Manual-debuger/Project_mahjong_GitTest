@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.IO;
 //Duty: 處理音樂音效相關的控制
 public class AudioController : MonoBehaviour
 {
@@ -124,16 +125,23 @@ public class AudioController : MonoBehaviour
         effectSource.Play();
     }
 
-    public async Task PlayVitsSpeech(AudioClip speechChip)
+    public async Task PlayVitsSpeech(Tuple<string, AudioClip> voiceList)
     {
-        if (speechChip != null)
+        if (voiceList != null && voiceList.Item2)
         {
-            vitsSource.clip = speechChip;
+            vitsSource.clip = voiceList.Item2;
         }
         vitsSource.loop = false;
         vitsSource.Play();
 
+        //yield return new WaitForSeconds(voiceList.Item2.length);
+
         // make delay until speech finish 
-        await Task.Delay((int)speechChip.length * 1000 + 1000);
+        await Task.Delay((int)voiceList.Item2.length * 1000 + 1000);
+
+        // Delete the saved MP3 file after playing
+        File.Delete(voiceList.Item1);
+
+        Debug.Log("MP3 downloaded, played, and file deleted.");
     }
 }

@@ -1768,7 +1768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &222629461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19522,6 +19522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf5145e873595c4d96515cd6fd15ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDebugMode: 0
   _handTilesUIViewer: {fileID: 1234412924}
   _meldTilesUIViewer: {fileID: 1118895807}
   _settingUIButton: {fileID: 1430665300}

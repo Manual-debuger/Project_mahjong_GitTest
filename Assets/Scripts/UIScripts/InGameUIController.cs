@@ -13,6 +13,7 @@ public class InGameUIController : MonoBehaviour
 {
     private static InGameUIController _instance;
     public static InGameUIController Instance { get { return _instance; } }
+    [SerializeField] private bool IsDebugMode;
     [SerializeField] private HandTilesUI _handTilesUIViewer;
     [SerializeField] private ListeningHolesUI _meldTilesUIViewer;
     [SerializeField] private SettingUIButton _settingUIButton;
@@ -761,7 +762,10 @@ public class InGameUIController : MonoBehaviour
 
     public void ShowError(string error)
     {
-        ErrorText.text += error+"\n";
+        if (IsDebugMode)
+        {
+            ErrorText.text += error + "\n";
+        }
     }
 
     public void ShowActionHint(int index,string actionName)

@@ -696,6 +696,7 @@ public class InGameUIController : MonoBehaviour
             testData[2].Winner = true;
         }
         Settlement(testData);
+        AddChat(new Tuple<string, string>("test", "just test"), 5);
     }
     //public void AddChat(List<Tuple<string, string>> text)
     //{
@@ -704,7 +705,10 @@ public class InGameUIController : MonoBehaviour
 
     public void AddChat(Tuple<string, string> text, float time)
     {
-        _socialUIButton.AddChat(text, time);
+        if (_socialUIButton.gameObject.activeSelf == true)
+        {
+            _socialUIButton.AddChat(text, time);
+        }
     }
 
     public void setWaiting(WaitingEventArgs waitingEventArgs)

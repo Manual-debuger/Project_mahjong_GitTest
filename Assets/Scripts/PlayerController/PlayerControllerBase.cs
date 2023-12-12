@@ -70,7 +70,12 @@ public class PlayerControllerBase : MonoBehaviour,IInitiable
                 throw; 
             }
             try 
-                { _playerInfoPlateController.SetWindPosision(seatInfo.DoorWind.ToString()); }
+            {
+                if (seatInfo.DoorWind.ToString() == "East") _playerInfoPlateController.SetWindPosision("東");
+                else if (seatInfo.DoorWind.ToString() == "South") _playerInfoPlateController.SetWindPosision("南");
+                else if (seatInfo.DoorWind.ToString() == "West") _playerInfoPlateController.SetWindPosision("西");
+                else if (seatInfo.DoorWind.ToString() == "North") _playerInfoPlateController.SetWindPosision("北");
+            }
             catch(Exception ex)
             {
                 Debug.LogWarning("SetWindPosision Wrong");

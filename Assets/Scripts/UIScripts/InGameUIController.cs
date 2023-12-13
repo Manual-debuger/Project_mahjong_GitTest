@@ -707,6 +707,7 @@ public class InGameUIController : MonoBehaviour
     {
         if (_socialUIButton.gameObject.activeSelf == true)
         {
+            //Debug.LogError(time);
             _socialUIButton.AddChat(text, time);
         }
     }

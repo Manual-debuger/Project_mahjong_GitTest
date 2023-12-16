@@ -67,6 +67,8 @@ public class InGameUIController : MonoBehaviour
         TileSuits.NULL,
         TileSuits.NULL
     };
+    private Vector3 _hidePos;
+    private Vector3 _showPos;
 
     private long CountTime;
     [SerializeField] private GameObject State;
@@ -91,10 +93,16 @@ public class InGameUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SocialUIObject.transform.position = new Vector3(
+        _hidePos = new Vector3(
             SocialUIObject.transform.position.x - 1000
             , SocialUIObject.transform.position.y
             , SocialUIObject.transform.position.z);
+        _showPos = new Vector3(
+            SocialUIObject.transform.position.x
+            , SocialUIObject.transform.position.y
+            , SocialUIObject.transform.position.z);
+        SocialUIObject.transform.position = _hidePos;
+        _socialUIButton.setPos(_showPos);
         HandTileSort();
         HandTileUISet();
     }
@@ -292,11 +300,7 @@ public class InGameUIController : MonoBehaviour
     {
         try
         {
-            InGameUI.SetActive(false);
-            SocialUIObject.transform.position = new Vector3(
-                SocialUIObject.transform.position.x - 1000
-                , SocialUIObject.transform.position.y
-                , SocialUIObject.transform.position.z);
+            SocialUIObject.transform.position = _hidePos;
             SettlementUI.SetActive(true);
             if (playerResultDatas != null)
                 _settlementScreen.SetSettlement(playerResultDatas, PlayerName, AvatarIndex);
@@ -316,10 +320,7 @@ public class InGameUIController : MonoBehaviour
         await Task.Delay((int)time);
         InGameUI.SetActive(true);
         SettlementUI.SetActive(false);
-        SocialUIObject.transform.position = new Vector3(
-            SocialUIObject.transform.position.x + 1000
-            , SocialUIObject.transform.position.y
-            , SocialUIObject.transform.position.z);
+        SocialUIObject.transform.position = _showPos;
         for (int i = 0; i < 17; i++)
         {
             HandTileSuits[i] = TileSuits.NULL;
@@ -670,19 +671,13 @@ public class InGameUIController : MonoBehaviour
 
     private void CloseWaiting(object sender, EventArgs e)
     {
-        SocialUIObject.transform.position = new Vector3(
-            SocialUIObject.transform.position.x + 1000
-            , SocialUIObject.transform.position.y
-            , SocialUIObject.transform.position.z);
+        SocialUIObject.transform.position = _showPos;
         WaitingUIObject.SetActive(false);
     }
 
     public void CloseWait()
     {
-        SocialUIObject.transform.position = new Vector3(
-            SocialUIObject.transform.position.x + 1000
-            , SocialUIObject.transform.position.y
-            , SocialUIObject.transform.position.z);
+        SocialUIObject.transform.position = _showPos;
         WaitingUIObject.SetActive(false);
     }
 

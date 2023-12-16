@@ -23,7 +23,7 @@ public class SocialUIButton : MonoBehaviour
 	void Start()
 	{
         _rectTransfrom = this.gameObject.GetComponent<RectTransform>();
-        _hidePos = _rectTransfrom.anchoredPosition;
+		_hidePos = new Vector2(_rectTransfrom.anchoredPosition.x+1500, _rectTransfrom.anchoredPosition.y);
         _showPos = new Vector2(_hidePos.x + Chat.GetComponent<RectTransform>().rect.width, _hidePos.y);
 		 _isShow = false;
 	}
@@ -43,6 +43,12 @@ public class SocialUIButton : MonoBehaviour
 			}
 		}
 
+	}
+
+	public void setPos(Vector3 pos)
+	{
+		_hidePos = new Vector2(pos.x + 1500, pos.y);
+		_showPos = new Vector2(_hidePos.x + Chat.GetComponent<RectTransform>().rect.width, _hidePos.y);
 	}
 	public void showUI()
 	{

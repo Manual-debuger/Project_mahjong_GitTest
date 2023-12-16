@@ -29,6 +29,7 @@ public class InGameUIController : MonoBehaviour
 
     [SerializeField] private GameObject InGameUI;
     [SerializeField] private GameObject SettlementUI;
+    [SerializeField] private GameObject SocialUIObject;
     [SerializeField] private GameObject WaitingUIObject;
     public event EventHandler<DiscardTileEventArgs> DiscardTileEvent;
     public event EventHandler<TileSuitEventArgs> OnTileBeHoldingEvent;
@@ -90,6 +91,10 @@ public class InGameUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SocialUIObject.transform.position = new Vector3(
+            SocialUIObject.transform.position.x - 1000
+            , SocialUIObject.transform.position.y
+            , SocialUIObject.transform.position.z);
         HandTileSort();
         HandTileUISet();
     }
@@ -283,44 +288,18 @@ public class InGameUIController : MonoBehaviour
         }
         CountTime = time;
     }
-    //public async void Settlement(List<SeatInfo> seatInfos,long time)
-    //{
-    //    InGameUI.SetActive(false);
-    //    SettlementUI.SetActive(true);
-    //    _settlementScreen.SetSettlement(seatInfos, time);
-
-    //    await Task.Delay((int)time);
-    //    InGameUI.SetActive(true);
-    //    SettlementUI.SetActive(false);
-    //    for (int i = 0; i < 17; i++)
-    //    {
-    //        HandTileSuits[i] = TileSuits.NULL;
-    //    }
-    //    HandTileUISet();
-    //    UIReset();
-    //    CountTime = 0;
-    //}
     public void Settlement(List<PlayerResultData> playerResultDatas)
     {
         try
         {
-            //string temp="";
-            //for (int i = 0; i < PlayerName.Count; i++)
-            //{
-            //    temp += PlayerName[i];
-            //    if (i < AvatarIndex.Count)
-            //    {
-            //        temp += " ";
-            //        temp += AvatarIndex[i];
-            //    }
-            //    temp += "\n";
-            //}
-            //ShowError(temp);
-
-        InGameUI.SetActive(false);
-        SettlementUI.SetActive(true);
-        if (playerResultDatas != null)
-            _settlementScreen.SetSettlement(playerResultDatas,PlayerName,AvatarIndex);
+            InGameUI.SetActive(false);
+            SocialUIObject.transform.position = new Vector3(
+                SocialUIObject.transform.position.x - 1000
+                , SocialUIObject.transform.position.y
+                , SocialUIObject.transform.position.z);
+            SettlementUI.SetActive(true);
+            if (playerResultDatas != null)
+                _settlementScreen.SetSettlement(playerResultDatas, PlayerName, AvatarIndex);
 
         }
         catch (Exception ex)
@@ -337,6 +316,10 @@ public class InGameUIController : MonoBehaviour
         await Task.Delay((int)time);
         InGameUI.SetActive(true);
         SettlementUI.SetActive(false);
+        SocialUIObject.transform.position = new Vector3(
+            SocialUIObject.transform.position.x + 1000
+            , SocialUIObject.transform.position.y
+            , SocialUIObject.transform.position.z);
         for (int i = 0; i < 17; i++)
         {
             HandTileSuits[i] = TileSuits.NULL;
@@ -580,7 +563,12 @@ public class InGameUIController : MonoBehaviour
 
     public void test()
     {
-        //var text = Tuple.Create("原", "你說的對，但《原神》是由米哈遊自主研發的全新開放世界冒險遊戲。 遊戲發生在一個被稱作「提瓦特」的幻想世界，在這裡，被神選中的人將被授予「神之眼」，導引元素之力。 你將扮演一位名為「旅行者」的神秘角色，在自由的旅行中邂逅性格各異、能力獨特的同伴們，和他們一起擊敗強敵，找回失散的親人——同時，逐步發掘「原神」的真相。");
+        //var text = Tuple.Create("原", "你說的對，但《原神》是由米哈遊自主
+        //研發的全新開放世界冒險遊戲。 遊戲發生在一個被稱作「提瓦特」的幻想
+        //世界，在這裡，被神選中的人將被授予「神之眼」，導引元素之力。 你將
+        //扮演一位名為「旅行者」的神秘角色，在自由的旅行中邂逅性格各異、能力
+        //獨特的同伴們，和他們一起擊敗強敵，找回失散的親人——同時，逐步發掘
+        //「原神」的真相。");
         //List<int> index = new();
         //index.Add(1);
         //index.Add(2);
@@ -627,89 +615,14 @@ public class InGameUIController : MonoBehaviour
             testData[1].PointList = new PointType[0];
             testData[2].PointList = new PointType[0];
             testData[3].PointList = new PointType[0];
-            //testData[0].PointList = new PointType[12];
-            //testData[0].PointList[0].Describe = "Banker";
-            //testData[0].PointList[0].Point = 0;
-            //testData[0].PointList[1].Describe = "RemainingBanker";
-            //testData[0].PointList[1].Point = 1;
-            //testData[0].PointList[2].Describe = "NoTriplet";
-            //testData[0].PointList[2].Point = 2;
-            //testData[0].PointList[3].Describe = "ThreeConcealedTriplet";
-            //testData[0].PointList[3].Point = 3;
-            //testData[0].PointList[4].Describe = "FourConcealedTriplet";
-            //testData[0].PointList[4].Point = 4;
-            //testData[0].PointList[5].Describe = "FiveConcealedTriplet";
-            //testData[0].PointList[5].Point = 5;
-            //testData[0].PointList[6].Describe = "PongPong";
-            //testData[0].PointList[6].Point = 6;
-            //testData[0].PointList[7].Describe = "TripletDragon";
-            //testData[0].PointList[7].Point = 7;
-            //testData[0].PointList[8].Describe = "LittleThreeDragon";
-            //testData[0].PointList[8].Point = 8;
-            //testData[0].PointList[9].Describe = "BigThreeDragon";
-            //testData[0].PointList[9].Point = 9;
-            //testData[0].PointList[10].Describe = "RoundWind";
-            //testData[0].PointList[10].Point = 10;
-            //testData[0].PointList[11].Describe = "DoorWind";
-            //testData[0].PointList[11].Point = 11;
-
-            //testData[1].PointList = new PointType[8];
-            //testData[1].PointList[0].Describe = "LittleFourWind";
-            //testData[1].PointList[0].Point = 0;
-            //testData[1].PointList[1].Describe = "BigFourWind";
-            //testData[1].PointList[1].Point = 1;
-            //testData[1].PointList[2].Describe = "CorrectFlower";
-            //testData[1].PointList[2].Point = 2;
-            //testData[1].PointList[3].Describe = "FlowerKong";
-            //testData[1].PointList[3].Point = 3;
-            //testData[1].PointList[4].Describe = "SevenRobsOne";
-            //testData[1].PointList[4].Point = 4;
-            //testData[1].PointList[5].Describe = "FlowerKing";
-            //testData[1].PointList[5].Point = 5;
-            //testData[1].PointList[6].Describe = "SingleTile";
-            //testData[1].PointList[6].Point = 6;
-            //testData[1].PointList[7].Describe = "DoorClear";
-            //testData[1].PointList[7].Point = 7;
-
-            //testData[2].PointList = new PointType[4];
-            //testData[2].PointList[0].Describe = "SelfDrawn";
-            //testData[2].PointList[0].Point = 0;
-            //testData[2].PointList[1].Describe = "DoorClearAndSelfDrawn";
-            //testData[2].PointList[1].Point = 1;
-            //testData[2].PointList[2].Describe = "RobbingKong";
-            //testData[2].PointList[2].Point = 2;
-            //testData[2].PointList[3].Describe = "SelfDrawnOnKong";
-            //testData[2].PointList[3].Point = 3;
-
-            //testData[3].PointList = new PointType[1];
-            //testData[3].PointList[0].Describe = "LastTileSelfDrawn";
-            //testData[3].PointList[0].Point = 0;
-            //if (count < 4)
-            //{
-            //    testData[count].Winner = true;
-            //    count++;
-            //}
-            //else
-            //{
-            //    count = 0;
-            //}
             testData[2].Winner = true;
         }
         Settlement(testData);
         AddChat(new Tuple<string, string>("test", "just test"), 5);
     }
-    //public void AddChat(List<Tuple<string, string>> text)
-    //{
-    //    _socialUIButton.AddChat(text);
-    //}
-
     public void AddChat(Tuple<string, string> text, float time)
     {
-        if (_socialUIButton.gameObject.activeSelf == true)
-        {
-            //Debug.LogError(time);
-            _socialUIButton.AddChat(text, time);
-        }
+        _socialUIButton.AddChat(text, time);
     }
 
     public void setWaiting(WaitingEventArgs waitingEventArgs)
@@ -757,11 +670,19 @@ public class InGameUIController : MonoBehaviour
 
     private void CloseWaiting(object sender, EventArgs e)
     {
+        SocialUIObject.transform.position = new Vector3(
+            SocialUIObject.transform.position.x + 1000
+            , SocialUIObject.transform.position.y
+            , SocialUIObject.transform.position.z);
         WaitingUIObject.SetActive(false);
     }
 
     public void CloseWait()
     {
+        SocialUIObject.transform.position = new Vector3(
+            SocialUIObject.transform.position.x + 1000
+            , SocialUIObject.transform.position.y
+            , SocialUIObject.transform.position.z);
         WaitingUIObject.SetActive(false);
     }
 
